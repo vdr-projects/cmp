@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="80">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>include/AbstractMedia.h</itemPath>
+      <itemPath>include/AbstractMultiFileMovie.h</itemPath>
+      <itemPath>include/Audio.h</itemPath>
+      <itemPath>include/DVDImage.h</itemPath>
+      <itemPath>include/FilesystemScanner.h</itemPath>
+      <itemPath>include/LegacyVdrRecording.h</itemPath>
+      <itemPath>include/MediaFactory.h</itemPath>
+      <itemPath>include/Movie.h</itemPath>
+      <itemPath>include/Picture.h</itemPath>
+      <itemPath>include/VdrRecording.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>src/AbstractMedia.cc</itemPath>
+      <itemPath>src/AbstractMultiFileMovie.cc</itemPath>
+      <itemPath>src/Audio.cc</itemPath>
+      <itemPath>src/DVDImage.cc</itemPath>
+      <itemPath>src/FilesystemScanner.cc</itemPath>
+      <itemPath>src/LegacyVdrRecording.cc</itemPath>
+      <itemPath>src/MediaFactory.cc</itemPath>
+      <itemPath>src/Movie.cc</itemPath>
+      <itemPath>src/Picture.cc</itemPath>
+      <itemPath>src/VdrRecording.cc</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="3">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>include</pElem>
+            <pElem>../networking/include</pElem>
+            <pElem>../util/include</pElem>
+            <pElem>../vdr/include</pElem>
+          </incDir>
+          <commandLine>-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration -ansi</commandLine>
+          <preprocessorList>
+            <Elem>_GNU_SOURCE=1</Elem>
+            <Elem>_REENTRANT</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+    </conf>
+    <conf name="Release" type="3">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+    </conf>
+  </confs>
+</configurationDescriptor>

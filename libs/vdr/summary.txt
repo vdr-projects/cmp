@@ -1,0 +1,1 @@
+libvdr - classes taken from vdr-project

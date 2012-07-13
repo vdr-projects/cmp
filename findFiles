@@ -1,0 +1,6 @@
+#!/bin/bash
+dirs=$(find . | grep -e "\(include\|doc\|src\)$" | grep -v obj)
+
+for i in $dirs; do
+    find $i
+done

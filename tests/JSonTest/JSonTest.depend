@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1342071807 source:/d/linux/CMP/tests/JSonTest/JSonTest.cc
+	<StringBuilder.h>
+	<JSonWriter.h>
+	<stdlib.h>
+	<iostream>
+
+1342076412 /d/linux/CMP/libs/util/include/StringBuilder.h
+	<ManagedVector.h>
+	<time.h>
+
+1341942404 /d/linux/CMP/libs/util/include/ManagedVector.h
+	<vector>
+	<stdlib.h>
+
+1342076888 /d/linux/CMP/libs/util/include/JSonWriter.h
+	<stack>
+

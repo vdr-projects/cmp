@@ -1,0 +1,53 @@
+EXAMPLES
+
+    Checking for Events on a Stream
+
+    The following example opens a pair of STREAMS devices and then waits for either one to become writable. This example proceeds as follows:
+
+       1.  Sets the timeout parameter to 500 milliseconds.
+       2.  Opens the STREAMS devices /dev/dev0 and /dev/dev1, and then polls them, specifying POLLOUT and POLLWRBAND as the events of interest.
+           The STREAMS device names /dev/dev0 and /dev/dev1 are only examples of how STREAMS devices can be named; STREAMS naming conventions may vary among systems conforming to the IEEE Std 1003.1-2001.
+       3.  Uses the ret variable to determine whether an event has occurred on either of the two STREAMS. The poll() function is given 500 milliseconds to wait for an event to occur (if it has not occurred prior to the poll() call).
+       4.  Checks the returned value of ret. If a positive value is returned, one of the following can be done:
+             1. Priority data can be written to the open STREAM on priority bands greater than 0, because the POLLWRBAND event occurred on the open STREAM ( fds[0] or fds[1]).
+             2. Data can be written to the open STREAM on priority-band 0, because the POLLOUT event occurred on the open STREAM ( fds[0] or fds[1]).
+       5.  If the returned value is not a positive value, permission to write data to the open STREAM (on any priority band) is denied.
+       6.  If the POLLHUP event occurs on the open STREAM ( fds[0] or fds[1]), the device on the open STREAM has disconnected.
+
+    #include <stropts.h>
+    #include <poll.h>
+    ...
+    struct pollfd fds[2];
+    int timeout_msecs = 500;
+    int ret;
+        int i;
+
+
+    /* Open STREAMS device. */
+    fds[0].fd = open("/dev/dev0", ...);
+    fds[1].fd = open("/dev/dev1", ...);
+    fds[0].events = POLLOUT | POLLWRBAND;
+    fds[1].events = POLLOUT | POLLWRBAND;
+
+
+    ret = poll(fds, 2, timeout_msecs);
+
+
+    if (ret > 0) {
+        /* An event on one of the fds has occurred. */
+        for (i=0; i<2; i++) {
+            if (fds[i].revents & POLLWRBAND) {
+            /* Priority data may be written on device number i. */
+    ...
+            }
+            if (fds[i].revents & POLLOUT) {
+            /* Data may be written on device number i. */
+    ...
+            }
+            if (fds[i].revents & POLLHUP) {
+            /* A hangup has occurred on device number i. */
+    ...
+            }
+        }
+    }
+

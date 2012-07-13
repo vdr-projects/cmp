@@ -1,0 +1,39 @@
+CMP - Compound Media Player
+===========================
+consists of:
+------------
+cmps - compound media player server
+cmpc - compound media player client
+
+cmps (the server part)
+----------------------
+
+
+cmpc (the client)
+-----------------
+
+
+The libraries
+-------------
+1. libs/vdr
+-----------
+  contains classes from the vdr project, some of them extended
+  For each file Klaus Schmidinger is the original author and the
+  copyright holder. All his files are published following the
+  GPL 2.0 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+
+2. libs/util
+------------
+  basic helper classes, used by other libs
+
+3. libs/networking
+------------------
+  classes to handle sockets and i.e. http protocol
+
+4. fsScan
+---------
+  classes around filesystem scanning, and media base classes
+
+5. cmps/serverlib
+-----------------
+  classes used by backend only

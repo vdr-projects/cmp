@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="80">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>include/AbstractSocket.h</itemPath>
+      <itemPath>include/Authorization.h</itemPath>
+      <itemPath>include/ClientSocket.h</itemPath>
+      <itemPath>include/ConnectionHandler.h</itemPath>
+      <itemPath>include/ConnectionPoint.h</itemPath>
+      <itemPath>include/Credentials.h</itemPath>
+      <itemPath>include/HTTPAuthorizationRequest.h</itemPath>
+      <itemPath>include/HTTPFileResponse.h</itemPath>
+      <itemPath>include/HTTPMessage.h</itemPath>
+      <itemPath>include/HTTPParser.h</itemPath>
+      <itemPath>include/HTTPRequest.h</itemPath>
+      <itemPath>include/HTTPRequestHandler.h</itemPath>
+      <itemPath>include/HTTPResponse.h</itemPath>
+      <itemPath>include/HTTPServer.h</itemPath>
+      <itemPath>include/HTTPStatus.h</itemPath>
+      <itemPath>include/Principal.h</itemPath>
+      <itemPath>include/ServerConfig.h</itemPath>
+      <itemPath>include/ServerSocket.h</itemPath>
+      <itemPath>include/Url.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>src/AbstractSocket.cc</itemPath>
+      <itemPath>src/Authorization.cc</itemPath>
+      <itemPath>src/ClientSocket.cc</itemPath>
+      <itemPath>src/ConnectionHandler.cc</itemPath>
+      <itemPath>src/ConnectionPoint.cc</itemPath>
+      <itemPath>src/Credentials.cc</itemPath>
+      <itemPath>src/HTTPAuthorizationRequest.cc</itemPath>
+      <itemPath>src/HTTPFileResponse.cc</itemPath>
+      <itemPath>src/HTTPMessage.cc</itemPath>
+      <itemPath>src/HTTPParser.cc</itemPath>
+      <itemPath>src/HTTPRequest.cc</itemPath>
+      <itemPath>src/HTTPRequestHandler.cc</itemPath>
+      <itemPath>src/HTTPResponse.cc</itemPath>
+      <itemPath>src/HTTPServer.cc</itemPath>
+      <itemPath>src/HTTPStatus.cc</itemPath>
+      <itemPath>src/Principal.cc</itemPath>
+      <itemPath>src/ServerConfig.cc</itemPath>
+      <itemPath>src/ServerSocket.cc</itemPath>
+      <itemPath>src/Url.cc</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="3">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>include</pElem>
+            <pElem>../util/include</pElem>
+            <pElem>../vdr/include</pElem>
+          </incDir>
+          <commandLine>-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration -ansi</commandLine>
+          <preprocessorList>
+            <Elem>_GNU_SOURCE=1</Elem>
+            <Elem>_REENTRANT</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+    </conf>
+    <conf name="Release" type="3">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+    </conf>
+  </confs>
+</configurationDescriptor>

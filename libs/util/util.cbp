@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="CMP.libs.util" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="libutil" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="libutil" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Release/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration -ansi" />
+			<Add option="-D_REENTRANT" />
+			<Add option="-D_GNU_SOURCE=1" />
+			<Add directory="../vdr/include" />
+			<Add directory="include" />
+		</Compiler>
+		<Unit filename="include/AbstractListAssembler.h" />
+		<Unit filename="include/Codec.h" />
+		<Unit filename="include/JSonWriter.h" />
+		<Unit filename="include/MD5Calculator.h" />
+		<Unit filename="include/ManagedMap.h" />
+		<Unit filename="include/ManagedVector.h" />
+		<Unit filename="include/NamedValue.h" />
+		<Unit filename="include/StringBuilder.h" />
+		<Unit filename="include/util.h" />
+		<Unit filename="src/AbstractListAssembler.cc" />
+		<Unit filename="src/Codec.cc" />
+		<Unit filename="src/JSonWriter.cc" />
+		<Unit filename="src/MD5Calculator.cc" />
+		<Unit filename="src/ManagedMap.cc" />
+		<Unit filename="src/ManagedVector.cc" />
+		<Unit filename="src/NamedValue.cc" />
+		<Unit filename="src/StringBuilder.cc" />
+		<Unit filename="src/util.cc" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<lib_finder disable_auto="1" />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
