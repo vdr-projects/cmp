@@ -1,25 +1,25 @@
 /**
  * ======================== legal notice ======================
- * 
+ *
  * File:      FilesystemScanner.cc
  * Created:   2. Juli 2012, 13:58
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libfsScan: mediatypes and filesystem scanning
- * 
+ *
  * CMP - compound media player
- * 
+ *
  * is a client/server mediaplayer intended to play any media from any workstation
  * without the need to export or mount shares. cmps is an easy to use backend
  * with a (ready to use) HTML-interface. Additionally the backend supports
  * authentication via HTTP-digest authorization.
  * cmpc is a client with vdr-like osd-menues.
- * 
+ *
  * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
  * published under Creative Commons by-sa
  * For details see http://creativecommons.org/licenses/by-sa/3.0/
- * 
+ *
  * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
- * 
+ *
  * --------------------------------------------------------------
  */
 #include <FilesystemScanner.h>
@@ -75,14 +75,17 @@ void cFilesystemScanner::SetMediaFactory(cMediaFactory* factory)
 // return true if a should be ordered before b
 bool defaultMediaSortOrder(void *a, void *b)
 {
-  if (!a && !b) return true;
-  if (!a && b) return false;
-  if (a && !b) return true;
+  if (a == b) return false;
+  if (!a) return false;
+  if (!b) return true;
   cAbstractMedia *m0 = (cAbstractMedia *)a;
   cAbstractMedia *m1 = (cAbstractMedia *)b;
-  bool rv = (m0->MediaType() - m1->MediaType()) < 0;
+  bool rv = false;
 
-  if (!rv) rv = strcmp(m0->Name(), m1->Name());
+  if (m0->MediaType() == m1->MediaType())
+     rv = strcasecmp(m0->Name(), m1->Name()) < 0;
+  else
+     rv = (m0->MediaType() - m1->MediaType()) < 0;
 
   return rv;
 }
@@ -99,14 +102,10 @@ void cFilesystemScanner::Refresh()
      }
   parseDir(baseDirectory, pool);
   FREE(dirEntryBuf);
-#ifdef REDNOSE
-  pool.sort(defaultMediaSortOrder);
-#else
-  pool.sort(NULL);
-#endif
   cAbstractMedia::SupportedMediaType ot = cAbstractMedia::Invalid;
   cAbstractMedia *m;
 
+  pool.sort(defaultMediaSortOrder);
   for (size_t i=0; i < pool.size(); ++i) {
       m = (cAbstractMedia *) pool[i];
       if (m->MediaType() != ot) {
