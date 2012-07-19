@@ -22,6 +22,7 @@ AS=as
 
 # Macros
 CND_PLATFORM=GNU-Linux-x86
+CND_DLIB_EXT=so
 CND_CONF=Release
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -34,8 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/StringList.o \
 	${OBJECTDIR}/src/TimeMs.o \
+	${OBJECTDIR}/src/StringList.o \
 	${OBJECTDIR}/src/Thread.o \
 	${OBJECTDIR}/src/String.o \
 	${OBJECTDIR}/src/i18n.o \
@@ -73,57 +74,57 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libvdr.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libvdr.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libvdr.a
 
-${OBJECTDIR}/src/StringList.o: nbproject/Makefile-${CND_CONF}.mk src/StringList.cc 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/StringList.o src/StringList.cc
-
-${OBJECTDIR}/src/TimeMs.o: nbproject/Makefile-${CND_CONF}.mk src/TimeMs.cc 
+${OBJECTDIR}/src/TimeMs.o: src/TimeMs.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/TimeMs.o src/TimeMs.cc
 
-${OBJECTDIR}/src/Thread.o: nbproject/Makefile-${CND_CONF}.mk src/Thread.cc 
+${OBJECTDIR}/src/StringList.o: src/StringList.cc 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/StringList.o src/StringList.cc
+
+${OBJECTDIR}/src/Thread.o: src/Thread.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Thread.o src/Thread.cc
 
-${OBJECTDIR}/src/String.o: nbproject/Makefile-${CND_CONF}.mk src/String.cc 
+${OBJECTDIR}/src/String.o: src/String.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/String.o src/String.cc
 
-${OBJECTDIR}/src/i18n.o: nbproject/Makefile-${CND_CONF}.mk src/i18n.cc 
+${OBJECTDIR}/src/i18n.o: src/i18n.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/i18n.o src/i18n.cc
 
-${OBJECTDIR}/src/Logging.o: nbproject/Makefile-${CND_CONF}.mk src/Logging.cc 
+${OBJECTDIR}/src/Logging.o: src/Logging.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Logging.o src/Logging.cc
 
-${OBJECTDIR}/src/ReadDir.o: nbproject/Makefile-${CND_CONF}.mk src/ReadDir.cc 
+${OBJECTDIR}/src/ReadDir.o: src/ReadDir.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ReadDir.o src/ReadDir.cc
 
-${OBJECTDIR}/src/CondWait.o: nbproject/Makefile-${CND_CONF}.mk src/CondWait.cc 
+${OBJECTDIR}/src/CondWait.o: src/CondWait.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/CondWait.o src/CondWait.cc
 
-${OBJECTDIR}/src/FileNameList.o: nbproject/Makefile-${CND_CONF}.mk src/FileNameList.cc 
+${OBJECTDIR}/src/FileNameList.o: src/FileNameList.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/FileNameList.o src/FileNameList.cc
 
-${OBJECTDIR}/src/Mutex.o: nbproject/Makefile-${CND_CONF}.mk src/Mutex.cc 
+${OBJECTDIR}/src/Mutex.o: src/Mutex.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Mutex.o src/Mutex.cc
 
-${OBJECTDIR}/src/CharsetConv.o: nbproject/Makefile-${CND_CONF}.mk src/CharsetConv.cc 
+${OBJECTDIR}/src/CharsetConv.o: src/CharsetConv.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/CharsetConv.o src/CharsetConv.cc

@@ -46,6 +46,7 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
       <itemPath>../README</itemPath>
+      <itemPath>summary.txt</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
@@ -66,6 +67,11 @@
             <pElem>../libs/vdr/include</pElem>
           </incDir>
           <commandLine>-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration -ansi</commandLine>
+          <preprocessorList>
+            <Elem>_GNU_SOURCE=1</Elem>
+            <Elem>_REENTRANT</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
           <linkerLibItems>
@@ -129,15 +135,8 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libvdr.a">
               </makeArtifact>
             </linkerLibProjectItem>
-            <linkerLibLibItem>jpeg</linkerLibLibItem>
             <linkerLibLibItem>pthread</linkerLibLibItem>
-            <linkerLibLibItem>dl</linkerLibLibItem>
-            <linkerLibLibItem>cap</linkerLibLibItem>
             <linkerLibLibItem>rt</linkerLibLibItem>
-            <linkerLibLibItem>fribidi</linkerLibLibItem>
-            <linkerLibLibItem>freetype</linkerLibLibItem>
-            <linkerLibLibItem>fontconfig</linkerLibLibItem>
-            <linkerLibLibItem>yajl</linkerLibLibItem>
             <linkerLibLibItem>ssl</linkerLibLibItem>
             <linkerLibLibItem>crypt</linkerLibLibItem>
           </linkerLibItems>

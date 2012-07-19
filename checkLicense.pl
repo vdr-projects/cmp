@@ -21,7 +21,7 @@ my $realAuthor = '<a href="mailto:geronimo013@gmx.de">Geronimo</a>';
 my $modeConfig = {
    'java' => { 'match' => '\.java$', 'key' => 'package ', 'cmt0' => '/**', 'cmt1' => ' * ', 'cmt2' => ' */' }
  , 'php'  => { 'match' => '\.php$', 'key' => 'use ', 'cmt0' => '/**', 'cmt1' => ' * ', 'cmt2' => ' */' }
- , 'c++'  => { 'match' => '\.(?:cc|h|cpp|hpp)$', 'key' => '#\s*(?:ifndef|include) ', 'cmt0' => '/**', 'cmt1' => ' * ', 'cmt2' => ' */' }
+ , 'c++'  => { 'match' => '\.(?:cc|h|cpp|hpp)$', 'key' => '#\s*(?:ifndef|include|define) ', 'cmt0' => '/**', 'cmt1' => ' * ', 'cmt2' => ' */' }
 };
 my $summaries = {};
 my @license   = ();
@@ -176,9 +176,10 @@ sub processFile {
                      }
              }
           elsif ($pl =~ /\@\@Comment\@\@/) {
-             foreach (@cmt) {
-                     $prefix .= $modeConfig->{$mode}{'cmt1'}.$_;
-                     }
+# TODO: separate comment from rest of license!
+#             foreach (@cmt) {
+#                     $prefix .= $modeConfig->{$mode}{'cmt1'}.$_;
+#                     }
              }
           elsif ($pl =~ /\@\@FileInfo\@\@/) {
              $prefix .= $modeConfig->{$mode}{'cmt1'}.$tag[1].$fi->{'name'}."\n";

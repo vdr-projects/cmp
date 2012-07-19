@@ -22,6 +22,7 @@ AS=as
 
 # Macros
 CND_PLATFORM=GNU-Linux-x86
+CND_DLIB_EXT=so
 CND_CONF=Debug
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -71,47 +72,47 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutil.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutil.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutil.a
 
-${OBJECTDIR}/src/JSonWriter.o: nbproject/Makefile-${CND_CONF}.mk src/JSonWriter.cc 
+${OBJECTDIR}/src/JSonWriter.o: src/JSonWriter.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/JSonWriter.o src/JSonWriter.cc
 
-${OBJECTDIR}/src/StringBuilder.o: nbproject/Makefile-${CND_CONF}.mk src/StringBuilder.cc 
+${OBJECTDIR}/src/StringBuilder.o: src/StringBuilder.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/StringBuilder.o src/StringBuilder.cc
 
-${OBJECTDIR}/src/MD5Calculator.o: nbproject/Makefile-${CND_CONF}.mk src/MD5Calculator.cc 
+${OBJECTDIR}/src/MD5Calculator.o: src/MD5Calculator.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MD5Calculator.o src/MD5Calculator.cc
 
-${OBJECTDIR}/src/AbstractListAssembler.o: nbproject/Makefile-${CND_CONF}.mk src/AbstractListAssembler.cc 
+${OBJECTDIR}/src/AbstractListAssembler.o: src/AbstractListAssembler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AbstractListAssembler.o src/AbstractListAssembler.cc
 
-${OBJECTDIR}/src/ManagedMap.o: nbproject/Makefile-${CND_CONF}.mk src/ManagedMap.cc 
+${OBJECTDIR}/src/ManagedMap.o: src/ManagedMap.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ManagedMap.o src/ManagedMap.cc
 
-${OBJECTDIR}/src/Codec.o: nbproject/Makefile-${CND_CONF}.mk src/Codec.cc 
+${OBJECTDIR}/src/Codec.o: src/Codec.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Codec.o src/Codec.cc
 
-${OBJECTDIR}/src/ManagedVector.o: nbproject/Makefile-${CND_CONF}.mk src/ManagedVector.cc 
+${OBJECTDIR}/src/ManagedVector.o: src/ManagedVector.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ManagedVector.o src/ManagedVector.cc
 
-${OBJECTDIR}/src/NamedValue.o: nbproject/Makefile-${CND_CONF}.mk src/NamedValue.cc 
+${OBJECTDIR}/src/NamedValue.o: src/NamedValue.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/NamedValue.o src/NamedValue.cc
 
-${OBJECTDIR}/src/util.o: nbproject/Makefile-${CND_CONF}.mk src/util.cc 
+${OBJECTDIR}/src/util.o: src/util.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/util.o src/util.cc

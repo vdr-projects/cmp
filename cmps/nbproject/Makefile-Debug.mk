@@ -22,6 +22,7 @@ AS=as
 
 # Macros
 CND_PLATFORM=GNU-Linux-x86
+CND_DLIB_EXT=so
 CND_CONF=Debug
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -60,7 +61,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=serverlib/dist/Debug/GNU-Linux-x86/libserverlib.a ../libs/fsScan/dist/Debug/GNU-Linux-x86/libfsscan.a ../libs/networking/dist/Debug/GNU-Linux-x86/libnetworking.a ../libs/util/dist/Debug/GNU-Linux-x86/libutil.a ../libs/vdr/dist/Debug/GNU-Linux-x86/libvdr.a -ljpeg -lpthread -ldl -lcap -lrt -lfribidi -lfreetype -lfontconfig -lyajl -lssl -lcrypt
+LDLIBSOPTIONS=serverlib/dist/Debug/GNU-Linux-x86/libserverlib.a ../libs/fsScan/dist/Debug/GNU-Linux-x86/libfsscan.a ../libs/networking/dist/Debug/GNU-Linux-x86/libnetworking.a ../libs/util/dist/Debug/GNU-Linux-x86/libutil.a ../libs/vdr/dist/Debug/GNU-Linux-x86/libvdr.a -lpthread -lrt -lssl -lcrypt
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -80,10 +81,10 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cc 
+${OBJECTDIR}/main.o: main.cc 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/util/include -I../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/util/include -I../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cc
 
 # Subprojects
 .build-subprojects:
@@ -115,25 +116,25 @@ ${TESTDIR}/TestFiles/f4: ${TESTDIR}/tests/JSonTest.o ${OBJECTFILES:%.o=%_nomain.
 ${TESTDIR}/tests/CodecTest.o: tests/CodecTest.cc 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/util/include -I../libs/vdr/include -MMD -MP -MF $@.d -o ${TESTDIR}/tests/CodecTest.o tests/CodecTest.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/CodecTest.o tests/CodecTest.cc
 
 
 ${TESTDIR}/tests/ConnectionHandlerTest.o: tests/ConnectionHandlerTest.cc 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/util/include -I../libs/vdr/include -MMD -MP -MF $@.d -o ${TESTDIR}/tests/ConnectionHandlerTest.o tests/ConnectionHandlerTest.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/ConnectionHandlerTest.o tests/ConnectionHandlerTest.cc
 
 
 ${TESTDIR}/tests/FScanTest.o: tests/FScanTest.cc 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/util/include -I../libs/vdr/include -MMD -MP -MF $@.d -o ${TESTDIR}/tests/FScanTest.o tests/FScanTest.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/FScanTest.o tests/FScanTest.cc
 
 
 ${TESTDIR}/tests/JSonTest.o: tests/JSonTest.cc 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/util/include -I../libs/vdr/include -MMD -MP -MF $@.d -o ${TESTDIR}/tests/JSonTest.o tests/JSonTest.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/JSonTest.o tests/JSonTest.cc
 
 
 ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cc 
@@ -144,7 +145,7 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cc
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/util/include -I../libs/vdr/include -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/main_nomain.o main.cc;\
+	    $(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/util/include -I../libs/vdr/include -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/main_nomain.o main.cc;\
 	else  \
 	    ${CP} ${OBJECTDIR}/main.o ${OBJECTDIR}/main_nomain.o;\
 	fi

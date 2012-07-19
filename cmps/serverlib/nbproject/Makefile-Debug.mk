@@ -22,6 +22,7 @@ AS=as
 
 # Macros
 CND_PLATFORM=GNU-Linux-x86
+CND_DLIB_EXT=so
 CND_CONF=Debug
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -69,37 +70,37 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libserverlib.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libserverlib.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libserverlib.a
 
-${OBJECTDIR}/src/JSonListAssembler.o: nbproject/Makefile-${CND_CONF}.mk src/JSonListAssembler.cc 
+${OBJECTDIR}/src/JSonListAssembler.o: src/JSonListAssembler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/fsScan/include -I../../libs/networking/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/JSonListAssembler.o src/JSonListAssembler.cc
 
-${OBJECTDIR}/src/CommandHandler.o: nbproject/Makefile-${CND_CONF}.mk src/CommandHandler.cc 
+${OBJECTDIR}/src/CommandHandler.o: src/CommandHandler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/fsScan/include -I../../libs/networking/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/CommandHandler.o src/CommandHandler.cc
 
-${OBJECTDIR}/src/HTMLListAssembler.o: nbproject/Makefile-${CND_CONF}.mk src/HTMLListAssembler.cc 
+${OBJECTDIR}/src/HTMLListAssembler.o: src/HTMLListAssembler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/fsScan/include -I../../libs/networking/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTMLListAssembler.o src/HTMLListAssembler.cc
 
-${OBJECTDIR}/src/AbstractMediaRequestHandler.o: nbproject/Makefile-${CND_CONF}.mk src/AbstractMediaRequestHandler.cc 
+${OBJECTDIR}/src/AbstractMediaRequestHandler.o: src/AbstractMediaRequestHandler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/fsScan/include -I../../libs/networking/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AbstractMediaRequestHandler.o src/AbstractMediaRequestHandler.cc
 
-${OBJECTDIR}/src/HTTPMediaResponse.o: nbproject/Makefile-${CND_CONF}.mk src/HTTPMediaResponse.cc 
+${OBJECTDIR}/src/HTTPMediaResponse.o: src/HTTPMediaResponse.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/fsScan/include -I../../libs/networking/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPMediaResponse.o src/HTTPMediaResponse.cc
 
-${OBJECTDIR}/src/MediaListHandler.o: nbproject/Makefile-${CND_CONF}.mk src/MediaListHandler.cc 
+${OBJECTDIR}/src/MediaListHandler.o: src/MediaListHandler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/fsScan/include -I../../libs/networking/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MediaListHandler.o src/MediaListHandler.cc
 
-${OBJECTDIR}/src/MediaFileHandler.o: nbproject/Makefile-${CND_CONF}.mk src/MediaFileHandler.cc 
+${OBJECTDIR}/src/MediaFileHandler.o: src/MediaFileHandler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/fsScan/include -I../../libs/networking/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MediaFileHandler.o src/MediaFileHandler.cc
