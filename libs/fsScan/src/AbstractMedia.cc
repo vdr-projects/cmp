@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      AbstractMedia.cc
- * Created:   2. Juli 2012, 14:33
+ * Created:   2. Juli 2012, 14
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libfsScan: mediatypes and filesystem scanning
  * 

@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      DVDImage.h
- * Created:   3. Juli 2012, 08:34
+ * Created:   3. Juli 2012, 08
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libfsScan: mediatypes and filesystem scanning
  * 

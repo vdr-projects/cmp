@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      URLTest.cc
- * Created:   04.07.2012, 09:25:57
+ * Created:   04.07.2012, 09
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   cmps - the backend (server) part of compound media player
  * 

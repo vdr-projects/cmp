@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      Codec.h
- * Created:   21. Mai 2012, 14:00
+ * Created:   21. Mai 2012, 14
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libutil - base classes used by other libraries
  * 

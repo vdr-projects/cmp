@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      AbstractMediaRequestHandler.cc
- * Created:   5. Juli 2012, 07:58
+ * Created:   5. Juli 2012, 07
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   cmps - the backend (server) part of compound media player
  * 

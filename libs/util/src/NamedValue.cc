@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      NamedValue.cc
- * Created:   3. Juli 2012, 17:43
+ * Created:   3. Juli 2012, 17
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libutil - base classes used by other libraries
  * 

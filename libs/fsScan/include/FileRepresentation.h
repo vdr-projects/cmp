@@ -1,10 +1,10 @@
 /**
  * ======================== legal notice ======================
  * 
- * File:      HTTPAuthorizationRequest.cc
- * Created:   4. Juli 2012, 07
+ * File:      FileRepresentation.h
+ * Created:   21. Juli 2012, 12:41
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
- * Project:   libnetworking: classes for tcp/ip sockets and http-protocol handling
+ * Project:   libfsScan: mediatypes and filesystem scanning
  * 
  * CMP - compound media player
  * 
@@ -22,26 +22,32 @@
  * 
  * --------------------------------------------------------------
  */
-#include <HTTPAuthorizationRequest.h>
-#include <Authorization.h>
-#include <HTTPRequest.h>
-#include <stddef.h>
+#ifndef FILEREPRESENTATION_H
+#define FILEREPRESENTATION_H
 
-cHTTPAuthorizationRequest::cHTTPAuthorizationRequest(const cHTTPRequest &OriginalRequest, char *NOnceFromHeap)
- : cHTTPResponse(HTTP_UnAuthorized)
+#include <sys/types.h>
+
+class cStringBuilder;
+class cFileRepresentation
 {
-  SetHeader("Connection", "Close");
-  SetAuthorization(new cAuthorization(OriginalRequest, NOnceFromHeap ? strdup(NOnceFromHeap) : NULL));
-}
+public:
+  virtual ~cFileRepresentation();
 
-cHTTPAuthorizationRequest::cHTTPAuthorizationRequest(const cAuthorization &Authorization)
- : cHTTPResponse(HTTP_UnAuthorized)
-{
-  SetHeader("Connection", "Close");
-  SetAuthorization(new cAuthorization(Authorization));
-}
+  cStringBuilder *internalPath(void) const;
+  const cFileRepresentation *getParent(void) const { return parent; };
 
-cHTTPAuthorizationRequest::~cHTTPAuthorizationRequest()
-{
-}
+private:
+  cFileRepresentation(const char *Path);
+  cFileRepresentation(const cFileRepresentation *Parent, const char *Path);
+  bool exists;
+  bool isRoot;
+  mode_t mode;
+  off64_t size;
+  ulong lastModified;
+  char *name;
+  const cFileRepresentation *parent;
+  friend class cFileSystem;
+  friend class cFile;
+};
 
+#endif // FILEREPRESENTATION_H

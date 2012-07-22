@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      CommandHandler.h
- * Created:   5. Juli 2012, 16:06
+ * Created:   5. Juli 2012, 16
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   cmps - the backend (server) part of compound media player
  * 

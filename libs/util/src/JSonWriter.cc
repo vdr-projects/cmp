@@ -1,31 +1,32 @@
 /**
  * ======================== legal notice ======================
- *
+ * 
  * File:      JSonWriter.cc
- * Created:   6. Juli 2012, 12:47
+ * Created:   6. Juli 2012, 12
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libutil - base classes used by other libraries
- *
+ * 
  * CMP - compound media player
- *
+ * 
  * is a client/server mediaplayer intended to play any media from any workstation
  * without the need to export or mount shares. cmps is an easy to use backend
  * with a (ready to use) HTML-interface. Additionally the backend supports
  * authentication via HTTP-digest authorization.
  * cmpc is a client with vdr-like osd-menues.
- *
+ * 
  * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
  * published under Creative Commons by-sa
  * For details see http://creativecommons.org/licenses/by-sa/3.0/
- *
+ * 
  * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
- *
+ * 
  * --------------------------------------------------------------
  */
 #include <JSonWriter.h>
 #include <StringBuilder.h>
 #include <Logging.h>
 #include <stdio.h>
+#define DEBUG 1
 
 cJSonWriter::cJSonWriter(cStringBuilder &StringBuilder)
  : lastState(JS_Unknown)
@@ -57,8 +58,14 @@ cJSonWriter::JSonState cJSonWriter::PopState(void)
 }
 
 cJSonWriter &cJSonWriter::Object(void) {
-  if (lastState == JS_Object) sb.Append(",");
-  sb.Append("{");
+  if (lastState == JS_Object) {
+#ifdef DEBUG
+    sb.Append(",\n");
+#else
+    sb.Append(", ");
+#endif
+  }
+  sb.Append("{ ");
   PushState(JS_Object);
   lastState = JS_Unknown;
   return *this;
@@ -70,7 +77,7 @@ cJSonWriter &cJSonWriter::EndObject(void) {
      }
   else {
      PopState();
-     sb.Append("}");
+     sb.Append(" }");
      }
   return *this;
 }
@@ -80,7 +87,7 @@ cJSonWriter &cJSonWriter::Array(void) {
      esyslog("JSonWriter::Array(): invalid status %d - should be %d", State(), JS_Key);
      }
   else {
-     sb.Append("[");
+     sb.Append("[ ");
      PushState(JS_Array);
      lastState = JS_Unknown;
      }
@@ -92,7 +99,7 @@ cJSonWriter &cJSonWriter::EndArray(void) {
      esyslog("JSonWriter::EndArray(): invalid status %d - should be %d", State(), JS_Array);
      }
   else {
-     sb.Append("]");
+     sb.Append(" ]");
      PopState();
      if (State() == JS_Key) PopState(); // array is a value, so pop the key
      }
@@ -104,7 +111,13 @@ cJSonWriter &cJSonWriter::Key(const char *Name) {
      esyslog("JSonWriter::Key(): invalid status %d - should be %d", State(), JS_Object);
      }
   else {
-     if (lastState == JS_Key) sb.Append(", ");
+     if (lastState == JS_Key) {
+#ifdef DEBUG
+       sb.Append(",\n");
+#else
+       sb.Append(", ");
+#endif
+     }
      sb.Append("\"").Append(Name).Append("\": ");
      PushState(JS_Key);
      }

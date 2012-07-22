@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="80">
+<configurationDescriptor version="84">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -29,6 +29,12 @@
                      projectFiles="true"
                      kind="TEST">
         <itemPath>tests/ConnectionHandlerTest.cc</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f5"
+                     displayName="FileSystemTest"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/FileSystemTest.cc</itemPath>
       </logicalFolder>
       <logicalFolder name="f2"
                      displayName="FScanTest"
@@ -200,6 +206,21 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f4</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f5">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f5</output>
         </linkerTool>
       </folder>
     </conf>

@@ -1,8 +1,8 @@
 /**
  * ======================== legal notice ======================
  * 
- * File:      VdrRecording.h
- * Created:   3. Juli 2012, 08
+ * File:      File.h
+ * Created:   21. Juli 2012, 12:41
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libfsScan: mediatypes and filesystem scanning
  * 
@@ -22,21 +22,44 @@
  * 
  * --------------------------------------------------------------
  */
-#ifndef VDRRECORDING_H
-#define	VDRRECORDING_H
+#ifndef FILE_H
+#define	FILE_H
 
-#include <AbstractMultiFileMovie.h>
+#include <sys/types.h>
 
-class cVdrRecording : public cAbstractMultiFileMovie {
+class cFileSystem;
+class cFileRepresentation;
+class cStringBuilder;
+class cFile
+{
 public:
-  cVdrRecording(const char *Name, const char *Logical, const char *Path);
-  virtual ~cVdrRecording();
+  cFile(const char *Path);
+  cFile(const cFile &Parent, const char *RelativePath);
+  virtual ~cFile();
 
-  virtual void Refresh(void);
+  bool CanRead(void) const;
+  bool CanWrite(void) const;
+  bool CanExecute(void) const;
+  bool Exists(void) const;
+  bool IsDirectory(void) const;
+  bool IsFile(void) const;
+  bool IsSymbolic(void) const;
+  off64_t Size(void) const;
+  ulong LastModified(void) const;
+  const char *Name(void) const;
 
-  virtual const char *FirstFile(void);
-  virtual const char *NextFile(void);
-  };
+  char *AbsolutePath(void) const;
+  cFile *Parent(void) const;
+  void VisitFiles(int (*cb)(cFile *, const char *));
 
-#endif	/* VDRRECORDING_H */
+  static void Cleanup(void);
+
+private:
+  cFile(const cFileRepresentation *);
+  const cFileRepresentation *rep;
+  static cFileSystem *fs;
+  friend class cFileSystem;
+};
+
+#endif	/* FILE_H */
 

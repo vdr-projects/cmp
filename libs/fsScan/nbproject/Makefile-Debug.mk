@@ -41,7 +41,10 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/VdrRecording.o \
 	${OBJECTDIR}/src/MediaFactory.o \
 	${OBJECTDIR}/src/LegacyVdrRecording.o \
+	${OBJECTDIR}/src/FileRepresentation.o \
+	${OBJECTDIR}/src/File.o \
 	${OBJECTDIR}/src/FilesystemScanner.o \
+	${OBJECTDIR}/src/FileSystem.o \
 	${OBJECTDIR}/src/AbstractMultiFileMovie.o \
 	${OBJECTDIR}/src/AbstractMedia.o \
 	${OBJECTDIR}/src/Movie.o
@@ -76,52 +79,67 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfsscan.a: ${OBJECTFILES}
 ${OBJECTDIR}/src/Picture.o: src/Picture.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Picture.o src/Picture.cc
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Picture.o src/Picture.cc
 
 ${OBJECTDIR}/src/Audio.o: src/Audio.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Audio.o src/Audio.cc
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Audio.o src/Audio.cc
 
 ${OBJECTDIR}/src/DVDImage.o: src/DVDImage.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/DVDImage.o src/DVDImage.cc
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/DVDImage.o src/DVDImage.cc
 
 ${OBJECTDIR}/src/VdrRecording.o: src/VdrRecording.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VdrRecording.o src/VdrRecording.cc
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VdrRecording.o src/VdrRecording.cc
 
 ${OBJECTDIR}/src/MediaFactory.o: src/MediaFactory.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MediaFactory.o src/MediaFactory.cc
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MediaFactory.o src/MediaFactory.cc
 
 ${OBJECTDIR}/src/LegacyVdrRecording.o: src/LegacyVdrRecording.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/LegacyVdrRecording.o src/LegacyVdrRecording.cc
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/LegacyVdrRecording.o src/LegacyVdrRecording.cc
+
+${OBJECTDIR}/src/FileRepresentation.o: src/FileRepresentation.cc 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/FileRepresentation.o src/FileRepresentation.cc
+
+${OBJECTDIR}/src/File.o: src/File.cc 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/File.o src/File.cc
 
 ${OBJECTDIR}/src/FilesystemScanner.o: src/FilesystemScanner.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/FilesystemScanner.o src/FilesystemScanner.cc
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/FilesystemScanner.o src/FilesystemScanner.cc
+
+${OBJECTDIR}/src/FileSystem.o: src/FileSystem.cc 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/FileSystem.o src/FileSystem.cc
 
 ${OBJECTDIR}/src/AbstractMultiFileMovie.o: src/AbstractMultiFileMovie.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AbstractMultiFileMovie.o src/AbstractMultiFileMovie.cc
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AbstractMultiFileMovie.o src/AbstractMultiFileMovie.cc
 
 ${OBJECTDIR}/src/AbstractMedia.o: src/AbstractMedia.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AbstractMedia.o src/AbstractMedia.cc
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AbstractMedia.o src/AbstractMedia.cc
 
 ${OBJECTDIR}/src/Movie.o: src/Movie.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Movie.o src/Movie.cc
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../networking/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Movie.o src/Movie.cc
 
 # Subprojects
 .build-subprojects:

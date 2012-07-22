@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      StringBuilderTest.cc
- * Created:   06.07.2012, 18:28:08
+ * Created:   06.07.2012, 18
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   cmps - the backend (server) part of compound media player
  * 

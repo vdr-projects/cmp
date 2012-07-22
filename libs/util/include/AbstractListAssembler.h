@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      AbstractListAssembler.h
- * Created:   6. Juli 2012, 09:38
+ * Created:   6. Juli 2012, 09
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libutil - base classes used by other libraries
  * 

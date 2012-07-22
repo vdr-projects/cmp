@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      ConnectionHandlerTest.cc
- * Created:   10.07.2012, 05:48:23
+ * Created:   10.07.2012, 05
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   cmps - the backend (server) part of compound media player
  * 

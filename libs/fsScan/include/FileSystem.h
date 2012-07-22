@@ -1,10 +1,10 @@
 /**
  * ======================== legal notice ======================
  * 
- * File:      HTTPAuthorizationRequest.cc
- * Created:   4. Juli 2012, 07
+ * File:      FileSystem.h
+ * Created:   21. Juli 2012, 12:44
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
- * Project:   libnetworking: classes for tcp/ip sockets and http-protocol handling
+ * Project:   libfsScan: mediatypes and filesystem scanning
  * 
  * CMP - compound media player
  * 
@@ -22,26 +22,30 @@
  * 
  * --------------------------------------------------------------
  */
-#include <HTTPAuthorizationRequest.h>
-#include <Authorization.h>
-#include <HTTPRequest.h>
-#include <stddef.h>
+#ifndef FILESYSTEM_H
+#define	FILESYSTEM_H
 
-cHTTPAuthorizationRequest::cHTTPAuthorizationRequest(const cHTTPRequest &OriginalRequest, char *NOnceFromHeap)
- : cHTTPResponse(HTTP_UnAuthorized)
-{
-  SetHeader("Connection", "Close");
-  SetAuthorization(new cAuthorization(OriginalRequest, NOnceFromHeap ? strdup(NOnceFromHeap) : NULL));
-}
+#include <tr1/unordered_map>
+#include <string>
 
-cHTTPAuthorizationRequest::cHTTPAuthorizationRequest(const cAuthorization &Authorization)
- : cHTTPResponse(HTTP_UnAuthorized)
+class cFile;
+class cFileRepresentation;
+class cFileSystem
 {
-  SetHeader("Connection", "Close");
-  SetAuthorization(new cAuthorization(Authorization));
-}
+public:
+  cFileSystem();
+  virtual ~cFileSystem();
 
-cHTTPAuthorizationRequest::~cHTTPAuthorizationRequest()
-{
-}
+  cFileRepresentation *representationOfFile(const char *Path);
+  cFileRepresentation *representationOfFile(const cFile &Parent, const char *Path);
+
+private:
+  cFileRepresentation *cacheEntry(const char *Path);
+  std::tr1::unordered_map<std::string, cFileRepresentation *> fileCache;
+  static char PathSeparator;
+  static char RootPath[4];
+  friend class cFileRepresentation;
+};
+
+#endif	/* FILESYSTEM_H */
 

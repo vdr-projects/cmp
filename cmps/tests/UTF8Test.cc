@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      UTF8Test.cc
- * Created:   05.07.2012, 15:19:07
+ * Created:   05.07.2012, 15
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   cmps - the backend (server) part of compound media player
  * 

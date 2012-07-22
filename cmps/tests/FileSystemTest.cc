@@ -1,8 +1,8 @@
 /**
  * ======================== legal notice ======================
  * 
- * File:      DirTest.cc
- * Created:   02.07.2012, 18
+ * File:      FileSystemTest.cc
+ * Created:   21.07.2012, 12:40:48
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   cmps - the backend (server) part of compound media player
  * 
@@ -24,9 +24,8 @@
  */
 #include <stdlib.h>
 #include <iostream>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/dir.h>
+#include <FileSystem.h>
+#include <File.h>
 
 /*
  * Simple C++ Test Suite
@@ -34,38 +33,42 @@
 
 void test1()
 {
-  struct direct *dirEntry;
-  DIR *dir = opendir("/media");
+  std::cout << "FileSystemTest test 1" << std::endl;
+  cFile *f = new cFile("/media/xchange/");
 
-  std::cout << "DirTest test 1" << std::endl;
-  if (!dir)
-     std::cout << "%TEST_FAILED% time=0 testname=test1 (DirTest) message=failed to open directory" << std::endl;
+  std::cout << "got file: " << f->AbsolutePath() << std::endl;
 
-  while ((dirEntry = readdir(dir))) {
-        if (*dirEntry->d_name == '.') continue;
-        std::cout << "dir-entry: " << dirEntry->d_name << std::endl;
-        }
-  closedir(dir);
+  cFile *other = f->Parent();
+
+  std::cout << "parent is file: " << other->AbsolutePath() << std::endl;
+
+  cFile *newOne = new cFile(*other, "/video/test/blah");
+
+  std::cout << "assembled file: " << newOne->AbsolutePath() << std::endl;
+
+  delete newOne;
+  delete other;
+  delete f;
 }
 
 void test2()
 {
-  std::cout << "DirTest test 2" << std::endl;
-  std::cout << "%TEST_FAILED% time=0 testname=test2 (DirTest) message=error message sample" << std::endl;
+  std::cout << "FileSystemTest test 2" << std::endl;
+  std::cout << "%TEST_FAILED% time=0 testname=test2 (FileSystemTest) message=error message sample" << std::endl;
 }
 
 int main(int argc, char** argv)
 {
-  std::cout << "%SUITE_STARTING% DirTest" << std::endl;
+  std::cout << "%SUITE_STARTING% FileSystemTest" << std::endl;
   std::cout << "%SUITE_STARTED%" << std::endl;
 
-  std::cout << "%TEST_STARTED% test1 (DirTest)" << std::endl;
+  std::cout << "%TEST_STARTED% test1 (FileSystemTest)" << std::endl;
   test1();
-  std::cout << "%TEST_FINISHED% time=0 test1 (DirTest)" << std::endl;
+  std::cout << "%TEST_FINISHED% time=0 test1 (FileSystemTest)" << std::endl;
 
-  std::cout << "%TEST_STARTED% test2 (DirTest)\n" << std::endl;
+  std::cout << "%TEST_STARTED% test2 (FileSystemTest)\n" << std::endl;
   test2();
-  std::cout << "%TEST_FINISHED% time=0 test2 (DirTest)" << std::endl;
+  std::cout << "%TEST_FINISHED% time=0 test2 (FileSystemTest)" << std::endl;
 
   std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 

@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      CodecTest.cc
- * Created:   09.07.2012, 05:44:50
+ * Created:   09.07.2012, 05
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   cmps - the backend (server) part of compound media player
  * 
@@ -35,6 +35,10 @@ static const char *TT[] = {
 , "http://localhost:12345/test/Mukke/36%20%20%20130%20-%20R.I.O.%20ft%20Jerry%20Ropero%20vs.%20Mendonca%20-%20Do%20Rio-De%20Janeiro%20Berinbau%20(Bootleg%20Edit).mp3"
 , "http://localhost:12345/import/Das_Verm%C3%A4chtnis_der_Tempelritter/2012-07-02.22.10.36-0.rec"
 , NULL
+, "file:///media/audio/Collection/Rock/XIII. Století/Vampire Songs: Tajemství gothických archivů/(1 - 05) Smutné časy.mp3"
+, "file:///media/audio/Collection/Rock/XIII. Století/Vampire Songs: Tajemství gothických archivů/(1 - 06) Starý hrabě.mp3"
+, "file:///media/audio/Collection/Rock/XIII. Století/Nosferatu/(1 - 03) Nevěsta temnot.mp3"
+, NULL
 };
 
 void test1()
@@ -54,6 +58,20 @@ void test1()
 void test2()
 {
   std::cout << "CodecTest test 2" << std::endl;
+  cURLEncoder *ue = new cURLEncoder();
+  const char **p;
+  char *newText;
+
+  for (p = TT + 8; p && *p; ++p) {
+      newText = ue->Encode(*p);
+      std::cout << "original: " << *p << std::endl;
+      std::cout << "encoded.: " << newText << std::endl << std::endl;
+      }
+}
+
+void test3()
+{
+  std::cout << "CodecTest test 3" << std::endl;
   std::cout << "%TEST_FAILED% time=0 testname=test2 (CodecTest) message=error message sample" << std::endl;
 }
 
@@ -66,9 +84,9 @@ int main(int argc, char** argv)
   test1();
   std::cout << "%TEST_FINISHED% time=0 test1 (CodecTest)" << std::endl;
 
-//  std::cout << "%TEST_STARTED% test2 (CodecTest)\n" << std::endl;
-//  test2();
-//  std::cout << "%TEST_FINISHED% time=0 test2 (CodecTest)" << std::endl;
+  std::cout << "%TEST_STARTED% test2 (CodecTest)\n" << std::endl;
+  test2();
+  std::cout << "%TEST_FINISHED% time=0 test2 (CodecTest)" << std::endl;
 
   std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 

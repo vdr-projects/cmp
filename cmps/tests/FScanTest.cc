@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      FScanTest.cc
- * Created:   02.07.2012, 16:57:48
+ * Created:   02.07.2012, 16
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   cmps - the backend (server) part of compound media player
  * 
@@ -77,7 +77,7 @@ void FScanTest::test4()
   cAbstractMedia *media;
 
   std::cout << "FScanTest test 4" << std::endl;
-  scanner.SetMediaFactory(new cMediaFactory("/media"));
+  scanner.SetMediaFactory(new cMediaFactory("/media/video"));
 
   uint64_t start = cTimeMs::Now();
   scanner.Refresh();

@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      StringBuilder.cc
- * Created:   6. Juli 2012, 10:54
+ * Created:   6. Juli 2012, 10
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libutil - base classes used by other libraries
  * 
@@ -37,6 +37,7 @@ cStringBuilder::cStringBuilder(const char *First)
  : chunkSize(127)
  , readOffset(0)
  , writeOffset(0)
+ , firstChunk(NULL)
  , pool(freeStringCallback)
 {
   init();
@@ -47,6 +48,7 @@ cStringBuilder::cStringBuilder(int ChunkSize)
  : chunkSize(ChunkSize)
  , readOffset(0)
  , writeOffset(0)
+ , firstChunk(NULL)
  , pool(freeStringCallback)
 {
   init();
@@ -61,12 +63,13 @@ void cStringBuilder::init(void)
   char *first = (char *) malloc(chunkSize);
 
   pool.push_back(first);
+  firstChunk = first;
 }
 
 void cStringBuilder::Write(const char *Text)
 {
   if (!Text) {
-     esyslog("ERROR: text to add is a NULL-ponter!");
+     esyslog("ERROR: text to add is a NULL-pointer!");
      return;
      }
   uint chunkFree = chunkSize - writeOffset;
@@ -130,6 +133,18 @@ cStringBuilder &cStringBuilder::Append(const char* Text)
   return *this;
 }
 
+cStringBuilder &cStringBuilder::Append(char c)
+{
+  char buf[2];
+
+  *buf = c;
+  buf[1] = 0;
+
+  Write(buf);
+
+  return *this;
+}
+
 cStringBuilder &cStringBuilder::Append(bool v, const char *TrueValue, const char *FalseValue)
 {
   if (v) Write(TrueValue);
@@ -175,4 +190,16 @@ cStringBuilder &cStringBuilder::Append(size_t v)
   if (snprintf(buf, sizeof(buf), "%lu", v)) Write(buf);
 
   return *this;
+}
+
+char *cStringBuilder::toString(void)
+{
+  char *rv = (char *) malloc(Size() + 1);
+
+  if (rv) {
+     readOffset = 0;
+     Copy(rv, Size() + 1);
+     *(rv + Size()) = 0;
+     }
+  return rv;
 }

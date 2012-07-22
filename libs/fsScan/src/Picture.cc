@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      Picture.cc
- * Created:   2. Juli 2012, 15:18
+ * Created:   2. Juli 2012, 15
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libfsScan: mediatypes and filesystem scanning
  * 

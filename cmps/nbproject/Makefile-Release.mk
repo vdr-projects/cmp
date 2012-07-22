@@ -45,6 +45,7 @@ TESTFILES= \
 	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps \
 	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps \
 	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps \
+	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps \
 	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps
 
 # C Compiler Flags
@@ -89,6 +90,10 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps: ${TESTDIR}/tests/ConnectionHand
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc}   -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps $^ ${LDLIBSOPTIONS} 
 
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps: ${TESTDIR}/tests/FileSystemTest.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
+	${LINK.cc}   -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps $^ ${LDLIBSOPTIONS} 
+
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps: ${TESTDIR}/tests/FScanTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc}   -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps $^ ${LDLIBSOPTIONS} 
@@ -108,6 +113,12 @@ ${TESTDIR}/tests/ConnectionHandlerTest.o: tests/ConnectionHandlerTest.cc
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${TESTDIR}/tests/ConnectionHandlerTest.o tests/ConnectionHandlerTest.cc
+
+
+${TESTDIR}/tests/FileSystemTest.o: tests/FileSystemTest.cc 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${TESTDIR}/tests/FileSystemTest.o tests/FileSystemTest.cc
 
 
 ${TESTDIR}/tests/FScanTest.o: tests/FScanTest.cc 
@@ -139,6 +150,7 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cc
 .test-conf:
 	@if [ "${TEST}" = "" ]; \
 	then  \
+	    ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps || true; \
 	    ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps || true; \
 	    ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps || true; \
 	    ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps || true; \

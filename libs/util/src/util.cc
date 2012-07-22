@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      util.cc
- * Created:   4. Juli 2012, 05:56
+ * Created:   4. Juli 2012, 05
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libutil - base classes used by other libraries
  * 

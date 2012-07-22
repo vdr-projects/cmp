@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      JSonTest.cc
- * Created:   12.07.2012, 07:31:46
+ * Created:   12.07.2012, 07
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   cmps - the backend (server) part of compound media player
  * 

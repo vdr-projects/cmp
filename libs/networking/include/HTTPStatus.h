@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      HTTPStatus.h
- * Created:   3. Juli 2012, 17:34
+ * Created:   3. Juli 2012, 17
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libnetworking: classes for tcp/ip sockets and http-protocol handling
  * 

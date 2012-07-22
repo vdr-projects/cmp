@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      FilesystemScanner.h
- * Created:   2. Juli 2012, 13:58
+ * Created:   2. Juli 2012, 13
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libfsScan: mediatypes and filesystem scanning
  * 

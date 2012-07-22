@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      HTMLListAssembler.cc
- * Created:   6. Juli 2012, 09:55
+ * Created:   6. Juli 2012, 09
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   cmps - the backend (server) part of compound media player
  * 
@@ -25,6 +25,7 @@
 #include <HTMLListAssembler.h>
 #include <AbstractMedia.h>
 #include <StringBuilder.h>
+#include <Url.h>
 #include <tools.h>
 
 cHTMLListAssembler::cHTMLListAssembler()
@@ -97,11 +98,14 @@ cStringBuilder &cHTMLListAssembler::genDelim(cStringBuilder &sb)
 cStringBuilder &cHTMLListAssembler::genMediaLink(cStringBuilder &sb, void *Element, bool odd)
 {
   cAbstractMedia *m = (cAbstractMedia *)Element;
+  cUrl *uri = new cUrl(m->LogicalPath());
+  char *lp = uri->ToString();
 
   sb.Append("<a class=\"");
   sb.Append(odd ? "odd" : "even");
   sb.Append("\" href=\"");
-  sb.Append(m->LogicalPath());
+  sb.Append(lp);
+  free(lp);
   sb.Append("\">");
   switch (m->MediaType()) {
     case cAbstractMedia::Audio:              sb.Append("[A] "); break;

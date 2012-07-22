@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      HTMLListAssembler.h
- * Created:   6. Juli 2012, 09:55
+ * Created:   6. Juli 2012, 09
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   cmps - the backend (server) part of compound media player
  * 

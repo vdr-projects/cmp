@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      ManagedVector.cc
- * Created:   7. Juli 2012, 08:30
+ * Created:   7. Juli 2012, 08
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libutil - base classes used by other libraries
  * 

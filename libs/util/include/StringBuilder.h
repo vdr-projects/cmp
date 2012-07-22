@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      StringBuilder.h
- * Created:   6. Juli 2012, 10:54
+ * Created:   6. Juli 2012, 10
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libutil - base classes used by other libraries
  * 
@@ -35,6 +35,7 @@ public:
   virtual ~cStringBuilder();
 
   cStringBuilder &Append(const char *Text);
+  cStringBuilder &Append(char c);
   cStringBuilder &Append(bool v, const char *TrueValue = "X", const char *FalseValue="-");
   cStringBuilder &Append(double v);
   cStringBuilder &Append(int v);
@@ -47,12 +48,16 @@ public:
   void Rewind(void) { readOffset = 0; }
   size_t Copy(char *Buf, size_t BufSize);
 
+  char *toString(void);
+
 private:
   void init(void);
   void Write(const char *p);
   int chunkSize;
   size_t readOffset; ///< read offest is the offset over all chunks (thus goes from 0 to size)
-  int writeOffset; ///< write offset is the offset inside the last chunk (thus goes from 0 to chunkSize)
+                     ///< Copy can be called subsequently, if Buf is smaller than StringBuilders size
+  int writeOffset;   ///< write offset is the offset inside the last chunk (thus goes from 0 to chunkSize)
+  char *firstChunk;  ///< for debugging purpose only
   cManagedVector pool;
   };
 

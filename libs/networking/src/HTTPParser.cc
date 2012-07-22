@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      HTTPParser.cc
- * Created:   10. Juli 2012, 08:37
+ * Created:   10. Juli 2012, 08
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libnetworking: classes for tcp/ip sockets and http-protocol handling
  * 

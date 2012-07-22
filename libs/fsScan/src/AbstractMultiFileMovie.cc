@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      AbstractMultiFileMovie.cc
- * Created:   3. Juli 2012, 07:39
+ * Created:   3. Juli 2012, 07
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libfsScan: mediatypes and filesystem scanning
  * 
