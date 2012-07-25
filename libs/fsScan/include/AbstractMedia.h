@@ -54,9 +54,10 @@ public:
   const char *MimeType(void) const { return mimeType; }
   const char *AbsolutePath(void) const;
   ulong LastModified(void) const;
+  const char *LogicalPath(void) const { return logicalPath; }
   virtual const char *Name(void) const;
   virtual size_t Size(void) const;
-  virtual const char *URI(void) const;
+  virtual const char *URI(void) const { return uri; }
   virtual void Refresh(void);
       ///< will be called right before start streaming, so this call is used to
       ///< determine the real size, number of files, etc.
@@ -74,6 +75,7 @@ private:
   SupportedMediaType mediaType;
   char *mimeType;
   char *uri;
+  char *logicalPath;
   cFile keyPath;
   };
 

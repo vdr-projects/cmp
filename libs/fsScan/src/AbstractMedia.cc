@@ -40,17 +40,18 @@ cAbstractMedia::cAbstractMedia(const cFile &File, const char *Mime, SupportedMed
  , mediaType(Type)
  , mimeType(Mime ? strdup(Mime) : NULL)
  , uri(NULL)
+ , logicalPath(NULL)
  , keyPath(File)
 {
-  char *tmp = keyPath.toURI();
-  uri = cUrl::Decoder()->Decode(tmp);
-  free(tmp);
+  uri = keyPath.toURI();
+  logicalPath = cUrl::Decoder()->Decode(uri);
 }
 
 cAbstractMedia::~cAbstractMedia()
 {
   free(mimeType);
   free(uri);
+  free(logicalPath);
 }
 
 const char *cAbstractMedia::Name(void) const
@@ -111,11 +112,6 @@ const char *cAbstractMedia::AbsolutePath(void) const
 ulong cAbstractMedia::LastModified(void) const
 {
   return keyPath.LastModified();
-}
-
-const char *cAbstractMedia::URI(void) const
-{
-  return uri;
 }
 
 void cAbstractMedia::SetMimeType(const char *MimeType)

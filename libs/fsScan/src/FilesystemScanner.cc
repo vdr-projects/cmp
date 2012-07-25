@@ -96,13 +96,13 @@ void cFilesystemScanner::Refresh()
       }
 }
 
-cAbstractMedia *cFilesystemScanner::FindMedia(const char* URI)
+cAbstractMedia *cFilesystemScanner::FindMedia(const char *Path)
 {
   cAbstractMedia *rv = NULL, *tmp;
 
   for (size_t i=0; i < pool.size(); ++i) {
       tmp = (cAbstractMedia *) pool[i];
-      if (!strcmp(tmp->URI(), URI)) {
+      if (!strcmp(tmp->LogicalPath(), Path)) {
          rv = tmp;
          break;
          }
