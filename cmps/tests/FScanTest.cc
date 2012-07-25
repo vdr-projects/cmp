@@ -1,25 +1,25 @@
 /**
  * ======================== legal notice ======================
- * 
+ *
  * File:      FScanTest.cc
  * Created:   02.07.2012, 16
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   cmps - the backend (server) part of compound media player
- * 
+ *
  * CMP - compound media player
- * 
+ *
  * is a client/server mediaplayer intended to play any media from any workstation
  * without the need to export or mount shares. cmps is an easy to use backend
  * with a (ready to use) HTML-interface. Additionally the backend supports
  * authentication via HTTP-digest authorization.
  * cmpc is a client with vdr-like osd-menues.
- * 
+ *
  * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
  * published under Creative Commons by-sa
  * For details see http://creativecommons.org/licenses/by-sa/3.0/
- * 
+ *
  * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
- * 
+ *
  * --------------------------------------------------------------
  */
 #include <stdlib.h>
@@ -86,7 +86,7 @@ void FScanTest::test4()
   for (size_t i=0; i < scanner.MediaPool().size(); ++i) {
       media = (cAbstractMedia *) scanner.MediaPool()[i];
 
-      std::cout << media->Name() << " [" << media->MimeType() << "] => " << media->LogicalPath() << std::endl;
+      std::cout << media->Name() << " [" << media->MimeType() << "] => " << media->AbsolutePath() << std::endl;
       }
   std::cout << std::endl << "found " << scanner.MediaPool().size() << " media, in " << end - start << " ms." << std::endl;
 
@@ -98,6 +98,7 @@ void FScanTest::test4()
   end = cTimeMs::Now();
 
   std::cout << "array search took " << end - start << " ms." << std::endl;
+  cFile::Cleanup();
 }
 
 int main(int argc, char** argv)

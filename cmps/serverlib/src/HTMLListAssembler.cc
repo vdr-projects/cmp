@@ -1,25 +1,25 @@
 /**
  * ======================== legal notice ======================
- * 
+ *
  * File:      HTMLListAssembler.cc
  * Created:   6. Juli 2012, 09
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   cmps - the backend (server) part of compound media player
- * 
+ *
  * CMP - compound media player
- * 
+ *
  * is a client/server mediaplayer intended to play any media from any workstation
  * without the need to export or mount shares. cmps is an easy to use backend
  * with a (ready to use) HTML-interface. Additionally the backend supports
  * authentication via HTTP-digest authorization.
  * cmpc is a client with vdr-like osd-menues.
- * 
+ *
  * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
  * published under Creative Commons by-sa
  * For details see http://creativecommons.org/licenses/by-sa/3.0/
- * 
+ *
  * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
- * 
+ *
  * --------------------------------------------------------------
  */
 #include <HTMLListAssembler.h>
@@ -98,27 +98,25 @@ cStringBuilder &cHTMLListAssembler::genDelim(cStringBuilder &sb)
 cStringBuilder &cHTMLListAssembler::genMediaLink(cStringBuilder &sb, void *Element, bool odd)
 {
   cAbstractMedia *m = (cAbstractMedia *)Element;
-  cUrl *uri = new cUrl(m->LogicalPath());
-  char *lp = uri->ToString();
 
-  sb.Append("<a class=\"");
-  sb.Append(odd ? "odd" : "even");
-  sb.Append("\" href=\"");
-  sb.Append(lp);
-  free(lp);
-  sb.Append("\">");
-  switch (m->MediaType()) {
-    case cAbstractMedia::Audio:              sb.Append("[A] "); break;
-    case cAbstractMedia::Movie:              sb.Append("[M] "); break;
-    case cAbstractMedia::DVDImage:           sb.Append("[D] "); break;
-    case cAbstractMedia::LegacyVdrRecording: sb.Append("[L] "); break;
-    case cAbstractMedia::VdrRecording:       sb.Append("[V] "); break;
-    case cAbstractMedia::Picture:            sb.Append("[P] "); break;
-    default: ;
-    }
-  sb.Append(m->Name());
-  sb.Append("</a>");
-
+  if (m) {
+     sb.Append("<a class=\"");
+     sb.Append(odd ? "odd" : "even");
+     sb.Append("\" href=\"");
+     sb.Append(m->URI());
+     sb.Append("\">");
+     switch (m->MediaType()) {
+       case cAbstractMedia::Audio:              sb.Append("[A] "); break;
+       case cAbstractMedia::Movie:              sb.Append("[M] "); break;
+       case cAbstractMedia::DVDImage:           sb.Append("[D] "); break;
+       case cAbstractMedia::LegacyVdrRecording: sb.Append("[L] "); break;
+       case cAbstractMedia::VdrRecording:       sb.Append("[V] "); break;
+       case cAbstractMedia::Picture:            sb.Append("[P] "); break;
+       default: ;
+       }
+     sb.Append(m->Name());
+     sb.Append("</a>");
+     }
   return sb;
 }
 

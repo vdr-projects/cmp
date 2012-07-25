@@ -46,13 +46,13 @@ cUrl::~cUrl()
   FREE(path);
 }
 
-cURLDecoder* cUrl::Decoder(void) const
+cURLDecoder* cUrl::Decoder(void)
 {
   if (!decoder) decoder = new cURLDecoder();
   return decoder;
 }
 
-cURLEncoder* cUrl::Encoder(void) const
+cURLEncoder* cUrl::Encoder(void)
 {
   if (!encoder) encoder = new cURLEncoder();
   return encoder;

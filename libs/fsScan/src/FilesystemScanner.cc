@@ -1,25 +1,25 @@
 /**
  * ======================== legal notice ======================
- * 
+ *
  * File:      FilesystemScanner.cc
  * Created:   2. Juli 2012, 13
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libfsScan: mediatypes and filesystem scanning
- * 
+ *
  * CMP - compound media player
- * 
+ *
  * is a client/server mediaplayer intended to play any media from any workstation
  * without the need to export or mount shares. cmps is an easy to use backend
  * with a (ready to use) HTML-interface. Additionally the backend supports
  * authentication via HTTP-digest authorization.
  * cmpc is a client with vdr-like osd-menues.
- * 
+ *
  * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
  * published under Creative Commons by-sa
  * For details see http://creativecommons.org/licenses/by-sa/3.0/
- * 
+ *
  * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
- * 
+ *
  * --------------------------------------------------------------
  */
 #include <FilesystemScanner.h>
@@ -41,9 +41,7 @@ void freeMediaCallback(void *elem)
 }
 
 cFilesystemScanner::cFilesystemScanner()
- : baseDirectory(NULL)
- , fileBufSize(512)
- , dirEntryBuf(NULL)
+ : fileBufSize(512)
  , pool(freeMediaCallback)
  , mediaFactory(NULL)
 {
@@ -51,28 +49,16 @@ cFilesystemScanner::cFilesystemScanner()
 
 cFilesystemScanner::~cFilesystemScanner()
 {
-  FREE(dirEntryBuf);
-  FREE(baseDirectory);
   pool.clear();
   if (mediaFactory) delete mediaFactory;
 }
 
-void cFilesystemScanner::SetBaseDirectory(const char* dir)
-{
-  FREE(baseDirectory);
-  baseDirectory = strdup(dir);
-  if (mediaFactory) mediaFactory->SetBaseDirectory(dir);
-}
-
 void cFilesystemScanner::SetMediaFactory(cMediaFactory* factory)
 {
-  if ((mediaFactory = factory)) {
-     FREE(baseDirectory);
-     baseDirectory = strdup(mediaFactory->BaseDirectory());
-     }
+  mediaFactory = factory;
 }
 
-// return true if a should be ordered before b
+// return true if "a" should be ordered before "b"
 bool defaultMediaSortOrder(void *a, void *b)
 {
   if (a == b) return false;
@@ -95,13 +81,8 @@ void cFilesystemScanner::Refresh()
   if (!mediaFactory) return;
   pool.clear();
   categories.clear();
-  dirEntryBuf = (struct dirent *)malloc(sizeof(struct dirent));
-  if (!dirEntryBuf) {
-     esyslog("ERROR: out of memory!");
-     return;
-     }
-  parseDir(baseDirectory, pool);
-  FREE(dirEntryBuf);
+
+  mediaFactory->Scan4Media(pool);
   cAbstractMedia::SupportedMediaType ot = cAbstractMedia::Invalid;
   cAbstractMedia *m;
 
@@ -115,48 +96,13 @@ void cFilesystemScanner::Refresh()
       }
 }
 
-void cFilesystemScanner::parseDir(const char* dirName, cManagedVector &result)
-{
-  if (!mediaFactory) return;
-  DIR *dir = opendir(dirName);
-  cAbstractMedia *media;
-  char *pathBuf = (char *)malloc(fileBufSize);
-  struct dirent *dirEntry;
-  struct stat statBuf;
-
-  if (!dir) return;
-  if (!pathBuf) {
-     closedir(dir);
-     return;
-     }
-  if (fileBufSize < strlen(dirName) + 128) {
-     fileBufSize += 256;
-     pathBuf = (char *)realloc(pathBuf, fileBufSize);
-     }
-  while (!readdir_r(dir, dirEntryBuf, &dirEntry) && dirEntry) {
-        if (*dirEntry->d_name == '.') continue; // don't bother with hidden stuff
-        strcpy(pathBuf, dirName);
-        strcat(pathBuf, "/");
-        strcat(pathBuf, dirEntry->d_name);
-        if (stat(pathBuf, &statBuf) < 0) return;
-        if ((media = mediaFactory->CreateMedia(pathBuf, &statBuf))) {
-           result.push_back(media);
-           isyslog("found media %s - %s", media->MimeType(), media->LogicalPath());
-           continue;
-           }
-        if ((statBuf.st_mode & S_IFMT) == S_IFDIR) parseDir(pathBuf, result);
-        }
-  closedir(dir);
-  FREE(pathBuf);
-}
-
-cAbstractMedia *cFilesystemScanner::FindMedia(const char* LogicalPath)
+cAbstractMedia *cFilesystemScanner::FindMedia(const char* URI)
 {
   cAbstractMedia *rv = NULL, *tmp;
 
   for (size_t i=0; i < pool.size(); ++i) {
       tmp = (cAbstractMedia *) pool[i];
-      if (!strcmp(tmp->LogicalPath(), LogicalPath)) {
+      if (!strcmp(tmp->URI(), URI)) {
          rv = tmp;
          break;
          }

@@ -1,25 +1,25 @@
 /**
  * ======================== legal notice ======================
- * 
+ *
  * File:      FileSystem.cc
- * Created:   21. Juli 2012, 12:44
+ * Created:   21. Juli 2012, 12
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libfsScan: mediatypes and filesystem scanning
- * 
+ *
  * CMP - compound media player
- * 
+ *
  * is a client/server mediaplayer intended to play any media from any workstation
  * without the need to export or mount shares. cmps is an easy to use backend
  * with a (ready to use) HTML-interface. Additionally the backend supports
  * authentication via HTTP-digest authorization.
  * cmpc is a client with vdr-like osd-menues.
- * 
+ *
  * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
  * published under Creative Commons by-sa
  * For details see http://creativecommons.org/licenses/by-sa/3.0/
- * 
+ *
  * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
- * 
+ *
  * --------------------------------------------------------------
  */
 #include <FileSystem.h>
@@ -49,6 +49,7 @@ cFileSystem::~cFileSystem()
 
 cFileRepresentation *cFileSystem::cacheEntry(const char* Path)
 {
+  if (fileCache.empty()) return NULL;
   std::tr1::unordered_map<std::string, cFileRepresentation *>::iterator it = fileCache.find(Path);
 
   if (it != fileCache.end()) return it->second;
@@ -59,7 +60,7 @@ cFileRepresentation *cFileSystem::representationOfFile(const cFile &Parent, cons
 {
   cFileRepresentation *parentRep = (cFileRepresentation *) Parent.rep;
   cFileRepresentation *tmp = NULL;
-  cStringBuilder *sb = parentRep->internalPath();
+  cStringBuilder *sb = new cStringBuilder(Parent.AbsolutePath());
   char *scratch = strdup(Path);
   char *last = scratch + strlen(Path);
   char *start = *scratch == PathSeparator ? scratch + 1 : scratch;
@@ -103,11 +104,10 @@ cFileRepresentation *cFileSystem::representationOfFile(const char* Path)
             if (!(rv = cacheEntry(RootPath))) {
                *p = 0;
                tmp = new cFileRepresentation(RootPath);
-               fileCache["/"] = tmp;
+               fileCache[RootPath] = tmp;
                break;
                }
             }
-         std::cout << "check path " << scratch << std::endl;
          if ((tmp = cacheEntry(scratch))) break;
          }
 

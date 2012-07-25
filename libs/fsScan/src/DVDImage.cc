@@ -1,100 +1,117 @@
 /**
  * ======================== legal notice ======================
- * 
+ *
  * File:      DVDImage.cc
  * Created:   3. Juli 2012, 08
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libfsScan: mediatypes and filesystem scanning
- * 
+ *
  * CMP - compound media player
- * 
+ *
  * is a client/server mediaplayer intended to play any media from any workstation
  * without the need to export or mount shares. cmps is an easy to use backend
  * with a (ready to use) HTML-interface. Additionally the backend supports
  * authentication via HTTP-digest authorization.
  * cmpc is a client with vdr-like osd-menues.
- * 
+ *
  * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
  * published under Creative Commons by-sa
  * For details see http://creativecommons.org/licenses/by-sa/3.0/
- * 
+ *
  * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
- * 
+ *
  * --------------------------------------------------------------
  */
 #include <DVDImage.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+#include "File.h"
 #define FILE_MASK       "VIDEO_TS/VTS_%02d_%d.VOB"
 
-cDVDImage::cDVDImage(const char *Name, const char *Logical, const char *Path)
- : cAbstractMultiFileMovie(Name, Logical, Path, "video/mpeg", DVDImage)
+cDVDImage::cDVDImage(const cFile &File)
+ : cAbstractMultiFileMovie(File, "video/mpeg", DVDImage)
 {
+  bufSize = 32;
 }
 
 cDVDImage::~cDVDImage()
 {
 }
 
+const char *cDVDImage::Name(void) const
+{
+  return cAbstractMedia::Name();
+}
+
+size_t cDVDImage::Size(void) const
+{
+  return cAbstractMedia::Size();
+}
+
 void cDVDImage::Refresh(void)
 {
-  struct stat stBuf;
   size_t maxSize = 0;
   size_t total = 0;
-  time_t lastMod = 0;
+  int numOfMovieFiles = 0;
+  cFile *tmp;
 
-  if (!fileNameBuf) {
-     if (!(fileNameBuf = (char *)malloc(strlen(RealPath()) + 10))) {
-        //TODO: some error message?
-        return;
-        }
-     strcpy(fileNameBuf, RealPath());
-     }
   movieFiles = 0;
   mainMovie = 0;
-
+  if (!checkBuffer()) return;
   for (int movie = 1; movie < 100; ++movie) {
       total = 0;
       for (int fileNo = 1;; ++fileNo) {
-          sprintf(fileNameBuf + strlen(RealPath()), FILE_MASK, movie, fileNo);
-          if (stat(fileNameBuf, &stBuf) < 0) {
-            movieFiles = fileNo - 1;
+          sprintf(buf, FILE_MASK, movie, fileNo);
+          tmp = new cFile(KeyPath(), buf);
+
+          if (!tmp || !tmp->Exists()) {
+            numOfMovieFiles = fileNo - 1;
             break;
             }
-          total += stBuf.st_size;
-          if (stBuf.st_mtime > lastMod) lastMod = stBuf.st_mtime;
+          total += tmp->Size();
+          delete tmp;
           }
       if (total > maxSize) {
          maxSize = total;
          mainMovie = movie;
+         movieFiles = numOfMovieFiles;
          }
       }
   SetSize(total);
-  SetLastModified(lastMod);
 }
 
 const char *cDVDImage::FirstFile(void)
 {
-  if (!fileNameBuf) {
-     if (!(fileNameBuf = (char *)malloc(strlen(RealPath()) + 10))) {
-        //TODO: some error message?
-        return NULL;
-        }
-     strcpy(fileNameBuf, RealPath());
-     }
-  curFileNo = 1;
-  sprintf(fileNameBuf + strlen(RealPath()), FILE_MASK, mainMovie, curFileNo);
+  if (!checkBuffer()) return NULL;
 
-  return fileNameBuf;
+  curFileNo = 1;
+  sprintf(buf, FILE_MASK, mainMovie, curFileNo);
+  cFile *tmp = new cFile(KeyPath(), buf);
+  const char *rv = NULL;
+
+  if (tmp) {
+     rv = tmp->AbsolutePath();
+     delete tmp;
+     }
+  return rv;
 }
 
 const char *cDVDImage::NextFile(void)
 {
   if (++curFileNo < movieFiles) {
-     sprintf(fileNameBuf + strlen(RealPath()), FILE_MASK, mainMovie, curFileNo);
+     if (!checkBuffer()) return NULL;
+     sprintf(buf, FILE_MASK, mainMovie, curFileNo);
+     cFile *tmp = new cFile(KeyPath(), buf);
+     const char *rv = NULL;
 
-     return fileNameBuf;
+     if (tmp) {
+        tmp->AbsolutePath();
+        delete tmp;
+
+        return rv;
+        }
      }
   return NULL;
 }

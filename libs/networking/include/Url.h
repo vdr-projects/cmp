@@ -51,11 +51,11 @@ public:
   void Dump(void);
 #endif
   static void Cleanup(void);
+  static cURLEncoder *Encoder(void);
+  static cURLDecoder *Decoder(void);
 
 protected:
   void ParseQueryString(const char *QueryString);
-  cURLEncoder *Encoder(void) const;
-  cURLDecoder *Decoder(void) const;
 
 private:
   typedef std::tr1::unordered_map<std::string, std::string> ParameterMap;

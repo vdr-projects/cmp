@@ -1,25 +1,25 @@
 /**
  * ======================== legal notice ======================
- * 
+ *
  * File:      MediaFactory.cc
  * Created:   2. Juli 2012, 15
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libfsScan: mediatypes and filesystem scanning
- * 
+ *
  * CMP - compound media player
- * 
+ *
  * is a client/server mediaplayer intended to play any media from any workstation
  * without the need to export or mount shares. cmps is an easy to use backend
  * with a (ready to use) HTML-interface. Additionally the backend supports
  * authentication via HTTP-digest authorization.
  * cmpc is a client with vdr-like osd-menues.
- * 
+ *
  * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
  * published under Creative Commons by-sa
  * For details see http://creativecommons.org/licenses/by-sa/3.0/
- * 
+ *
  * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
- * 
+ *
  * --------------------------------------------------------------
  */
 #include <MediaFactory.h>
@@ -29,109 +29,104 @@
 #include <LegacyVdrRecording.h>
 #include <VdrRecording.h>
 #include <DVDImage.h>
+#include <StringBuilder.h>
+#include <Logging.h>
+#include <File.h>
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
 
-
-cMediaFactory::cMediaFactory(const char *BaseDirectory)
- : baseDirectory(BaseDirectory ? strdup(BaseDirectory) : NULL)
+cMediaFactory::cMediaFactory(const cFile &BaseDirectory)
+ : baseDirectory(BaseDirectory)
  , scratch(NULL)
  , scratchSize(1024)
 {
-  if (baseDirectory && *(baseDirectory + strlen(baseDirectory) - 1) == '/')
-     *(baseDirectory + strlen(baseDirectory) - 1) = 0;
   scratch = (char *)malloc(scratchSize);
 }
 
 cMediaFactory::~cMediaFactory()
 {
   free(scratch);
-  free(baseDirectory);
 }
 
-void cMediaFactory::SetBaseDirectory(const char* dir)
+void cMediaFactory::SetBaseDirectory(const cFile &dir)
 {
-  if (baseDirectory == dir) return;
-  char *tmp = baseDirectory;
-  baseDirectory = NULL;
-  free(tmp);
-  if (dir) {
-     baseDirectory = strdup(dir);
-     if (*(baseDirectory + strlen(baseDirectory) - 1) == '/')
-        *(baseDirectory + strlen(baseDirectory) - 1) = 0;
+  if (!dir.IsDirectory()) {
+     esyslog("ERROR: attempt to set base directory to a file (%s)", dir.Name());
+     return;
      }
+  baseDirectory = dir;
 }
 
-cAbstractMedia *cMediaFactory::CreateMedia(const char* FileOrDirname, struct stat *st)
+int cMediaFactory::createMedia(void *opaque, cFile *Parent, const char *Name)
 {
-  const char *name = rindex(FileOrDirname, '/') + 1;
-  const char *logical = FileOrDirname + strlen(baseDirectory);
+  if (!opaque) return -1;
+  cManagedVector *pool = (cManagedVector *) opaque;
+  cFile *curFile = new cFile(*Parent, Name);
   const char *mimeType = NULL;
   cAbstractMedia *rv = NULL;
 
-//  printf("CreateMedia(%s) ... name=[%s], logical=[%s]\n", FileOrDirname, name, logical);
-  if ((st->st_mode & S_IFMT) == S_IFDIR) {
-     static const char *addons[] = { "/001.vdr", "/00001.ts", "/VIDEO_TS/VIDEO_TS.IFO", "/video_ts/VIDEO_TS.IFO", "/video_ts/video_ts.ifo", NULL };
-     struct stat stBuf;
+  if (!curFile) {
+     esyslog("ERROR: out of memory!");
+     return -1;
+     }
+  if (!curFile->Exists()) {
+     delete curFile;
+     return -1;
+     }
+  if (curFile->IsDirectory()) {
+     static const char *keyFiles[] = { "001.vdr", "00001.ts", "VIDEO_TS/VIDEO_TS.IFO", NULL };
+     cFile *tmp;
+     const char *check;
      int n=0;
 
-     if (scratchSize < (strlen(FileOrDirname) + 32)) {
-        scratchSize += 128;
-        scratch = (char *)realloc(scratch, scratchSize);
-        }
-     if (!scratch) return NULL;
+     for (const char **kf = keyFiles; kf && *kf; ++kf, ++n) {
+         tmp = new cFile(*curFile, *kf);
+         check = tmp ? tmp->AbsolutePath() : NULL;
 
-     for (const char **pa = addons; pa && *pa; ++pa, ++n) {
-         strcpy(scratch, FileOrDirname);
-         strcat(scratch, *pa);
-
-         if (stat(scratch, &stBuf) < 0) continue;
-
-         if ((stBuf.st_mode & S_IFMT) == S_IFREG) {
-            if (n < 2) {
-               char *tmp = rindex(scratch, '/'); // filename
-               char *p = tmp;
-
-               *p = ')';
-               *(p + 2) = 0;
-               tmp = rindex(scratch, '/'); // ts-directory
-
-               for (; p > tmp; --p) *(p + 1) = *p; // shift it up one position
-               *(p + 1) = '('; // start of ts-directory
-               *tmp = ' '; // add separator
-               tmp = rindex(scratch, '/'); // name of vdr recording
-               if (tmp) name = tmp + 1;
-               }
+         if (tmp->Exists() && tmp->IsFile() && !tmp->IsDirectory()) {
             switch (n) {
-              case 0:  rv = new cLegacyVdrRecording(name, logical, FileOrDirname); break;
-              case 1:  rv = new cVdrRecording(name, logical, FileOrDirname); break;
-              default: rv = new cDVDImage(name, logical, FileOrDirname); break;
+              case 0:  rv = new cLegacyVdrRecording(*curFile); break;
+              case 1:  rv = new cVdrRecording(*curFile); break;
+              default: rv = new cDVDImage(*curFile); break;
               }
-            rv->SetLastModified(st->st_mtime);
             }
+         delete tmp;
          }
+     if (!rv) curFile->VisitFiles(createMedia, opaque);
      }
-  else if ((st->st_mode & S_IFMT) == S_IFREG) {
-     const char *extension = rindex(FileOrDirname, '.');
+  else {
+     const char *extension = strrchr(Name, '.');
 
-     if (!extension) return NULL;
+     if (!extension) {
+        delete curFile;
+
+        return -1;
+        }
      ++extension;
-
      mimeType = cMovie::ContentType(extension);
-     if (mimeType) rv = new cMovie(name, logical, FileOrDirname, mimeType);
+     if (mimeType) rv = new cMovie(*curFile, mimeType);
      else {
         mimeType = cAudio::ContentType(extension);
-        if (mimeType) rv = new cAudio(name, logical, FileOrDirname, mimeType);
+        if (mimeType) rv = new cAudio(*curFile, mimeType);
         else {
            mimeType = cPicture::ContentType(extension);
-           if (mimeType) rv = new cPicture(name, logical, FileOrDirname, mimeType);
+           if (mimeType) rv = new cPicture(*curFile, mimeType);
            }
         }
-     if (rv) {
-        rv->SetLastModified(st->st_mtime);
-        rv->SetSize(st->st_size);
-        }
      }
-  return rv;
+  delete curFile;
+  if (rv) {
+     pool->push_back(rv);
+     return 0;
+     }
+  return -1;
+}
+
+void cMediaFactory::Scan4Media(cManagedVector& pool)
+{
+  if (!baseDirectory.Exists() || !baseDirectory.IsDirectory()) return;
+
+  baseDirectory.SetVirtualRoot();
+  baseDirectory.VisitFiles(createMedia, &pool);
 }
