@@ -1,5 +1,8 @@
 CMP - Compound Media Player
 ===========================
+2012 (c) Reinhard Mantey - some rights reserved.
+The project is published under the license of cc-by-sa
+
 consists of:
 ------------
 cmps - compound media player server
@@ -7,13 +10,59 @@ cmpc - compound media player client
 
 cmps (the server part)
 ----------------------
+scans the given media root directory (default /media) and offers the result as
+list in html- and json-format. The lists contain an url for the media, which
+can be streamed by using http-protocol.
+No external tools are used at server side.
+The libraries I use are libyajl, libssl, libcrypto and libstdc++ - where I
+used selfcompiled libyajl release 2.0.5 (the only lib I had to compile at
+debian stable system).
+As parts of the server libraries are work from vdr, cmps inherits the
+dependencies of vdr.
+So the complete (runtime) dependencies of cmps are:
+    libjpeg
+    libpthread
+    libcap
+    librt
+    libfribidi
+    libfreetype
+    libfontconfig
+    libyajl
+    libssl
+    libcrypto
+    libstdc++
+    libcrypto
+cmps supports three commandline parameters:
+ -r <Path>  the directory where to start scanning for media
+ -p ###     the serverport where the mediaserver can be connected to
+ -i <Path>  the favicon - the icon to distinguish the server, if list is
+            requested by standard web-browsers.
 
 
 cmpc (the client)
 -----------------
+ *tbd*
+
+cmpcj (a java client)
+---------------------
+is the butler between mediaserver (cmps) and mediaplayer and offers several
+filters on the medialist. The list of mediaservers and the mediaplayers to use
+are user configurable.
+The first screen offers the selection of the mediaserver to use.
+Next screen shows the medialist (if the server is online). That list can be
+filtered by mediatype and/or free text, where the text may match the (invisible)
+path of the media.
+A doubleclick on a mediaitem starts the player - cmpc (the client) stays blocked
+until the player stops.
+
+attribution:
+cmpcj uses glazedlists from http://www.glazedlists.com and
+jackson from http://jackson.codehaus.org
+the used folder icons are from http://www.iconfinder.com/search/?q=iconset%3Asabre
+the vdr- and dvd-icons build on my own (based on the work from above)
 
 
-The libraries
+The C/C++ libraries
 -------------
 1. libs/vdr
 -----------

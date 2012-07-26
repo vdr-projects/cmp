@@ -1,0 +1,2 @@
+cmpc - a java frontend (client) part of compound media player
+       uses external players to play the media
