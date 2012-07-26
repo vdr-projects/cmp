@@ -35,6 +35,6 @@ public class MediaComparator implements Comparator<Media> {
     public int compare(Media a, Media b) {
         if (a.getType() == b.getType())
             return a.getName().compareToIgnoreCase(b.getName());
-        return a.getType() - b.getType();
+        return a.getType().ordinal() - b.getType().ordinal();
     }
 }

@@ -67,7 +67,7 @@ public class MediaTypeSelect extends AbstractMatcherEditor<Media> implements Lis
                 setBackground(list.getBackground());
                 setForeground(list.getForeground());
             }
-            ImageIcon icon = images[(Integer) value];
+            ImageIcon icon = images[((Media.SupportedMediaType) value).ordinal()];
             setSize(110, 110);
             setHorizontalAlignment(JLabel.CENTER);
 
@@ -105,13 +105,14 @@ public class MediaTypeSelect extends AbstractMatcherEditor<Media> implements Lis
 
 
     public MediaTypeSelect(EventList<Media> source) {
-        EventList<Integer> mediaTypeNonUnique = new MediaPool2TypeList(source);
+        EventList<Media.SupportedMediaType> mediaTypeNonUnique = new MediaPool2TypeList(source);
 
-        mediaTypeList = new UniqueList<Integer>(mediaTypeNonUnique);
-        DefaultEventListModel<Integer> mediaTypeListModel = new DefaultEventListModel<Integer>(mediaTypeList);
+        mediaTypeList = new UniqueList<Media.SupportedMediaType>(mediaTypeNonUnique);
+        DefaultEventListModel<Media.SupportedMediaType> mediaTypeListModel = new DefaultEventListModel<Media.SupportedMediaType>(
+                mediaTypeList);
 
         mediaTypeJList = new JList(mediaTypeListModel);
-        DefaultEventSelectionModel<Integer> mediaTypeSelectionModel = new DefaultEventSelectionModel<Integer>(
+        DefaultEventSelectionModel<Media.SupportedMediaType> mediaTypeSelectionModel = new DefaultEventSelectionModel<Media.SupportedMediaType>(
                 mediaTypeList);
 
         mediaTypeJList.setSelectionModel(mediaTypeSelectionModel);
@@ -134,8 +135,8 @@ public class MediaTypeSelect extends AbstractMatcherEditor<Media> implements Lis
         fireChanged(newMatcher);
     }
 
-    private EventList<Integer> mediaTypeList;
-    private EventList<Integer> selectedTypes;
+    private EventList<Media.SupportedMediaType> mediaTypeList;
+    private EventList<Media.SupportedMediaType> selectedTypes;
     private JList mediaTypeJList;
     private static final String[] iconFiles;
     static {

@@ -32,7 +32,7 @@ import ca.odell.glazedlists.event.ListEvent;
 import de.schwarzrot.cmpc.domain.Media;
 
 
-public class MediaPool2TypeList extends TransformedList<Media, Integer> {
+public class MediaPool2TypeList extends TransformedList<Media, Media.SupportedMediaType> {
     public MediaPool2TypeList(EventList<Media> source) {
         super(source);
         source.addListEventListener(this);
@@ -40,13 +40,14 @@ public class MediaPool2TypeList extends TransformedList<Media, Integer> {
 
 
     @Override
-    public Integer get(int index) {
+    public Media.SupportedMediaType get(int index) {
         Media m = source.get(index);
 
         return m.getType();
     }
 
 
+    @Override
     public void listChanged(ListEvent<Media> listChanges) {
         updates.forwardEvent(listChanges);
     }

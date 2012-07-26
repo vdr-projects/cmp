@@ -189,7 +189,7 @@ public class MediaClient extends JComponent implements MediaClientExecutor {
             });
             mediaTypesScrollPane.setPreferredSize(new Dimension(100, 100));
             mediaTypesScrollPane.setBackground(Color.BLACK);
-            mediaJTable.getColumnModel().getColumn(0).setMaxWidth(40);
+            mediaJTable.getColumnModel().getColumn(0).setMaxWidth(80);
             mediaJTable.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer());
             mediaJTable.getColumnModel().getColumn(1).setCellRenderer(new DefaultTableCellRenderer());
             mediaJTable.addMouseListener(new MediaExecutor(mediaJTable, textFilteredMedia, this));

@@ -34,7 +34,7 @@ import de.schwarzrot.cmpc.domain.Media;
 
 
 public class MediaForTypeMatcher implements Matcher<Media> {
-    public MediaForTypeMatcher(Collection<Integer> mediaTypes) {
+    public MediaForTypeMatcher(Collection<Media.SupportedMediaType> mediaTypes) {
         this.mediaTypes.addAll(mediaTypes);
     }
 
@@ -45,10 +45,10 @@ public class MediaForTypeMatcher implements Matcher<Media> {
             return false;
         if (mediaTypes.isEmpty())
             return true;
-        Integer mt = m.getType();
+        Media.SupportedMediaType mt = m.getType();
 
         return mediaTypes.contains(mt);
     }
 
-    private Set<Integer> mediaTypes = new HashSet<Integer>();
+    private Set<Media.SupportedMediaType> mediaTypes = new HashSet<Media.SupportedMediaType>();
 }

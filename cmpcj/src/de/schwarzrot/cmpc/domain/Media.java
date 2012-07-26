@@ -51,7 +51,7 @@ public class Media {
     }
 
 
-    public int getType() {
+    public SupportedMediaType getType() {
         return type;
     }
 
@@ -72,11 +72,24 @@ public class Media {
 
 
     public void setType(int type) {
-        this.type = type;
+        if (type == SupportedMediaType.Audio.ordinal())
+            this.type = SupportedMediaType.Audio;
+        else if (type == SupportedMediaType.Movie.ordinal())
+            this.type = SupportedMediaType.Movie;
+        else if (type == SupportedMediaType.DVDImage.ordinal())
+            this.type = SupportedMediaType.DVDImage;
+        else if (type == SupportedMediaType.LegacyVdrRecording.ordinal())
+            this.type = SupportedMediaType.LegacyVdrRecording;
+        else if (type == SupportedMediaType.VdrRecording.ordinal())
+            this.type = SupportedMediaType.VdrRecording;
+        else if (type == SupportedMediaType.Picture.ordinal())
+            this.type = SupportedMediaType.Picture;
+        else
+            this.type = SupportedMediaType.Invalid;
     }
 
     private String name;
-    private int type;
+    private SupportedMediaType type;
     private String path;
     private String search;
 }
