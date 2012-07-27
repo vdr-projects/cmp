@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/CMP" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/cmps" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -16,7 +16,7 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/CMP" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/cmps" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -46,17 +46,10 @@
 			<Add library="../libs/networking/libnetworking.a" />
 			<Add library="../libs/util/libutil.a" />
 			<Add library="../libs/vdr/libvdr.a" />
-			<Add library="jpeg" />
 			<Add library="pthread" />
-			<Add library="dl" />
-			<Add library="cap" />
-			<Add library="rt" />
-			<Add library="fribidi" />
-			<Add library="freetype" />
-			<Add library="fontconfig" />
-			<Add library="yajl" />
 			<Add library="ssl" />
 			<Add library="crypt" />
+			<Add library="rt" />
 		</Linker>
 		<Unit filename="main.cc" />
 		<Extensions>

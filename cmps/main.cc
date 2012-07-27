@@ -42,6 +42,7 @@ static struct option longOptions[] = {
   { "port",      required_argument, NULL, 'p' }
 , { "mediaRoot", required_argument, NULL, 'r' }
 , { "favicon",   required_argument, NULL, 'i' }
+, { "help",      no_argument,       NULL, 'h' }
 , { NULL, no_argument, NULL, 0 }
 };
 
@@ -56,6 +57,22 @@ static int refreshScanner(void *opaque, cHTTPRequest &Request)
   return -1;
 }
 
+static void usage(void)
+{
+  fprintf(stderr, "cmps - the backend of CMP (compound media player)\n");
+  fprintf(stderr, "  is streaming- and HTTP-server and accepts these commandline options:\n");
+  fprintf(stderr, "-h, --help               the help, you are reading\n");
+  fprintf(stderr, "-r, --mediaRoot <path>   the directory, where to start to scan for media\n");
+  fprintf(stderr, "                          (default is /media)\n");
+  fprintf(stderr, "-p, --port ###           the servers port to listen for client connections\n");
+  fprintf(stderr, "                          (default is 12345)\n");
+  fprintf(stderr, "-i, --favicon <path>     the application icon, used by webbrowsers to\n");
+  fprintf(stderr, "                         prefix the urls to identify the server\n");
+  fprintf(stderr, "                          (default is /media/favicon.ico)\n");
+
+  exit(0);
+}
+
 static void parseCommandline(int argc, char *argv[], cServerConfig &config)
 {
   int c;
@@ -65,7 +82,7 @@ static void parseCommandline(int argc, char *argv[], cServerConfig &config)
   config.SetDocumentRoot("/media");
   config.SetAppIcon("/media/favicon.ico");
 
-  while ((c = getopt_long(argc, argv, "p:r:i:", longOptions, NULL)) != -1) {
+  while ((c = getopt_long(argc, argv, "hp:r:i:", longOptions, NULL)) != -1) {
         switch (c) {
           case 'p': {
                if (isnumber(optarg)) {
@@ -94,6 +111,8 @@ static void parseCommandline(int argc, char *argv[], cServerConfig &config)
                      }
                   }
                } break;
+
+          case 'h': usage(); break;
           }
         }
 }

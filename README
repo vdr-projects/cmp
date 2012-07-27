@@ -14,34 +14,31 @@ scans the given media root directory (default /media) and offers the result as
 list in html- and json-format. The lists contain an url for the media, which
 can be streamed by using http-protocol.
 No external tools are used at server side.
-The libraries I use are libyajl, libssl, libcrypto and libstdc++ - where I
-used selfcompiled libyajl release 2.0.5 (the only lib I had to compile at
-debian stable system).
-As parts of the server libraries are work from vdr, cmps inherits the
-dependencies of vdr.
+The libraries I use are libssl, libcrypto and libstdc++
+As parts of the server libraries are work from vdr, cmps inherits some
+dependencies of vdr (i.e. libpthread and librt).
 So the complete (runtime) dependencies of cmps are:
-    libjpeg
     libpthread
-    libcap
     librt
-    libfribidi
-    libfreetype
-    libfontconfig
-    libyajl
     libssl
     libcrypto
     libstdc++
-    libcrypto
+
 cmps supports three commandline parameters:
  -r <Path>  the directory where to start scanning for media
  -p ###     the serverport where the mediaserver can be connected to
  -i <Path>  the favicon - the icon to distinguish the server, if list is
             requested by standard web-browsers.
 
+> attribution:
+cmps uses some classes from the vdr-project, a project of Klaus Schmidinger,
+located at http://tvdr.de
+
 
 cmpc (the client)
 -----------------
  *tbd*
+
 
 cmpcj (a java client)
 ---------------------
@@ -55,11 +52,11 @@ path of the media.
 A doubleclick on a mediaitem starts the player - cmpc (the client) stays blocked
 until the player stops.
 
-attribution:
-cmpcj uses glazedlists from http://www.glazedlists.com and
-jackson from http://jackson.codehaus.org
-the used folder icons are from http://www.iconfinder.com/search/?q=iconset%3Asabre
-the vdr- and dvd-icons build on my own (based on the work from above)
+> attribution:
+cmpcj uses glazedlists from http://www.glazedlists.com and jackson from
+http://jackson.codehaus.org
+The used folder icons are from http://www.iconfinder.com/search/?q=iconset%3Asabre
+where as the vdr- and dvd-icons are built on my own (based on the work from above)
 
 
 The C/C++ libraries
