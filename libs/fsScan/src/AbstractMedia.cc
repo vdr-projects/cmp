@@ -86,6 +86,14 @@ size_t cAbstractMedia::ReadChunk(char* Buf, size_t bufSize)
   return rv;
 }
 
+void cAbstractMedia::Reset(void)
+{
+  if (fd >= 0) {
+     close(fd);
+     fd = -1;
+     }
+}
+
 size_t cAbstractMedia::Size(void) const
 {
   return keyPath.Size();

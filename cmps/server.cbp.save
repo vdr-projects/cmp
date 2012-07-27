@@ -46,17 +46,10 @@
 			<Add library="../libs/networking/libnetworking.a" />
 			<Add library="../libs/util/libutil.a" />
 			<Add library="../libs/vdr/libvdr.a" />
-			<Add library="jpeg" />
 			<Add library="pthread" />
-			<Add library="dl" />
-			<Add library="cap" />
-			<Add library="rt" />
-			<Add library="fribidi" />
-			<Add library="freetype" />
-			<Add library="fontconfig" />
-			<Add library="yajl" />
 			<Add library="ssl" />
 			<Add library="crypt" />
+			<Add library="rt" />
 		</Linker>
 		<Unit filename="main.cc" />
 		<Extensions>

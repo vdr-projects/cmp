@@ -39,6 +39,7 @@ public:
 
 protected:
   cAbstractMultiFileMovie(const cFile &File, const char *Mime, SupportedMediaType Type);
+  virtual void Reset(void);
   void SetName(char *Name);
   void SetSize(size_t Size);
   bool checkBuffer(void);

@@ -63,6 +63,7 @@ public:
       ///< determine the real size, number of files, etc.
   virtual size_t ReadChunk(char *buf, size_t bufSize);
       ///< used to hide the differences between single- and multi-file media.
+  virtual void Reset(void);
   static const char *MediaType2Text(int Type);
 
 protected:

@@ -90,6 +90,12 @@ size_t cAbstractMultiFileMovie::ReadChunk(char* Buf, size_t bufSize)
   return rv;
 }
 
+void cAbstractMultiFileMovie::Reset()
+{
+  cMovie::Reset();
+  curFileNo = 0;
+}
+
 void cAbstractMultiFileMovie::SetName(char* Name)
 ///< Name must have already been allocated from heap!
 {

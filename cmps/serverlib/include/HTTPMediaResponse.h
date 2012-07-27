@@ -35,8 +35,12 @@ public:
 
   virtual size_t ReadContentChunk(char *Buf, size_t bufSize);
 
+protected:
+  virtual void HandleAbort(void);
+
 private:
   cAbstractMedia *media;
+  friend class cConnectionHandler;
   };
 
 #endif	/* HTTPMEDIARESPONSE_H */
