@@ -157,7 +157,6 @@
             <linkerLibLibItem>pthread</linkerLibLibItem>
             <linkerLibLibItem>rt</linkerLibLibItem>
             <linkerLibLibItem>ssl</linkerLibLibItem>
-            <linkerLibLibItem>crypt</linkerLibLibItem>
             <linkerLibLibItem>pcrecpp</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>

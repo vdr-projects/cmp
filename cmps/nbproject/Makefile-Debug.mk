@@ -62,7 +62,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=serverlib/dist/Debug/GNU-Linux-x86/libserverlib.a ../libs/fsScan/dist/Debug/GNU-Linux-x86/libfsscan.a ../libs/networking/dist/Debug/GNU-Linux-x86/libnetworking.a ../libs/IO/dist/Debug/GNU-Linux-x86/libio.a ../libs/util/dist/Debug/GNU-Linux-x86/libutil.a ../libs/vdr/dist/Debug/GNU-Linux-x86/libvdr.a -lpthread -lrt -lssl -lcrypt -lpcrecpp
+LDLIBSOPTIONS=serverlib/dist/Debug/GNU-Linux-x86/libserverlib.a ../libs/fsScan/dist/Debug/GNU-Linux-x86/libfsscan.a ../libs/networking/dist/Debug/GNU-Linux-x86/libnetworking.a ../libs/IO/dist/Debug/GNU-Linux-x86/libio.a ../libs/util/dist/Debug/GNU-Linux-x86/libutil.a ../libs/vdr/dist/Debug/GNU-Linux-x86/libvdr.a -lpthread -lrt -lssl -lpcrecpp
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}

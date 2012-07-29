@@ -1,25 +1,25 @@
 /**
  * ======================== legal notice ======================
- * 
+ *
  * File:      File.cc
  * Created:   21. Juli 2012, 12
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libIO: classes for files, filesystem and input/output
- * 
+ *
  * CMP - compound media player
- * 
+ *
  * is a client/server mediaplayer intended to play any media from any workstation
  * without the need to export or mount shares. cmps is an easy to use backend
  * with a (ready to use) HTML-interface. Additionally the backend supports
  * authentication via HTTP-digest authorization.
  * cmpc is a client with vdr-like osd-menues.
- * 
+ *
  * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
  * published under Creative Commons by-sa
  * For details see http://creativecommons.org/licenses/by-sa/3.0/
- * 
+ *
  * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
- * 
+ *
  * --------------------------------------------------------------
  */
 #include <File.h>
@@ -30,10 +30,6 @@
 #include <sys/dir.h>
 
 cFileSystem *cFile::fs  = NULL;
-static mode_t ReadMask  = S_IRUSR | S_IRGRP | S_IROTH;
-static mode_t WriteMask = S_IWUSR | S_IWGRP | S_IWOTH;
-static mode_t ExecMask  = S_IXUSR | S_IXGRP | S_IXOTH;
-
 
 cFile::cFile(const char *Path)
  : rep(NULL)
@@ -109,19 +105,19 @@ bool cFile::IsSymbolic(void) const
 
 bool cFile::CanRead(void) const
 {
-  if (rep) return rep->mode & ReadMask;
+  if (rep) return access(rep->Path(), R_OK) == 0;
   return false;
 }
 
 bool cFile::CanWrite(void) const
 {
-  if (rep) return rep->mode & WriteMask;
+  if (rep) return access(rep->Path(), W_OK) == 0;
   return false;
 }
 
 bool cFile::CanExecute(void) const
 {
-  if (rep) return rep->mode & ExecMask;
+  if (rep) return access(rep->Path(), X_OK) == 0;
   return false;
 }
 
@@ -159,7 +155,7 @@ void cFile::Cleanup(void)
 
 void cFile::VisitFiles(int (*cb)(void *, cFile *, const char *), void *opaque)
 {
-  if (!Exists() || !IsDirectory()) return;
+  if (!Exists() || !IsDirectory() || !CanExecute()) return;
   const char *path = AbsolutePath();
 
   if (!path) return;
