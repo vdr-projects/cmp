@@ -1,0 +1,28 @@
+# depslib dependency file v1.0
+1343547065 source:/d/linux/CMP/tests/MetaScanTest/main.cpp
+	<File.h>
+	<FileReader.h>
+	<LineReader.h>
+	<ConfigReader.h>
+	<iostream>
+	<stdlib.h>
+	<string.h>
+	<errno.h>
+	<fcntl.h>
+	<stdio.h>
+	<unistd.h>
+	<wait.h>
+	<tr1/tuple>
+
+1343485153 /d/linux/CMP/libs/IO/include/File.h
+	<stddef.h>
+	<sys/types.h>
+
+1343485153 /d/linux/CMP/libs/IO/include/FileReader.h
+
+1343485153 /d/linux/CMP/libs/IO/include/LineReader.h
+
+1343538490 /d/linux/CMP/libs/IO/include/ConfigReader.h
+	<tuple>
+	<string>
+

@@ -23,12 +23,47 @@ So the complete (runtime) dependencies of cmps are:
     libssl
     libcrypto
     libstdc++
+    libpcrecpp
 
-cmps supports three commandline parameters:
- -r <Path>  the directory where to start scanning for media
- -p ###     the serverport where the mediaserver can be connected to
- -i <Path>  the favicon - the icon to distinguish the server, if list is
-            requested by standard web-browsers.
+cmps supports these commandline parameters:
+-h, --help            the help, you are reading
+-d, --appDir <path>   the directory, where the server may write config files
+                       (default is /var/lib/cmp)
+-r, --realm <path>    absolute path to credential file. That file must be
+                      writable to enable remote administration of principals
+                       (default is no file / no authorization required)
+
+- configuration (srserver.conf)
+server configuration is put into a config file, so remote administration can
+be worked out (some day).
+Within config-files, each line that starts with '#' will be treaten as comment.
+Each config line has the format: 'name' = 'value'
+These are the supported entries:
+- media-root    contains the absolute path of the directory where scanning
+                for media will start
+- favicon       the absolute path to a icon that serves to identify the server
+                using standard webbrowsers
+- cmps-port     the backend port, where clients can connect to
+- want-auth     flag to signal, whether the server should require authorization
+- want-meta     flag to enable deeper scan for media informations. If set to
+                false, only information from filesystem will be used. Enabling
+                the scan for meta information will slow down the media scan.
+- mediainfo     the absolute path to mediainfo (external tool to retrieve info)
+- ffmpeg        the absolute path to ffmpeg, which will be used to retrieve
+                media information too (on some media types).
+A sample server configuration file might look like:
+
+  #
+  # config for cmps - the backend of CMP
+  #
+  media-root = /media
+  favicon = /media/favicon.ico
+  cmps-port = 9000
+  want-auth = true
+  want-meta = true
+  mediainfo = /usr/bin/mediainfo
+  ffmpeg = /usr/local/bin/ffmpeg
+
 
 > attribution:
 cmps uses some classes from the vdr-project, a project of Klaus Schmidinger,
@@ -72,14 +107,18 @@ The C/C++ libraries
 ------------
   basic helper classes, used by other libs
 
-3. libs/networking
+3. libs/IO
+-----------
+  filesystem abstraction and basic input/output
+
+4. libs/networking
 ------------------
   classes to handle sockets and i.e. http protocol
 
-4. fsScan
+5. fsScan
 ---------
   classes around filesystem scanning, and media base classes
 
-5. cmps/serverlib
+6. cmps/serverlib
 -----------------
   classes used by backend only
