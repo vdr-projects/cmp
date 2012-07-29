@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="libserverlib" prefix_auto="1" extension_auto="1" />
+				<Option output="serverlib" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
 				<Option object_output="obj/Debug/" />
 				<Option type="2" />
@@ -19,7 +19,7 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="libserverlib" prefix_auto="1" extension_auto="1" />
+				<Option output="serverlib" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
 				<Option object_output="obj/Release/" />
 				<Option type="2" />
@@ -35,12 +35,13 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration -ansi" />
+			<Add option="-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration" />
 			<Add option="-D_REENTRANT" />
 			<Add option="-D_GNU_SOURCE=1" />
 			<Add directory="include" />
 			<Add directory="../../libs/fsScan/include" />
 			<Add directory="../../libs/networking/include" />
+			<Add directory="../../libs/IO/include" />
 			<Add directory="../../libs/util/include" />
 			<Add directory="../../libs/vdr/include" />
 		</Compiler>

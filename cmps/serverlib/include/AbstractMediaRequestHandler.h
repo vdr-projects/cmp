@@ -27,15 +27,15 @@
 
 #include <HTTPRequestHandler.h>
 
-class cFilesystemScanner;
+class cFSMediaScanner;
 class cAbstractMediaRequestHandler : public cHTTPRequestHandler {
 public:
   virtual ~cAbstractMediaRequestHandler();
-  static void SetFilesystemScanner(cFilesystemScanner *Scanner);
+  static void SetFSMediaScanner(cFSMediaScanner *Scanner);
 
 protected:
   cAbstractMediaRequestHandler();
-  cFilesystemScanner *FileSystemScanner(void);
+  cFSMediaScanner *FSMediaScanner(void);
   };
 
 #endif	/* ABSTRACTMEDIAREQUESTHANDLER_H */

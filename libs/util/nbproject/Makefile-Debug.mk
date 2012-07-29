@@ -41,6 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/AbstractListAssembler.o \
 	${OBJECTDIR}/src/ManagedMap.o \
 	${OBJECTDIR}/src/Codec.o \
+	${OBJECTDIR}/src/Url.o \
 	${OBJECTDIR}/src/ManagedVector.o \
 	${OBJECTDIR}/src/NamedValue.o \
 	${OBJECTDIR}/src/util.o
@@ -50,8 +51,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration -ansi
-CXXFLAGS=-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration -ansi
+CCFLAGS=-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration
+CXXFLAGS=-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -102,6 +103,11 @@ ${OBJECTDIR}/src/Codec.o: src/Codec.cc
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Codec.o src/Codec.cc
 
+${OBJECTDIR}/src/Url.o: src/Url.cc 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Url.o src/Url.cc
+
 ${OBJECTDIR}/src/ManagedVector.o: src/ManagedVector.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
@@ -119,6 +125,7 @@ ${OBJECTDIR}/src/util.o: src/util.cc
 
 # Subprojects
 .build-subprojects:
+	cd ../vdr && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -127,6 +134,7 @@ ${OBJECTDIR}/src/util.o: src/util.cc
 
 # Subprojects
 .clean-subprojects:
+	cd ../vdr && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

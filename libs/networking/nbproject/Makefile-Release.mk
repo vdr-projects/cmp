@@ -38,7 +38,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/HTTPRequest.o \
 	${OBJECTDIR}/src/ServerSocket.o \
 	${OBJECTDIR}/src/HTTPAuthorizationRequest.o \
-	${OBJECTDIR}/src/Url.o \
 	${OBJECTDIR}/src/Principal.o \
 	${OBJECTDIR}/src/Authorization.o \
 	${OBJECTDIR}/src/ServerConfig.o \
@@ -96,11 +95,6 @@ ${OBJECTDIR}/src/HTTPAuthorizationRequest.o: src/HTTPAuthorizationRequest.cc
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPAuthorizationRequest.o src/HTTPAuthorizationRequest.cc
-
-${OBJECTDIR}/src/Url.o: src/Url.cc 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Url.o src/Url.cc
 
 ${OBJECTDIR}/src/Principal.o: src/Principal.cc 
 	${MKDIR} -p ${OBJECTDIR}/src

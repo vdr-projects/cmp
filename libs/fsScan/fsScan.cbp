@@ -35,11 +35,12 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration -ansi" />
+			<Add option="-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration" />
 			<Add option="-D_REENTRANT" />
 			<Add option="-D_GNU_SOURCE=1" />
 			<Add directory="../vdr/include" />
 			<Add directory="../util/include" />
+			<Add directory="../IO/include" />
 			<Add directory="../networking/include" />
 			<Add directory="include" />
 		</Compiler>
@@ -47,10 +48,7 @@
 		<Unit filename="include/AbstractMultiFileMovie.h" />
 		<Unit filename="include/Audio.h" />
 		<Unit filename="include/DVDImage.h" />
-		<Unit filename="include/File.h" />
-		<Unit filename="include/FileRepresentation.h" />
-		<Unit filename="include/FileSystem.h" />
-		<Unit filename="include/FilesystemScanner.h" />
+		<Unit filename="include/FSMediaScanner.h" />
 		<Unit filename="include/LegacyVdrRecording.h" />
 		<Unit filename="include/MediaFactory.h" />
 		<Unit filename="include/Movie.h" />
@@ -60,10 +58,7 @@
 		<Unit filename="src/AbstractMultiFileMovie.cc" />
 		<Unit filename="src/Audio.cc" />
 		<Unit filename="src/DVDImage.cc" />
-		<Unit filename="src/File.cc" />
-		<Unit filename="src/FileRepresentation.cc" />
-		<Unit filename="src/FileSystem.cc" />
-		<Unit filename="src/FilesystemScanner.cc" />
+		<Unit filename="src/FSMediaScanner.cc" />
 		<Unit filename="src/LegacyVdrRecording.cc" />
 		<Unit filename="src/MediaFactory.cc" />
 		<Unit filename="src/Movie.cc" />

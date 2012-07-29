@@ -69,10 +69,11 @@
             <pElem>serverlib/include</pElem>
             <pElem>../libs/fsScan/include</pElem>
             <pElem>../libs/networking/include</pElem>
+            <pElem>../libs/IO/include</pElem>
             <pElem>../libs/util/include</pElem>
             <pElem>../libs/vdr/include</pElem>
           </incDir>
-          <commandLine>-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration -ansi</commandLine>
+          <commandLine>-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration</commandLine>
           <preprocessorList>
             <Elem>_GNU_SOURCE=1</Elem>
             <Elem>_REENTRANT</Elem>
@@ -118,6 +119,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../libs/IO"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../libs/IO"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libio.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../libs/util"
                             CT="3"
                             CN="Debug"
@@ -145,8 +158,71 @@
             <linkerLibLibItem>rt</linkerLibLibItem>
             <linkerLibLibItem>ssl</linkerLibLibItem>
             <linkerLibLibItem>crypt</linkerLibLibItem>
+            <linkerLibLibItem>pcrecpp</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
+        <requiredProjects>
+          <makeArtifact PL="../libs/vdr"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../libs/vdr"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libvdr.a">
+          </makeArtifact>
+          <makeArtifact PL="../libs/util"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../libs/util"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutil.a">
+          </makeArtifact>
+          <makeArtifact PL="../libs/networking"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../libs/networking"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnetworking.a">
+          </makeArtifact>
+          <makeArtifact PL="../libs/IO"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../libs/IO"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libio.a">
+          </makeArtifact>
+          <makeArtifact PL="../libs/fsScan"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../libs/fsScan"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfsscan.a">
+          </makeArtifact>
+          <makeArtifact PL="serverlib"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="serverlib"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libserverlib.a">
+          </makeArtifact>
+        </requiredProjects>
       </compileType>
       <folder path="TestFiles/f1">
         <cTool>

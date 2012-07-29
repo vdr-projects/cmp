@@ -41,10 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/VdrRecording.o \
 	${OBJECTDIR}/src/MediaFactory.o \
 	${OBJECTDIR}/src/LegacyVdrRecording.o \
-	${OBJECTDIR}/src/FileRepresentation.o \
-	${OBJECTDIR}/src/File.o \
-	${OBJECTDIR}/src/FilesystemScanner.o \
-	${OBJECTDIR}/src/FileSystem.o \
+	${OBJECTDIR}/src/FSMediaScanner.o \
 	${OBJECTDIR}/src/AbstractMultiFileMovie.o \
 	${OBJECTDIR}/src/AbstractMedia.o \
 	${OBJECTDIR}/src/Movie.o
@@ -106,25 +103,10 @@ ${OBJECTDIR}/src/LegacyVdrRecording.o: src/LegacyVdrRecording.cc
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/LegacyVdrRecording.o src/LegacyVdrRecording.cc
 
-${OBJECTDIR}/src/FileRepresentation.o: src/FileRepresentation.cc 
+${OBJECTDIR}/src/FSMediaScanner.o: src/FSMediaScanner.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/FileRepresentation.o src/FileRepresentation.cc
-
-${OBJECTDIR}/src/File.o: src/File.cc 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/File.o src/File.cc
-
-${OBJECTDIR}/src/FilesystemScanner.o: src/FilesystemScanner.cc 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/FilesystemScanner.o src/FilesystemScanner.cc
-
-${OBJECTDIR}/src/FileSystem.o: src/FileSystem.cc 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/FileSystem.o src/FileSystem.cc
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/FSMediaScanner.o src/FSMediaScanner.cc
 
 ${OBJECTDIR}/src/AbstractMultiFileMovie.o: src/AbstractMultiFileMovie.cc 
 	${MKDIR} -p ${OBJECTDIR}/src

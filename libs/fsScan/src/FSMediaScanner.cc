@@ -1,28 +1,28 @@
 /**
  * ======================== legal notice ======================
- *
- * File:      FilesystemScanner.cc
+ * 
+ * File:      FSMediaScanner.cc
  * Created:   2. Juli 2012, 13
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libfsScan: mediatypes and filesystem scanning
- *
+ * 
  * CMP - compound media player
- *
+ * 
  * is a client/server mediaplayer intended to play any media from any workstation
  * without the need to export or mount shares. cmps is an easy to use backend
  * with a (ready to use) HTML-interface. Additionally the backend supports
  * authentication via HTTP-digest authorization.
  * cmpc is a client with vdr-like osd-menues.
- *
+ * 
  * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
  * published under Creative Commons by-sa
  * For details see http://creativecommons.org/licenses/by-sa/3.0/
- *
+ * 
  * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
- *
+ * 
  * --------------------------------------------------------------
  */
-#include <FilesystemScanner.h>
+#include <FSMediaScanner.h>
 #include <AbstractMedia.h>
 #include <Logging.h>
 #include <stddef.h>
@@ -40,20 +40,20 @@ void freeMediaCallback(void *elem)
   delete (cAbstractMedia *)elem;
 }
 
-cFilesystemScanner::cFilesystemScanner()
+cFSMediaScanner::cFSMediaScanner()
  : fileBufSize(512)
  , pool(freeMediaCallback)
  , mediaFactory(NULL)
 {
 }
 
-cFilesystemScanner::~cFilesystemScanner()
+cFSMediaScanner::~cFSMediaScanner()
 {
   pool.clear();
   if (mediaFactory) delete mediaFactory;
 }
 
-void cFilesystemScanner::SetMediaFactory(cMediaFactory* factory)
+void cFSMediaScanner::SetMediaFactory(cMediaFactory* factory)
 {
   mediaFactory = factory;
 }
@@ -76,7 +76,7 @@ bool defaultMediaSortOrder(void *a, void *b)
   return rv;
 }
 
-void cFilesystemScanner::Refresh()
+void cFSMediaScanner::Refresh()
 {
   if (!mediaFactory) return;
   pool.clear();
@@ -96,7 +96,7 @@ void cFilesystemScanner::Refresh()
       }
 }
 
-cAbstractMedia *cFilesystemScanner::FindMedia(const char *Path)
+cAbstractMedia *cFSMediaScanner::FindMedia(const char *Path)
 {
   cAbstractMedia *rv = NULL, *tmp;
 

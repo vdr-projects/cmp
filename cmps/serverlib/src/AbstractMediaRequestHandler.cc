@@ -23,9 +23,9 @@
  * --------------------------------------------------------------
  */
 #include <AbstractMediaRequestHandler.h>
-#include <FilesystemScanner.h>
+#include <FSMediaScanner.h>
 
-static cFilesystemScanner *scanner = NULL;
+static cFSMediaScanner *scanner = NULL;
 
 cAbstractMediaRequestHandler::cAbstractMediaRequestHandler()
 {
@@ -35,12 +35,12 @@ cAbstractMediaRequestHandler::~cAbstractMediaRequestHandler()
 {
 }
 
-cFilesystemScanner *cAbstractMediaRequestHandler::FileSystemScanner(void)
+cFSMediaScanner *cAbstractMediaRequestHandler::FSMediaScanner(void)
 {
   return scanner;
 }
 
-void cAbstractMediaRequestHandler::SetFilesystemScanner(cFilesystemScanner* Scanner)
+void cAbstractMediaRequestHandler::SetFSMediaScanner(cFSMediaScanner* Scanner)
 {
   scanner = Scanner;
 }

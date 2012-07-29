@@ -1,25 +1,25 @@
 /**
  * ======================== legal notice ======================
- *
+ * 
  * File:      MediaFactory.cc
  * Created:   2. Juli 2012, 15
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libfsScan: mediatypes and filesystem scanning
- *
+ * 
  * CMP - compound media player
- *
+ * 
  * is a client/server mediaplayer intended to play any media from any workstation
  * without the need to export or mount shares. cmps is an easy to use backend
  * with a (ready to use) HTML-interface. Additionally the backend supports
  * authentication via HTTP-digest authorization.
  * cmpc is a client with vdr-like osd-menues.
- *
+ * 
  * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
  * published under Creative Commons by-sa
  * For details see http://creativecommons.org/licenses/by-sa/3.0/
- *
+ * 
  * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
- *
+ * 
  * --------------------------------------------------------------
  */
 #include <MediaFactory.h>
@@ -29,6 +29,7 @@
 #include <LegacyVdrRecording.h>
 #include <VdrRecording.h>
 #include <DVDImage.h>
+#include <ServerConfig.h>
 #include <StringBuilder.h>
 #include <Logging.h>
 #include <File.h>
@@ -36,8 +37,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-cMediaFactory::cMediaFactory(const cFile &BaseDirectory)
- : baseDirectory(BaseDirectory)
+cMediaFactory::cMediaFactory(const cServerConfig &sc)
+ : config(sc)
+ , baseDirectory(sc.DocumentRoot())
  , scratch(NULL)
  , scratchSize(1024)
 {
@@ -61,7 +63,14 @@ void cMediaFactory::SetBaseDirectory(const cFile &dir)
 int cMediaFactory::createMedia(void *opaque, cFile *Parent, const char *Name)
 {
   if (!opaque) return -1;
-  cManagedVector *pool = (cManagedVector *) opaque;
+  cMediaFactory *mf = (cMediaFactory *) opaque;
+
+  return mf->CreateMedia(Parent, Name);
+}
+
+int cMediaFactory::CreateMedia(const cFile *Parent, const char *Name)
+{
+//  cManagedVector *pool = (cManagedVector *) opaque;
   cFile *curFile = new cFile(*Parent, Name);
   const char *mimeType = NULL;
   cAbstractMedia *rv = NULL;
@@ -93,7 +102,7 @@ int cMediaFactory::createMedia(void *opaque, cFile *Parent, const char *Name)
             }
          delete tmp;
          }
-     if (!rv) curFile->VisitFiles(createMedia, opaque);
+     if (!rv) curFile->VisitFiles(createMedia, this);
      }
   else {
      const char *extension = strrchr(Name, '.');
@@ -117,7 +126,8 @@ int cMediaFactory::createMedia(void *opaque, cFile *Parent, const char *Name)
      }
   delete curFile;
   if (rv) {
-     pool->push_back(rv);
+     if (config.WantExtendedScan() && rv->NeedsFurtherScan()) Scan4MetaData(rv);
+     mediaPool->push_back(rv);
      return 0;
      }
   return -1;
@@ -128,5 +138,11 @@ void cMediaFactory::Scan4Media(cManagedVector& pool)
   if (!baseDirectory.Exists() || !baseDirectory.IsDirectory()) return;
 
   baseDirectory.SetVirtualRoot();
-  baseDirectory.VisitFiles(createMedia, &pool);
+  mediaPool = &pool;
+  baseDirectory.VisitFiles(createMedia, this);
+}
+
+void cMediaFactory::Scan4MetaData(cAbstractMedia* media)
+{
+  //TODO:
 }

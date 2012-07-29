@@ -24,7 +24,7 @@
  */
 #include <ConnectionHandler.h>
 #include <ServerConfig.h>
-#include <FilesystemScanner.h>
+#include <FSMediaScanner.h>
 #include <MediaFactory.h>
 #include <MediaListHandler.h>
 #include <MediaFileHandler.h>
@@ -54,7 +54,7 @@ private:
   cServerConfig config;
   cConnectionHandler ch;
   const char *name;
-  cFilesystemScanner *scanner;
+  cFSMediaScanner *scanner;
 };
 
 cTestUnit::cTestUnit(const char* Name, cConnectionPoint &cp)
@@ -67,7 +67,7 @@ cTestUnit::cTestUnit(const char* Name, cConnectionPoint &cp)
   config.SetDocumentRoot("/media/video");
   config.SetAppIcon("/media/favicon.ico");
 
-  scanner = new cFilesystemScanner();
+  scanner = new cFSMediaScanner();
   if (!scanner) {
      fprintf(stderr, "could not initialize application! (1)");
      exit(-1);

@@ -6,7 +6,7 @@
  */
 #include <ConnectionHandler.h>
 #include <ServerConfig.h>
-#include <FilesystemScanner.h>
+#include <FSMediaScanner.h>
 #include <MediaFactory.h>
 #include <MediaListHandler.h>
 #include <MediaFileHandler.h>
@@ -36,11 +36,11 @@ private:
   cServerConfig config;
   cConnectionHandler ch;
   const char *name;
-  cFilesystemScanner *scanner;
+  cFSMediaScanner *scanner;
 };
 
 cTestUnit::cTestUnit(const char* Name, cConnectionPoint &cp)
- : config(12345)
+ : config("/var/lib/cmp")
  , ch(cp, config)
  , name(Name)
  , scanner(NULL)
@@ -49,14 +49,14 @@ cTestUnit::cTestUnit(const char* Name, cConnectionPoint &cp)
   config.SetDocumentRoot("/media/video");
   config.SetAppIcon("/media/favicon.ico");
 
-  scanner = new cFilesystemScanner();
+  scanner = new cFSMediaScanner();
   if (!scanner) {
      fprintf(stderr, "could not initialize application! (1)");
      exit(-1);
      }
-  scanner->SetMediaFactory(new cMediaFactory(config.DocumentRoot()));
+  scanner->SetMediaFactory(new cMediaFactory(config));
 
-  cAbstractMediaRequestHandler::SetFilesystemScanner(scanner);
+  cAbstractMediaRequestHandler::SetFSMediaScanner(scanner);
   cConnectionHandler::RegisterRequestHandler("/cmd", new cCommandHandler());
   cMediaListHandler *listHandler = new cMediaListHandler();
 
@@ -129,6 +129,9 @@ int main(int argc, char** argv)
   std::cout << "%TEST_FINISHED% time=" << (double)(end - start) / 1000 << " test2 (" << unit.Name() << ")" << std::endl;
 
   std::cout << "%SUITE_FINISHED% time=" << (double)(cTimeMs::Now() - t0) / 1000 << std::endl;
+
+  cFile::Cleanup();
+  cUrl::Cleanup();
 
   return (EXIT_SUCCESS);
 }

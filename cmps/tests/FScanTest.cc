@@ -1,33 +1,32 @@
 /**
  * ======================== legal notice ======================
- *
+ * 
  * File:      FScanTest.cc
  * Created:   02.07.2012, 16
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   cmps - the backend (server) part of compound media player
- *
+ * 
  * CMP - compound media player
- *
+ * 
  * is a client/server mediaplayer intended to play any media from any workstation
  * without the need to export or mount shares. cmps is an easy to use backend
  * with a (ready to use) HTML-interface. Additionally the backend supports
  * authentication via HTTP-digest authorization.
  * cmpc is a client with vdr-like osd-menues.
- *
+ * 
  * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
  * published under Creative Commons by-sa
  * For details see http://creativecommons.org/licenses/by-sa/3.0/
- *
+ * 
  * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
- *
+ * 
  * --------------------------------------------------------------
  */
 #include <stdlib.h>
 #include <iostream>
 #include <Audio.h>
 #include <Movie.h>
-#include <Picture.h>
-#include <FilesystemScanner.h>
+#include <PictuFSMediaScannerner.h>
 #include <MediaFactory.h>
 #include <TimeMs.h>
 
@@ -73,7 +72,7 @@ void FScanTest::test4()
 ///< file server (added 18G audio)               found 5698 media, in 44653 ms.
 ///< file server (same files, fresh reboot)      found 5698 media, in 54723 ms.
 {
-  cFilesystemScanner scanner;
+  cFSMediaScanner scanner;
   cAbstractMedia *media;
 
   std::cout << "FScanTest test 4" << std::endl;

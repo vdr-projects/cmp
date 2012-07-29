@@ -24,7 +24,7 @@
  */
 #include <MediaListHandler.h>
 #include <AbstractListAssembler.h>
-#include <FilesystemScanner.h>
+#include <FSMediaScanner.h>
 #include <HTTPRequest.h>
 #include <HTTPResponse.h>
 #include <StringBuilder.h>
@@ -69,7 +69,7 @@ cHTTPResponse *cMediaListHandler::ProcessRequest(cHTTPRequest& Request)
   if (!la) return new cHTTPResponse(HTTP_NotFound);
   res = new cHTTPResponse(HTTP_OK);
   res->SetContentType(la->MediaType());
-  la->AssembleList(res->StringBuilder(), FileSystemScanner()->MediaPool(), FileSystemScanner()->Categories(), start, delta);
+  la->AssembleList(res->StringBuilder(), FSMediaScanner()->MediaPool(), FSMediaScanner()->Categories(), start, delta);
 
   return res;
 }

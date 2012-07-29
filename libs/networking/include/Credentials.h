@@ -26,10 +26,11 @@
 #define	CREDENTIALS_H
 
 #include <Principal.h>
+#include <Persistable.h>
 #include <string>
 #include <tr1/unordered_map>
 
-class cCredentials {
+class cCredentials : public cPersistable {
 public:
   typedef std::tr1::unordered_map<std::string, cPrincipal *>::const_iterator const_iterator;
   cCredentials();
@@ -39,8 +40,8 @@ public:
   const char *ApplicationRealm(void) const;
   void SetApplicationRealm(const char *ApplicationRealm = "knownUser@myApp");
 
-  int Load(const char *FileName);
-  int Store(const char *FileName);
+  virtual int Load(const char *FileName);
+  virtual int Store(const char *FileName);
 
   void Put(const char *Key, cPrincipal *p);
   cPrincipal *Get(const char *Key);

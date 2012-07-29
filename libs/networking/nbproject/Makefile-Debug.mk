@@ -38,7 +38,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/HTTPRequest.o \
 	${OBJECTDIR}/src/ServerSocket.o \
 	${OBJECTDIR}/src/HTTPAuthorizationRequest.o \
-	${OBJECTDIR}/src/Url.o \
 	${OBJECTDIR}/src/Principal.o \
 	${OBJECTDIR}/src/Authorization.o \
 	${OBJECTDIR}/src/ServerConfig.o \
@@ -60,8 +59,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration -ansi
-CXXFLAGS=-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration -ansi
+CCFLAGS=-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration
+CXXFLAGS=-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -85,100 +84,97 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnetworking.a: ${OBJECTFILES}
 ${OBJECTDIR}/src/HTTPRequest.o: src/HTTPRequest.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPRequest.o src/HTTPRequest.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPRequest.o src/HTTPRequest.cc
 
 ${OBJECTDIR}/src/ServerSocket.o: src/ServerSocket.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ServerSocket.o src/ServerSocket.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ServerSocket.o src/ServerSocket.cc
 
 ${OBJECTDIR}/src/HTTPAuthorizationRequest.o: src/HTTPAuthorizationRequest.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPAuthorizationRequest.o src/HTTPAuthorizationRequest.cc
-
-${OBJECTDIR}/src/Url.o: src/Url.cc 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Url.o src/Url.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPAuthorizationRequest.o src/HTTPAuthorizationRequest.cc
 
 ${OBJECTDIR}/src/Principal.o: src/Principal.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Principal.o src/Principal.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Principal.o src/Principal.cc
 
 ${OBJECTDIR}/src/Authorization.o: src/Authorization.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Authorization.o src/Authorization.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Authorization.o src/Authorization.cc
 
 ${OBJECTDIR}/src/ServerConfig.o: src/ServerConfig.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ServerConfig.o src/ServerConfig.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ServerConfig.o src/ServerConfig.cc
 
 ${OBJECTDIR}/src/HTTPServer.o: src/HTTPServer.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPServer.o src/HTTPServer.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPServer.o src/HTTPServer.cc
 
 ${OBJECTDIR}/src/ConnectionPoint.o: src/ConnectionPoint.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ConnectionPoint.o src/ConnectionPoint.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ConnectionPoint.o src/ConnectionPoint.cc
 
 ${OBJECTDIR}/src/HTTPResponse.o: src/HTTPResponse.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPResponse.o src/HTTPResponse.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPResponse.o src/HTTPResponse.cc
 
 ${OBJECTDIR}/src/ConnectionHandler.o: src/ConnectionHandler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ConnectionHandler.o src/ConnectionHandler.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ConnectionHandler.o src/ConnectionHandler.cc
 
 ${OBJECTDIR}/src/Credentials.o: src/Credentials.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Credentials.o src/Credentials.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Credentials.o src/Credentials.cc
 
 ${OBJECTDIR}/src/HTTPRequestHandler.o: src/HTTPRequestHandler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPRequestHandler.o src/HTTPRequestHandler.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPRequestHandler.o src/HTTPRequestHandler.cc
 
 ${OBJECTDIR}/src/HTTPMessage.o: src/HTTPMessage.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPMessage.o src/HTTPMessage.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPMessage.o src/HTTPMessage.cc
 
 ${OBJECTDIR}/src/HTTPFileResponse.o: src/HTTPFileResponse.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPFileResponse.o src/HTTPFileResponse.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPFileResponse.o src/HTTPFileResponse.cc
 
 ${OBJECTDIR}/src/HTTPParser.o: src/HTTPParser.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPParser.o src/HTTPParser.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPParser.o src/HTTPParser.cc
 
 ${OBJECTDIR}/src/ClientSocket.o: src/ClientSocket.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ClientSocket.o src/ClientSocket.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ClientSocket.o src/ClientSocket.cc
 
 ${OBJECTDIR}/src/AbstractSocket.o: src/AbstractSocket.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AbstractSocket.o src/AbstractSocket.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AbstractSocket.o src/AbstractSocket.cc
 
 ${OBJECTDIR}/src/HTTPStatus.o: src/HTTPStatus.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPStatus.o src/HTTPStatus.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPStatus.o src/HTTPStatus.cc
 
 # Subprojects
 .build-subprojects:
+	cd ../vdr && ${MAKE}  -f Makefile CONF=Debug
+	cd ../util && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -187,6 +183,8 @@ ${OBJECTDIR}/src/HTTPStatus.o: src/HTTPStatus.cc
 
 # Subprojects
 .clean-subprojects:
+	cd ../vdr && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../util && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

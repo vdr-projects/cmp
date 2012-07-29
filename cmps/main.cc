@@ -25,7 +25,7 @@
 #include <HTTPServer.h>
 #include <HTTPRequest.h>
 #include <HTTPResponse.h>
-#include <FilesystemScanner.h>
+#include <FSMediaScanner.h>
 #include <MediaFactory.h>
 #include <MediaListHandler.h>
 #include <MediaFileHandler.h>
@@ -39,16 +39,15 @@
 #include <getopt.h>
 
 static struct option longOptions[] = {
-  { "port",      required_argument, NULL, 'p' }
-, { "mediaRoot", required_argument, NULL, 'r' }
-, { "favicon",   required_argument, NULL, 'i' }
-, { "help",      no_argument,       NULL, 'h' }
+  { "appDir", required_argument, NULL, 'd' }
+, { "realm",  required_argument, NULL, 'r' }
+, { "help",   no_argument,       NULL, 'h' }
 , { NULL, no_argument, NULL, 0 }
 };
 
 static int refreshScanner(void *opaque, cHTTPRequest &Request)
 {
-  cFilesystemScanner *fsc = (cFilesystemScanner *)opaque;
+  cFSMediaScanner *fsc = (cFSMediaScanner *)opaque;
 
   if (fsc) {
      fsc->Refresh();
@@ -61,19 +60,17 @@ static void usage(void)
 {
   fprintf(stderr, "cmps - the backend of CMP (compound media player)\n");
   fprintf(stderr, "  is streaming- and HTTP-server and accepts these commandline options:\n");
-  fprintf(stderr, "-h, --help               the help, you are reading\n");
-  fprintf(stderr, "-r, --mediaRoot <path>   the directory, where to start to scan for media\n");
-  fprintf(stderr, "                          (default is /media)\n");
-  fprintf(stderr, "-p, --port ###           the servers port to listen for client connections\n");
-  fprintf(stderr, "                          (default is 12345)\n");
-  fprintf(stderr, "-i, --favicon <path>     the application icon, used by webbrowsers to\n");
-  fprintf(stderr, "                         prefix the urls to identify the server\n");
-  fprintf(stderr, "                          (default is /media/favicon.ico)\n");
+  fprintf(stderr, "-h, --help            the help, you are reading\n");
+  fprintf(stderr, "-d, --appDir <path>   the directory, where the server may write config files\n");
+  fprintf(stderr, "                       (default is /var/lib/cmp)\n");
+  fprintf(stderr, "-r, --realm <path>    absolute path to credential file. That file must be\n");
+  fprintf(stderr, "                      writable to enable remote administration of principals)\n");
+  fprintf(stderr, "                       (default is no file / no authorization required)\n");
 
   exit(0);
 }
 
-static void parseCommandline(int argc, char *argv[], cServerConfig &config)
+static void setup(int argc, char *argv[], cServerConfig &config)
 {
   int c;
 
@@ -84,53 +81,43 @@ static void parseCommandline(int argc, char *argv[], cServerConfig &config)
 
   while ((c = getopt_long(argc, argv, "hp:r:i:", longOptions, NULL)) != -1) {
         switch (c) {
-          case 'p': {
-               if (isnumber(optarg)) {
-                  int n = atoi(optarg);
+          case 'd': {
+               cFile appDir(optarg);
 
-                  if (n > 0) config.SetPort(n);
+               if (appDir.Exists() && appDir.IsDirectory() && appDir.CanWrite()) {
+                  config.SetConfigBaseDir(appDir.AbsolutePath());
                   }
                } break;
 
           case 'r': {
-               struct stat st;
+               cFile credentials(optarg);
 
-               if (!stat(optarg, &st)) {
-                  if ((st.st_mode & S_IFMT) == S_IFDIR && (st.st_mode & (S_IXUSR | S_IXGRP | S_IXOTH))) {
-                     config.SetDocumentRoot(optarg);
-                     }
-                  }
-               } break;
-
-          case 'i': {
-               struct stat st;
-
-               if (!stat(optarg, &st)) {
-                  if ((st.st_mode & S_IFMT) == S_IFREG && (st.st_mode & (S_IRUSR | S_IRGRP | S_IROTH))) {
-                     config.SetAppIcon(optarg);
-                     }
+               if (credentials.Exists() && credentials.CanRead()) {
+                  config.SetCredentialsFile(credentials.AbsolutePath());
                   }
                } break;
 
           case 'h': usage(); break;
           }
         }
+  config.Load("srserver.conf");
+  if (!config.CredentialsFile() && config.AuthorizationRequired()) config.SetAuthorizationRequired(false);
+  config.Dump();
 }
 
 int main(int argc, char** argv)
 {
-  cServerConfig config(12345);
+  cServerConfig config("/var/lib/cmp");
 
-  parseCommandline(argc, argv, config);
-
-  cFilesystemScanner *scanner = new cFilesystemScanner();
+  setup(argc, argv, config);
+  cFSMediaScanner *scanner = new cFSMediaScanner();
   if (!scanner) {
      fprintf(stderr, "could not initialize application! (1)");
      exit(-1);
      }
-  scanner->SetMediaFactory(new cMediaFactory(config.DocumentRoot()));
+  scanner->SetMediaFactory(new cMediaFactory(config));
 
-  cAbstractMediaRequestHandler::SetFilesystemScanner(scanner);
+  cAbstractMediaRequestHandler::SetFSMediaScanner(scanner);
   /*
    * register request handlers with their uri-prefix
    */

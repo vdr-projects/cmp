@@ -136,7 +136,7 @@ sub processFile {
         $line =~ s/^(?:\/\*+| \*+ |\/+ | \*+\/)(.*)$/$1/;
         next if $line =~ /^\s*$/;
         next if $line =~ /^ \*\n/;
-        @parts = split(/\:\s*/, $line);
+        @parts = split(/\:\s*/, $line, 2);
 
         if ($line =~ /Created on (.+)$/) {
            $tags{'Created'} = $1;

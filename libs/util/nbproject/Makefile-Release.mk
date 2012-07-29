@@ -41,6 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/AbstractListAssembler.o \
 	${OBJECTDIR}/src/ManagedMap.o \
 	${OBJECTDIR}/src/Codec.o \
+	${OBJECTDIR}/src/Url.o \
 	${OBJECTDIR}/src/ManagedVector.o \
 	${OBJECTDIR}/src/NamedValue.o \
 	${OBJECTDIR}/src/util.o
@@ -101,6 +102,11 @@ ${OBJECTDIR}/src/Codec.o: src/Codec.cc
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Codec.o src/Codec.cc
+
+${OBJECTDIR}/src/Url.o: src/Url.cc 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Url.o src/Url.cc
 
 ${OBJECTDIR}/src/ManagedVector.o: src/ManagedVector.cc 
 	${MKDIR} -p ${OBJECTDIR}/src

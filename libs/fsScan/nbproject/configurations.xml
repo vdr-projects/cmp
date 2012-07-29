@@ -8,10 +8,7 @@
       <itemPath>include/AbstractMultiFileMovie.h</itemPath>
       <itemPath>include/Audio.h</itemPath>
       <itemPath>include/DVDImage.h</itemPath>
-      <itemPath>include/File.h</itemPath>
-      <itemPath>include/FileRepresentation.h</itemPath>
-      <itemPath>include/FileSystem.h</itemPath>
-      <itemPath>include/FilesystemScanner.h</itemPath>
+      <itemPath>include/FSMediaScanner.h</itemPath>
       <itemPath>include/LegacyVdrRecording.h</itemPath>
       <itemPath>include/MediaFactory.h</itemPath>
       <itemPath>include/Movie.h</itemPath>
@@ -29,10 +26,7 @@
       <itemPath>src/AbstractMultiFileMovie.cc</itemPath>
       <itemPath>src/Audio.cc</itemPath>
       <itemPath>src/DVDImage.cc</itemPath>
-      <itemPath>src/File.cc</itemPath>
-      <itemPath>src/FileRepresentation.cc</itemPath>
-      <itemPath>src/FileSystem.cc</itemPath>
-      <itemPath>src/FilesystemScanner.cc</itemPath>
+      <itemPath>src/FSMediaScanner.cc</itemPath>
       <itemPath>src/LegacyVdrRecording.cc</itemPath>
       <itemPath>src/MediaFactory.cc</itemPath>
       <itemPath>src/Movie.cc</itemPath>
@@ -64,10 +58,11 @@
           <incDir>
             <pElem>include</pElem>
             <pElem>../networking/include</pElem>
+            <pElem>../IO/include</pElem>
             <pElem>../util/include</pElem>
             <pElem>../vdr/include</pElem>
           </incDir>
-          <commandLine>-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration -ansi</commandLine>
+          <commandLine>-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration</commandLine>
           <preprocessorList>
             <Elem>_FILE_OFFSET_BITS=64</Elem>
             <Elem>_GNU_SOURCE=1</Elem>
@@ -82,6 +77,48 @@
         </ccTool>
         <archiverTool>
         </archiverTool>
+        <requiredProjects>
+          <makeArtifact PL="../vdr"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../vdr"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libvdr.a">
+          </makeArtifact>
+          <makeArtifact PL="../util"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../util"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutil.a">
+          </makeArtifact>
+          <makeArtifact PL="../networking"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../networking"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnetworking.a">
+          </makeArtifact>
+          <makeArtifact PL="../IO"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../IO"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libio.a">
+          </makeArtifact>
+        </requiredProjects>
       </compileType>
     </conf>
     <conf name="Release" type="3">

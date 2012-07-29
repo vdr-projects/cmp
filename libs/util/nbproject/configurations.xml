@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="80">
+<configurationDescriptor version="84">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -11,7 +11,9 @@
       <itemPath>include/ManagedMap.h</itemPath>
       <itemPath>include/ManagedVector.h</itemPath>
       <itemPath>include/NamedValue.h</itemPath>
+      <itemPath>include/Persistable.h</itemPath>
       <itemPath>include/StringBuilder.h</itemPath>
+      <itemPath>include/Url.h</itemPath>
       <itemPath>include/util.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -29,6 +31,7 @@
       <itemPath>src/ManagedVector.cc</itemPath>
       <itemPath>src/NamedValue.cc</itemPath>
       <itemPath>src/StringBuilder.cc</itemPath>
+      <itemPath>src/Url.cc</itemPath>
       <itemPath>src/util.cc</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -57,7 +60,7 @@
             <pElem>include</pElem>
             <pElem>../vdr/include</pElem>
           </incDir>
-          <commandLine>-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration -ansi</commandLine>
+          <commandLine>-std=gnu++0x -fomit-frame-pointer -fPIC -pthread -Wall -Wno-parentheses -Wno-switch -Wdisabled-optimization -Wpointer-arith -Wredundant-decls -Wwrite-strings -Wtype-limits -Wundef -fno-math-errno -fno-signed-zeros -fno-tree-vectorize -Werror=implicit-function-declaration</commandLine>
           <preprocessorList>
             <Elem>_GNU_SOURCE=1</Elem>
             <Elem>_REENTRANT</Elem>
@@ -66,6 +69,18 @@
         </ccTool>
         <archiverTool>
         </archiverTool>
+        <requiredProjects>
+          <makeArtifact PL="../vdr"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../vdr"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libvdr.a">
+          </makeArtifact>
+        </requiredProjects>
       </compileType>
     </conf>
     <conf name="Release" type="3">
