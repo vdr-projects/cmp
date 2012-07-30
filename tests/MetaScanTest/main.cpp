@@ -54,6 +54,17 @@ static void parseConfig(const char *FileName)
   delete cr;
 }
 
+static void dumpTextfile(const char *FileName)
+{
+  cLineReader *lr = new cLineReader(new cFileReader(new cFile(FileName)));
+  const char *line;
+
+  while ((line = lr->ReadLine())) {
+        std::cout << "line: " << line << std::endl;
+        }
+  delete lr;
+}
+
 static void setupMediainfoReader(cMediainfoReader *mir)
 {
   mir->AddValuableKey("Format");
@@ -81,7 +92,7 @@ static void testMediaInfo(const char *FileName)
   setupMediainfoReader(mir);
   while ((ie = mir->ReadEntry())) {
         std::cout << "media info - [" << std::get<0>(*ie) << "] ==> " << std::get<1>(*ie) << std::endl;
-//        delete ie;
+        delete ie;
         }
   mir->Close();
   delete mir;
@@ -197,7 +208,7 @@ void testPipe(const char *chk)
 // ffmpeg -i ${media}
 int main()
 {
-  parseConfig("srclient.conf");
+  dumpTextfile("srclient.conf");
 
   std::cout << std::endl << "===========================================" << std::endl << std::endl;
   parseConfig("srserver.conf");
