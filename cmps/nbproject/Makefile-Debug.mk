@@ -63,7 +63,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=serverlib/dist/Debug/GNU-Linux-x86/libserverlib.a ../libs/fsScan/dist/Debug/GNU-Linux-x86/libfsscan.a ../libs/networking/dist/Debug/GNU-Linux-x86/libnetworking.a ../libs/IO/dist/Debug/GNU-Linux-x86/libio.a ../libs/util/dist/Debug/GNU-Linux-x86/libutil.a ../libs/vdr/dist/Debug/GNU-Linux-x86/libvdr.a -lpthread -lrt -lssl -lpcrecpp
+LDLIBSOPTIONS=serverlib/dist/Debug/GNU-Linux-x86/libserverlib.a ../libs/mediaScan/dist/Debug/GNU-Linux-x86/libmediascan.a ../libs/networking/dist/Debug/GNU-Linux-x86/libnetworking.a ../libs/IO/dist/Debug/GNU-Linux-x86/libio.a ../libs/util/dist/Debug/GNU-Linux-x86/libutil.a ../libs/vdr/dist/Debug/GNU-Linux-x86/libvdr.a -lpthread -lrt -lssl -lpcrecpp
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -71,7 +71,7 @@ LDLIBSOPTIONS=serverlib/dist/Debug/GNU-Linux-x86/libserverlib.a ../libs/fsScan/d
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps: serverlib/dist/Debug/GNU-Linux-x86/libserverlib.a
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps: ../libs/fsScan/dist/Debug/GNU-Linux-x86/libfsscan.a
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps: ../libs/mediaScan/dist/Debug/GNU-Linux-x86/libmediascan.a
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps: ../libs/networking/dist/Debug/GNU-Linux-x86/libnetworking.a
 
@@ -88,12 +88,12 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps: ${OBJECTFILES}
 ${OBJECTDIR}/main.o: main.cc 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cc
 
 # Subprojects
 .build-subprojects:
 	cd serverlib && ${MAKE}  -f Makefile CONF=Debug
-	cd ../libs/fsScan && ${MAKE}  -f Makefile CONF=Debug
+	cd ../libs/mediaScan && ${MAKE}  -f Makefile CONF=Debug
 	cd ../libs/networking && ${MAKE}  -f Makefile CONF=Debug
 	cd ../libs/IO && ${MAKE}  -f Makefile CONF=Debug
 	cd ../libs/util && ${MAKE}  -f Makefile CONF=Debug
@@ -102,7 +102,6 @@ ${OBJECTDIR}/main.o: main.cc
 	cd ../libs/util && ${MAKE}  -f Makefile CONF=Debug
 	cd ../libs/networking && ${MAKE}  -f Makefile CONF=Debug
 	cd ../libs/IO && ${MAKE}  -f Makefile CONF=Debug
-	cd ../libs/fsScan && ${MAKE}  -f Makefile CONF=Debug
 	cd serverlib && ${MAKE}  -f Makefile CONF=Debug
 
 # Build Test Targets
@@ -135,37 +134,37 @@ ${TESTDIR}/TestFiles/f6: ${TESTDIR}/tests/MetaScanTest.o ${OBJECTFILES:%.o=%_nom
 ${TESTDIR}/tests/CodecTest.o: tests/CodecTest.cc 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/CodecTest.o tests/CodecTest.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/CodecTest.o tests/CodecTest.cc
 
 
 ${TESTDIR}/tests/ConnectionHandlerTest.o: tests/ConnectionHandlerTest.cc 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/ConnectionHandlerTest.o tests/ConnectionHandlerTest.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/ConnectionHandlerTest.o tests/ConnectionHandlerTest.cc
 
 
 ${TESTDIR}/tests/FileSystemTest.o: tests/FileSystemTest.cc 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/FileSystemTest.o tests/FileSystemTest.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/FileSystemTest.o tests/FileSystemTest.cc
 
 
 ${TESTDIR}/tests/FScanTest.o: tests/FScanTest.cc 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/FScanTest.o tests/FScanTest.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/FScanTest.o tests/FScanTest.cc
 
 
 ${TESTDIR}/tests/JSonTest.o: tests/JSonTest.cc 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/JSonTest.o tests/JSonTest.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/JSonTest.o tests/JSonTest.cc
 
 
 ${TESTDIR}/tests/MetaScanTest.o: tests/MetaScanTest.cc 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/MetaScanTest.o tests/MetaScanTest.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/MetaScanTest.o tests/MetaScanTest.cc
 
 
 ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cc 
@@ -176,7 +175,7 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cc
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/fsScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/main_nomain.o main.cc;\
+	    $(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/main_nomain.o main.cc;\
 	else  \
 	    ${CP} ${OBJECTDIR}/main.o ${OBJECTDIR}/main_nomain.o;\
 	fi
@@ -203,7 +202,7 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cc
 # Subprojects
 .clean-subprojects:
 	cd serverlib && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../libs/fsScan && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../libs/mediaScan && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../libs/networking && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../libs/IO && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../libs/util && ${MAKE}  -f Makefile CONF=Debug clean
@@ -212,7 +211,6 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cc
 	cd ../libs/util && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../libs/networking && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../libs/IO && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../libs/fsScan && ${MAKE}  -f Makefile CONF=Debug clean
 	cd serverlib && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking

@@ -73,37 +73,37 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libserverlib.a: ${OBJECTFILES}
 ${OBJECTDIR}/src/JSonListAssembler.o: src/JSonListAssembler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/fsScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/JSonListAssembler.o src/JSonListAssembler.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/mediaScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/JSonListAssembler.o src/JSonListAssembler.cc
 
 ${OBJECTDIR}/src/CommandHandler.o: src/CommandHandler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/fsScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/CommandHandler.o src/CommandHandler.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/mediaScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/CommandHandler.o src/CommandHandler.cc
 
 ${OBJECTDIR}/src/HTMLListAssembler.o: src/HTMLListAssembler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/fsScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTMLListAssembler.o src/HTMLListAssembler.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/mediaScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTMLListAssembler.o src/HTMLListAssembler.cc
 
 ${OBJECTDIR}/src/AbstractMediaRequestHandler.o: src/AbstractMediaRequestHandler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/fsScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AbstractMediaRequestHandler.o src/AbstractMediaRequestHandler.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/mediaScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AbstractMediaRequestHandler.o src/AbstractMediaRequestHandler.cc
 
 ${OBJECTDIR}/src/HTTPMediaResponse.o: src/HTTPMediaResponse.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/fsScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPMediaResponse.o src/HTTPMediaResponse.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/mediaScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPMediaResponse.o src/HTTPMediaResponse.cc
 
 ${OBJECTDIR}/src/MediaListHandler.o: src/MediaListHandler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/fsScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MediaListHandler.o src/MediaListHandler.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/mediaScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MediaListHandler.o src/MediaListHandler.cc
 
 ${OBJECTDIR}/src/MediaFileHandler.o: src/MediaFileHandler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/fsScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MediaFileHandler.o src/MediaFileHandler.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/mediaScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MediaFileHandler.o src/MediaFileHandler.cc
 
 # Subprojects
 .build-subprojects:
@@ -111,7 +111,6 @@ ${OBJECTDIR}/src/MediaFileHandler.o: src/MediaFileHandler.cc
 	cd ../../libs/util && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../libs/networking && ${MAKE}  -f Makefile CONF=Debug
 	cd ../../libs/IO && ${MAKE}  -f Makefile CONF=Debug
-	cd ../../libs/fsScan && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -124,7 +123,6 @@ ${OBJECTDIR}/src/MediaFileHandler.o: src/MediaFileHandler.cc
 	cd ../../libs/util && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../libs/networking && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../../libs/IO && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../../libs/fsScan && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

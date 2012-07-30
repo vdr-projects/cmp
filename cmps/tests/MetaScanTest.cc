@@ -1,25 +1,25 @@
 /**
  * ======================== legal notice ======================
- * 
+ *
  * File:      MetaScanTest.cc
  * Created:   27.07.2012, 10:03
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   cmps - the backend (server) part of compound media player
- * 
+ *
  * CMP - compound media player
- * 
+ *
  * is a client/server mediaplayer intended to play any media from any workstation
  * without the need to export or mount shares. cmps is an easy to use backend
  * with a (ready to use) HTML-interface. Additionally the backend supports
  * authentication via HTTP-digest authorization.
  * cmpc is a client with vdr-like osd-menues.
- * 
+ *
  * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
  * published under Creative Commons by-sa
  * For details see http://creativecommons.org/licenses/by-sa/3.0/
- * 
+ *
  * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
- * 
+ *
  * --------------------------------------------------------------
  */
 #include <File.h>
@@ -44,12 +44,25 @@ static void parseConfig(const char *FileName)
   cConfigReader *cr = new cConfigReader(new cLineReader(new cFileReader(new cFile(FileName))));
   cConfigReader::ConfigEntry *ce;
 
-  while ((ce = cr->ReadValue())) {
+  while ((ce = cr->ReadEntry())) {
         std::cout << "config entry [" << std::get<0>(*ce) << "] => " << std::get<1>(*ce) << std::endl;
         delete ce;
         }
   cr->Close();
   delete cr;
+}
+
+static void testMediaInfo(const char *FileName)
+{
+  cMediainfoReader *mir = new cMediainfoReader(new cLineReader(new cCommandReader("/usr/bin/mediainfo")));
+  cMediainfoReader::InfoEntry *ie;
+
+  while ((ie = mir->ReadEntry())) {
+        std::cout << "media info - [" << std::get<0>(*ie) << "] ==> " << std::get<1>(*ie) << std::endl;
+        delete ie;
+        }
+  mir->Close();
+  delete mir;
 }
 
 static void testMediaFiles(const char *FileName)
@@ -58,8 +71,8 @@ static void testMediaFiles(const char *FileName)
   const char *line;
 
   while ((line = lr->ReadLine())) {
-        std::cout << "media-test-file: " << line << std::endl;
-        testPipe(line);
+        std::cout << std::endl << "media-test-file: " << line << std::endl;
+        testMediaInfo(line);
         }
   lr->Close();
   delete lr;

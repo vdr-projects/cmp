@@ -1,14 +1,33 @@
-/*
- * File:   MetaScanTest.cc
- * Author: django
+/**
+ * ======================== legal notice ======================
  *
- * Created on 27.07.2012, 10:03
+ * File:      MetaScanTest.cc
+ * Created:   27.07.2012, 10:03
+ * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
+ * Project:   cmps - the backend (server) part of compound media player
+ *
+ * CMP - compound media player
+ *
+ * is a client/server mediaplayer intended to play any media from any workstation
+ * without the need to export or mount shares. cmps is an easy to use backend
+ * with a (ready to use) HTML-interface. Additionally the backend supports
+ * authentication via HTTP-digest authorization.
+ * cmpc is a client with vdr-like osd-menues.
+ *
+ * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
+ * published under Creative Commons by-sa
+ * For details see http://creativecommons.org/licenses/by-sa/3.0/
+ *
+ * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
+ *
+ * --------------------------------------------------------------
  */
 #include <File.h>
 #include <FileReader.h>
 #include <LineReader.h>
 #include <ConfigReader.h>
 #include <CommandReader.h>
+#include <MediainfoReader.h>
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
@@ -20,14 +39,14 @@
 #include <tr1/tuple>
 #include <util.h>
 
-static void testPipe(const char *chk = NULL);
+void testPipe(const char *chk = NULL);
 
 static void parseConfig(const char *FileName)
 {
   cConfigReader *cr = new cConfigReader(new cLineReader(new cFileReader(new cFile(FileName))));
   cConfigReader::ConfigEntry *ce;
 
-  while ((ce = cr->ReadValue())) {
+  while ((ce = cr->ReadEntry())) {
         std::cout << "config entry [" << std::get<0>(*ce) << "] => " << std::get<1>(*ce) << std::endl;
         delete ce;
         }
@@ -35,14 +54,47 @@ static void parseConfig(const char *FileName)
   delete cr;
 }
 
-static void testMediaFiles(const char *FileName)
+static void setupMediainfoReader(cMediainfoReader *mir)
+{
+  mir->AddValuableKey("Format");
+  //Audio
+  mir->AddValuableKey("Duration");
+  mir->AddValuableKey("Album");
+  mir->AddValuableKey("Track name");
+  mir->AddValuableKey("Performer");
+  mir->AddValuableKey("Bit rate");
+  //Image
+  mir->AddValuableKey("Width");
+  mir->AddValuableKey("Height");
+  //Video
+  mir->AddValuableKey("Display aspect ratio");
+  mir->AddValuableKey("Scan type");
+}
+
+static void testMediaInfo(const char *FileName)
+{
+  cCommandReader *cr = new cCommandReader("/usr/bin/mediainfo");
+  cMediainfoReader *mir = new cMediainfoReader(new cLineReader(cr));
+  cMediainfoReader::InfoEntry *ie;
+
+  cr->AddCommandParameter(FileName);
+  setupMediainfoReader(mir);
+  while ((ie = mir->ReadEntry())) {
+        std::cout << "media info - [" << std::get<0>(*ie) << "] ==> " << std::get<1>(*ie) << std::endl;
+//        delete ie;
+        }
+  mir->Close();
+  delete mir;
+}
+
+void testMediaFiles(const char *FileName)
 {
   cLineReader *lr = new cLineReader(new cFileReader(new cFile(FileName)));
   const char *line;
 
   while ((line = lr->ReadLine())) {
-        std::cout << "media-test-file: " << line << std::endl;
-        testPipe(line);
+        std::cout << std::endl << "media-test-file: " << line << std::endl;
+        testMediaInfo(line);
         }
   lr->Close();
   delete lr;
@@ -69,7 +121,7 @@ static void testCommandReader()
   delete lr;
 };
 
-static void testPipe(const char *chk)
+void testPipe(const char *chk)
 {
   int parent2Child[2];
   int child2Parent[2];
@@ -153,8 +205,8 @@ int main()
   std::cout << std::endl << "===========================================" << std::endl << std::endl;
   testCommandReader();
 
-//  std::cout << std::endl << "===========================================" << std::endl << std::endl;
-//  testMediaFiles("testMedia.files");
+  std::cout << std::endl << "===========================================" << std::endl << std::endl;
+  testMediaFiles("testMedia.files");
 
   cFile::Cleanup();
   return 0;

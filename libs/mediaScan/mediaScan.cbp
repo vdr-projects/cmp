@@ -51,6 +51,7 @@
 		<Unit filename="include/FSMediaScanner.h" />
 		<Unit filename="include/LegacyVdrRecording.h" />
 		<Unit filename="include/MediaFactory.h" />
+		<Unit filename="include/MediainfoReader.h" />
 		<Unit filename="include/Movie.h" />
 		<Unit filename="include/Picture.h" />
 		<Unit filename="include/VdrRecording.h" />
@@ -61,6 +62,7 @@
 		<Unit filename="src/FSMediaScanner.cc" />
 		<Unit filename="src/LegacyVdrRecording.cc" />
 		<Unit filename="src/MediaFactory.cc" />
+		<Unit filename="src/MediainfoReader.cc" />
 		<Unit filename="src/Movie.cc" />
 		<Unit filename="src/Picture.cc" />
 		<Unit filename="src/VdrRecording.cc" />

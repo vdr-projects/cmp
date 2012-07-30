@@ -51,7 +51,7 @@
         <ccTool>
           <incDir>
             <pElem>include</pElem>
-            <pElem>../../libs/fsScan/include</pElem>
+            <pElem>../../libs/mediaScan/include</pElem>
             <pElem>../../libs/networking/include</pElem>
             <pElem>../../libs/IO/include</pElem>
             <pElem>../../libs/util/include</pElem>
@@ -107,15 +107,15 @@
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libio.a">
           </makeArtifact>
-          <makeArtifact PL="../../libs/fsScan"
+          <makeArtifact PL="../../cmpc/mediaplay"
                         CT="3"
                         CN="Debug"
                         AC="true"
-                        BL="true"
-                        WD="../../libs/fsScan"
+                        BL="false"
+                        WD="../../cmpc/mediaplay"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfsscan.a">
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmediaplay.a">
           </makeArtifact>
         </requiredProjects>
       </compileType>

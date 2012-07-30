@@ -73,7 +73,7 @@
           <incDir>
             <pElem>include</pElem>
             <pElem>serverlib/include</pElem>
-            <pElem>../libs/fsScan/include</pElem>
+            <pElem>../libs/mediaScan/include</pElem>
             <pElem>../libs/networking/include</pElem>
             <pElem>../libs/IO/include</pElem>
             <pElem>../libs/util/include</pElem>
@@ -101,15 +101,15 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../libs/fsScan"
+              <makeArtifact PL="../libs/mediaScan"
                             CT="3"
                             CN="Debug"
                             AC="true"
                             BL="true"
-                            WD="../libs/fsScan"
+                            WD="../libs/mediaScan"
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfsscan.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmediascan.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -207,16 +207,6 @@
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libio.a">
           </makeArtifact>
-          <makeArtifact PL="../libs/fsScan"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="true"
-                        WD="../libs/fsScan"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfsscan.a">
-          </makeArtifact>
           <makeArtifact PL="serverlib"
                         CT="3"
                         CN="Debug"
@@ -226,6 +216,16 @@
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libserverlib.a">
+          </makeArtifact>
+          <makeArtifact PL="../libs/mediaScan"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="false"
+                        WD="../libs/mediaScan"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmediascan.a">
           </makeArtifact>
         </requiredProjects>
       </compileType>

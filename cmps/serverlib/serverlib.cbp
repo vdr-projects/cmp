@@ -39,7 +39,7 @@
 			<Add option="-D_REENTRANT" />
 			<Add option="-D_GNU_SOURCE=1" />
 			<Add directory="include" />
-			<Add directory="../../libs/fsScan/include" />
+			<Add directory="../../libs/mediaScan/include" />
 			<Add directory="../../libs/networking/include" />
 			<Add directory="../../libs/IO/include" />
 			<Add directory="../../libs/util/include" />

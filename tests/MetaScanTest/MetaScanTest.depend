@@ -1,9 +1,11 @@
 # depslib dependency file v1.0
-1343547065 source:/d/linux/CMP/tests/MetaScanTest/main.cpp
+1343662973 source:/d/linux/CMP/tests/MetaScanTest/main.cpp
 	<File.h>
 	<FileReader.h>
 	<LineReader.h>
 	<ConfigReader.h>
+	<CommandReader.h>
+	<MediainfoReader.h>
 	<iostream>
 	<stdlib.h>
 	<string.h>
@@ -13,16 +15,33 @@
 	<unistd.h>
 	<wait.h>
 	<tr1/tuple>
+	<util.h>
 
 1343485153 /d/linux/CMP/libs/IO/include/File.h
 	<stddef.h>
 	<sys/types.h>
 
-1343485153 /d/linux/CMP/libs/IO/include/FileReader.h
+1343628880 /d/linux/CMP/libs/IO/include/FileReader.h
+	<Reader.h>
 
-1343485153 /d/linux/CMP/libs/IO/include/LineReader.h
+1343629066 /d/linux/CMP/libs/IO/include/LineReader.h
 
-1343538490 /d/linux/CMP/libs/IO/include/ConfigReader.h
+1343653800 /d/linux/CMP/libs/IO/include/ConfigReader.h
 	<tuple>
 	<string>
+
+1343628826 /d/linux/CMP/libs/IO/include/Reader.h
+
+1343629103 /d/linux/CMP/libs/IO/include/CommandReader.h
+	<Reader.h>
+	<vector>
+	<string>
+
+1343655505 /d/linux/CMP/libs/mediaScan/include/MediainfoReader.h
+	<tuple>
+	<string>
+	<vector>
+
+1343622277 /d/linux/CMP/libs/util/include/util.h
+	<stdlib.h>
 

@@ -11,6 +11,7 @@
       <itemPath>include/FSMediaScanner.h</itemPath>
       <itemPath>include/LegacyVdrRecording.h</itemPath>
       <itemPath>include/MediaFactory.h</itemPath>
+      <itemPath>include/MediainfoReader.h</itemPath>
       <itemPath>include/Movie.h</itemPath>
       <itemPath>include/Picture.h</itemPath>
       <itemPath>include/VdrRecording.h</itemPath>
@@ -29,6 +30,7 @@
       <itemPath>src/FSMediaScanner.cc</itemPath>
       <itemPath>src/LegacyVdrRecording.cc</itemPath>
       <itemPath>src/MediaFactory.cc</itemPath>
+      <itemPath>src/MediainfoReader.cc</itemPath>
       <itemPath>src/Movie.cc</itemPath>
       <itemPath>src/Picture.cc</itemPath>
       <itemPath>src/VdrRecording.cc</itemPath>

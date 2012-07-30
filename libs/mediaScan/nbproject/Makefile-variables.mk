@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux-x86
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux-x86
-CND_ARTIFACT_NAME_Debug=libfsscan.a
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/libfsscan.a
+CND_ARTIFACT_NAME_Debug=libmediascan.a
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/libmediascan.a
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Debug=fsScan.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/fsScan.tar
+CND_PACKAGE_NAME_Debug=mediaScan.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/mediaScan.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux-x86
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux-x86
-CND_ARTIFACT_NAME_Release=libfsscan.a
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/libfsscan.a
+CND_ARTIFACT_NAME_Release=libmediascan.a
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/libmediascan.a
 CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Release=fsScan.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/fsScan.tar
+CND_PACKAGE_NAME_Release=mediaScan.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/mediaScan.tar
 #
 # include compiler specific variables
 #

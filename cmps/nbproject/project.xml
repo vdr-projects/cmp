@@ -12,9 +12,9 @@
                 <make-dep-project>../libs/util</make-dep-project>
                 <make-dep-project>../libs/vdr</make-dep-project>
                 <make-dep-project>../libs/IO</make-dep-project>
-                <make-dep-project>../libs/fsScan</make-dep-project>
                 <make-dep-project>serverlib</make-dep-project>
                 <make-dep-project>../libs/networking</make-dep-project>
+                <make-dep-project>../libs/mediaScan</make-dep-project>
             </make-dep-projects>
             <sourceRootList/>
             <confList>

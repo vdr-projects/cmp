@@ -40,15 +40,14 @@
 			<Add directory="../../libs/util/include" />
 			<Add directory="../../libs/networking/include" />
 			<Add directory="../../libs/IO/include" />
-			<Add directory="../../libs/fsScan/include" />
+			<Add directory="../../libs/mediaScan/include" />
 			<Add directory="include" />
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />
 			<Add library="rt" />
 			<Add library="ssl" />
-			<Add library="crypt" />
-			<Add library="../../libs/fsScan/libfsScan.a" />
+			<Add library="../../libs/mediaScan/libmediaScan.a" />
 			<Add library="../../libs/networking/libnetworking.a" />
 			<Add library="../../libs/IO/libIO.a" />
 			<Add library="../../libs/util/libutil.a" />

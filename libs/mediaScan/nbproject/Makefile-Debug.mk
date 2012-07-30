@@ -41,6 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/VdrRecording.o \
 	${OBJECTDIR}/src/MediaFactory.o \
 	${OBJECTDIR}/src/LegacyVdrRecording.o \
+	${OBJECTDIR}/src/MediainfoReader.o \
 	${OBJECTDIR}/src/FSMediaScanner.o \
 	${OBJECTDIR}/src/AbstractMultiFileMovie.o \
 	${OBJECTDIR}/src/AbstractMedia.o \
@@ -65,13 +66,13 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfsscan.a
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmediascan.a
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfsscan.a: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmediascan.a: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfsscan.a
-	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfsscan.a ${OBJECTFILES} 
-	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfsscan.a
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmediascan.a
+	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmediascan.a ${OBJECTFILES} 
+	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmediascan.a
 
 ${OBJECTDIR}/src/Picture.o: src/Picture.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -103,6 +104,11 @@ ${OBJECTDIR}/src/LegacyVdrRecording.o: src/LegacyVdrRecording.cc
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../networking/include -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/LegacyVdrRecording.o src/LegacyVdrRecording.cc
 
+${OBJECTDIR}/src/MediainfoReader.o: src/MediainfoReader.cc 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../networking/include -I../IO/include -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MediainfoReader.o src/MediainfoReader.cc
+
 ${OBJECTDIR}/src/FSMediaScanner.o: src/FSMediaScanner.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
@@ -133,7 +139,7 @@ ${OBJECTDIR}/src/Movie.o: src/Movie.cc
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libfsscan.a
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmediascan.a
 
 # Subprojects
 .clean-subprojects:
