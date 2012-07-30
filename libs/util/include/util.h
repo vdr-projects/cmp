@@ -26,9 +26,13 @@
 #define	UTIL_H
 
 #include <stdlib.h>
-#define FREE(m)        { void *_tmp_ = m; m = NULL; free(_tmp_); }
-#define TO_STRING(s)    #s
-#define EVER           ;;
+#define FREE(m)           { void *_tmp_ = m; m = NULL; free(_tmp_); }
+#define TO_STRING(s)      #s
+#define EVER              ;;
+
+#define ASSERT_IS(rv, x)  if (x != rv) { fprintf(stderr, "assertation failed at %s #%d\n",__FILE__,__LINE__); exit(-1); }
+#define ASSERT_NOT(rv, x) if (x == rv) { fprintf(stderr, "assertation failed at %s #%d\n",__FILE__,__LINE__); exit(-1); }
+#define FAIL(s)           { fprintf(stderr, s); exit(-1); }
 
 extern const char * skipWhitespace(const char *Buffer);
 extern const char *getWord(char *buf, int bufSize, const char *src);

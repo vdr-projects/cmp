@@ -1,14 +1,31 @@
-/*
- * File:   MetaScanTest.cc
- * Author: django
- *
- * Created on 27.07.2012, 10:03
+/**
+ * ======================== legal notice ======================
+ * 
+ * File:      MetaScanTest.cc
+ * Created:   27.07.2012, 10:03
+ * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
+ * Project:   cmps - the backend (server) part of compound media player
+ * 
+ * CMP - compound media player
+ * 
+ * is a client/server mediaplayer intended to play any media from any workstation
+ * without the need to export or mount shares. cmps is an easy to use backend
+ * with a (ready to use) HTML-interface. Additionally the backend supports
+ * authentication via HTTP-digest authorization.
+ * cmpc is a client with vdr-like osd-menues.
+ * 
+ * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
+ * published under Creative Commons by-sa
+ * For details see http://creativecommons.org/licenses/by-sa/3.0/
+ * 
+ * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
+ * 
+ * --------------------------------------------------------------
  */
 #include <File.h>
 #include <FileReader.h>
 #include <LineReader.h>
 #include <ConfigReader.h>
-#include <CommandReader.h>
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
@@ -58,15 +75,14 @@ static void testCommandReader()
 {
   cCommandReader *cr = new cCommandReader("/bin/ls");
   cLineReader *lr = new cLineReader(cr);
-  const char *line;
+  char *line;
 
-  cr->AddCommandParameter("-al");
-  cr->AddCommandParameter("--color");
+  cr.AddCommandParameter("-al");
+  cr.AddCommandParameter("--color");
 
   while ((line = lr->ReadLine())) {
         std::cout << "from command: " << line << std::endl;
         }
-  delete lr;
 };
 
 static void testPipe(const char *chk)

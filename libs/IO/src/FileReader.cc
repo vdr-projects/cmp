@@ -29,13 +29,18 @@
 #include <unistd.h>
 
 cFileReader::cFileReader(cFile *Input)
- : fd(-1)
- , file(Input)
+ : file(Input)
+{
+  Open();
+}
+
+bool cFileReader::Open()
 {
   if (file && file->Exists() && file->CanRead()) {
      fd = open(file->AbsolutePath(), O_RDONLY);
      if (fd < 0) esyslog("ERROR: could not open %s", file->AbsolutePath());
      }
+  return fd > 0;
 }
 
 cFileReader::~cFileReader()
@@ -45,7 +50,7 @@ cFileReader::~cFileReader()
 
 void cFileReader::Close()
 {
-  if (fd >= 0) {
+  if (fd > 0) {
      close(fd);
      fd = -1;
      }
@@ -53,11 +58,4 @@ void cFileReader::Close()
      delete file;
      file = NULL;
      }
-}
-
-int cFileReader::Read(char* buf, int bufSize)
-{
-  if (fd >= 0) return read(fd, buf, bufSize);
-  esyslog("ERROR: not an open file! %s", file->AbsolutePath());
-  return 0;
 }

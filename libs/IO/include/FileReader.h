@@ -25,18 +25,19 @@
 #ifndef FILEREADER_H
 #define	FILEREADER_H
 
+#include <Reader.h>
+
 class cFile;
-class cFileReader
-{
+class cFileReader : public cReader {
 public:
   cFileReader(cFile *Input);
   virtual ~cFileReader();
 
-  int Read(char *buf, int bufSize);
-  void Close();
+protected:
+  virtual bool Open(void);
+  virtual void Close(void);
 
 private:
-  int fd;
   cFile *file;
   };
 

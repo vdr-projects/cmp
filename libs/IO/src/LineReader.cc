@@ -23,14 +23,14 @@
  * --------------------------------------------------------------
  */
 #include <LineReader.h>
-#include <FileReader.h>
+#include <Reader.h>
 #include <stdlib.h>
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <iostream>
 
-cLineReader::cLineReader(cFileReader *FileReader)
+cLineReader::cLineReader(cReader *FileReader)
  : reader(FileReader)
  , bytesRead(0)
  , off(0)

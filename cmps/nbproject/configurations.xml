@@ -45,6 +45,12 @@
       <logicalFolder name="f4" displayName="JSonTest" projectFiles="true" kind="TEST">
         <itemPath>tests/JSonTest.cc</itemPath>
       </logicalFolder>
+      <logicalFolder name="f6"
+                     displayName="MetaScanTest"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/MetaScanTest.cc</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -296,6 +302,21 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f5</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f6">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f6</output>
         </linkerTool>
       </folder>
     </conf>

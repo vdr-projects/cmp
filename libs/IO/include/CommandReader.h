@@ -1,8 +1,8 @@
 /**
  * ======================== legal notice ======================
  * 
- * File:      FileRepresentation.h
- * Created:   21. Juli 2012, 12
+ * File:      CommandReader.h
+ * Created:   30. Juli 2012, 06:42
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libIO: classes for files, filesystem and input/output
  * 
@@ -22,35 +22,28 @@
  * 
  * --------------------------------------------------------------
  */
-#ifndef FILEREPRESENTATION_H
-#define FILEREPRESENTATION_H
+#ifndef COMMANDREADER_H
+#define	COMMANDREADER_H
 
-#include <sys/types.h>
+#include <Reader.h>
+#include <vector>
+#include <string>
 
-class cStringBuilder;
-class cFileRepresentation {
+class cCommandReader : public cReader {
 public:
-  virtual ~cFileRepresentation();
+  cCommandReader(const char *cmd);
+  virtual ~cCommandReader();
 
-  const char *Path(void) const;
-  const cFileRepresentation *getParent(void) const { return parent; };
-  void SetVirtualRoot(bool isRoot);
+  void AddCommandParameter(const char *Param);
+
+protected:
+  virtual bool Open(void);
+  virtual void Close(void);
 
 private:
-  cFileRepresentation(const char *Name);
-  cFileRepresentation(const cFileRepresentation *Parent, const char *Name);
-  char *toURI(void) const;
-  bool exists;
-  bool isRoot;
-  bool isVirtualRoot;
-  mode_t mode;
-  off64_t size;
-  ulong lastModified;
-  char *name;
-  mutable char *path;
-  const cFileRepresentation *parent;
-  friend class cFileSystem;
-  friend class cFile;
+  pid_t pid;
+  std::vector<std::string> args;
   };
 
-#endif // FILEREPRESENTATION_H
+#endif	/* COMMANDREADER_H */
+

@@ -1,8 +1,8 @@
 /**
  * ======================== legal notice ======================
  * 
- * File:      FileRepresentation.h
- * Created:   21. Juli 2012, 12
+ * File:      Reader.cc
+ * Created:   30. Juli 2012, 08:11
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   libIO: classes for files, filesystem and input/output
  * 
@@ -22,35 +22,23 @@
  * 
  * --------------------------------------------------------------
  */
-#ifndef FILEREPRESENTATION_H
-#define FILEREPRESENTATION_H
+#include <Reader.h>
+#include <Logging.h>
+#include <unistd.h>
 
-#include <sys/types.h>
+cReader::cReader()
+ : fd(-1)
+{
+}
 
-class cStringBuilder;
-class cFileRepresentation {
-public:
-  virtual ~cFileRepresentation();
+cReader::~cReader()
+{
+}
 
-  const char *Path(void) const;
-  const cFileRepresentation *getParent(void) const { return parent; };
-  void SetVirtualRoot(bool isRoot);
-
-private:
-  cFileRepresentation(const char *Name);
-  cFileRepresentation(const cFileRepresentation *Parent, const char *Name);
-  char *toURI(void) const;
-  bool exists;
-  bool isRoot;
-  bool isVirtualRoot;
-  mode_t mode;
-  off64_t size;
-  ulong lastModified;
-  char *name;
-  mutable char *path;
-  const cFileRepresentation *parent;
-  friend class cFileSystem;
-  friend class cFile;
-  };
-
-#endif // FILEREPRESENTATION_H
+int cReader::Read(char* buf, int bufSize)
+{
+  if (fd < 0) Open();
+  if (fd > 0) return read(fd, buf, bufSize);
+  esyslog("ERROR: no valid filehandle to read from!");
+  return 0;
+}

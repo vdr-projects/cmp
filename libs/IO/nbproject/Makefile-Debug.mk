@@ -35,9 +35,11 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/CommandReader.o \
 	${OBJECTDIR}/src/FileRepresentation.o \
 	${OBJECTDIR}/src/LineReader.o \
 	${OBJECTDIR}/src/File.o \
+	${OBJECTDIR}/src/Reader.o \
 	${OBJECTDIR}/src/ConfigReader.o \
 	${OBJECTDIR}/src/FileReader.o \
 	${OBJECTDIR}/src/FileSystem.o
@@ -69,6 +71,11 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libio.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libio.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libio.a
 
+${OBJECTDIR}/src/CommandReader.o: src/CommandReader.cc 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/CommandReader.o src/CommandReader.cc
+
 ${OBJECTDIR}/src/FileRepresentation.o: src/FileRepresentation.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
@@ -83,6 +90,11 @@ ${OBJECTDIR}/src/File.o: src/File.cc
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/File.o src/File.cc
+
+${OBJECTDIR}/src/Reader.o: src/Reader.cc 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Reader.o src/Reader.cc
 
 ${OBJECTDIR}/src/ConfigReader.o: src/ConfigReader.cc 
 	${MKDIR} -p ${OBJECTDIR}/src

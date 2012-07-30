@@ -25,19 +25,17 @@
 #ifndef LINEREADER_H
 #define LINEREADER_H
 
-
-class cFileReader;
-class cLineReader
-{
+class cReader;
+class cLineReader {
 public:
-  cLineReader(cFileReader *FileReader);
+  cLineReader(cReader *Reader);
   virtual ~cLineReader();
 
   const char *ReadLine(void);
   void Close(void);
 
 private:
-  cFileReader *reader;
+  cReader *reader;
   int bytesRead;
   int off;
   int bufSize;

@@ -29,8 +29,7 @@
 #include <string>
 
 class cLineReader;
-class cConfigReader
-{
+class cConfigReader {
 public:
   typedef std::tuple <std::string, std::string> ConfigEntry;
 

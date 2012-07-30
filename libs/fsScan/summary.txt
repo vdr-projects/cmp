@@ -1,1 +1,1 @@
-libfsScan: mediatypes and filesystem scanning
+libMediaScan: mediatypes and media scanning
