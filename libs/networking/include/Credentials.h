@@ -39,14 +39,11 @@ public:
   const cPrincipal *FindPrincipal(const char *Name, const char *Realm);
   const char *ApplicationRealm(void) const;
   void SetApplicationRealm(const char *ApplicationRealm = "knownUser@myApp");
-
   virtual int Load(const char *FileName);
   virtual int Store(const char *FileName);
-
   void Put(const char *Key, cPrincipal *p);
   cPrincipal *Get(const char *Key);
   void Clear(void);
-
   const_iterator begin() { return internalMap.begin(); }
   const_iterator end() { return internalMap.end(); }
 

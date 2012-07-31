@@ -46,7 +46,7 @@ public:
 
 private:
   int port; ///< in case we plenty open and close server sockets
-  ///< we need a place to remember the server port
+      ///< we need a place to remember the server port
   bool active;
   };
 

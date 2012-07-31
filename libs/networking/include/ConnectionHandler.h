@@ -42,12 +42,10 @@ public:
   virtual ~cConnectionHandler();
 
   void Action(void);
-
   bool AuthorizationRequired(void) { return config.AuthorizationRequired(); }
   const char *NOnce(void) const { return nonce; }
   bool StayConnected(void) const { return stayConnected; }
   virtual void Cancel(int WaitSeconds = 0);
-
   static void RegisterRequestHandler(const char *UrlPrefix, cHTTPRequestHandler *CommandHandler);
   static void RegisterDefaultHandler(cHTTPRequestHandler *DefaultHandler);
   static void Cleanup(void);

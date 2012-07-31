@@ -54,9 +54,8 @@ private:
   bool blocking;
   cConnectionPoint *thisSide;
   ConnectionPointList others; ///< client sockets have only one other side,
-  ///< but server sockets can have multiple connections open at the same time,
-  ///< so we probabely need a container here.
-  //  cConnectionPointInfo *FetchLocalInfo(int Socket, struct addrinfo *AI);
+      ///< but server sockets can have multiple connections open at the same time,
+      ///< so we probabely need a container here.
   };
 
 #endif	/* ABSTRACTSOCKET_H */

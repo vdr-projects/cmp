@@ -40,7 +40,6 @@ public:
   void *get(const char *key);
   const void *get(const char *key) const;
   size_t size(void) { return internalMap.size(); }
-
   const_iterator begin() const { return internalMap.begin(); }
   const_iterator end() const { return internalMap.end(); }
 

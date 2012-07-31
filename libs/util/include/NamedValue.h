@@ -36,8 +36,8 @@ public:
   cNamedValue(const char *Name, const char *Value = NULL);
   cNamedValue(const cNamedValue &other);
   virtual ~cNamedValue();
+  
   cNamedValue &operator =(const cNamedValue &other);
-
   const char *Name() const { return name; }
   const char *Value() const { return value; }
   void SetValue(const char *Value) { free(value); value = strdup(Value); }

@@ -34,7 +34,7 @@
 #define ASSERT_NOT(rv, x) if (x == rv) { fprintf(stderr, "assertation failed at %s #%d\n",__FILE__,__LINE__); exit(-1); }
 #define FAIL(s)           { fprintf(stderr, s); exit(-1); }
 
-extern const char * skipWhitespace(const char *Buffer);
+extern const char *skipWhitespace(const char *Buffer);
 extern const char *getWord(char *buf, int bufSize, const char *src);
 extern const char *restOfLine(char *buf, int bufSize, const char *src);
 

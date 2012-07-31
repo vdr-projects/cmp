@@ -28,8 +28,7 @@
 class cHTTPMessage;
 class cHTTPRequest;
 class cHTTPResponse;
-class cHTTPParser
-{
+class cHTTPParser {
 public:
   cHTTPParser();
   virtual ~cHTTPParser();
@@ -39,9 +38,7 @@ public:
 protected:
   cHTTPRequest *parseRequest(const char *MessageBuf);
   cHTTPResponse *parseResponse(const char *MessageBuf);
-
-private:
-};
+  };
 
 #endif	/* HTTPPARSER_H */
 

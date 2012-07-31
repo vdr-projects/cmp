@@ -46,7 +46,7 @@ public:
   cEncoder(char SpecialChar = '#', const char *TrTable = "0123456789ABCDEF");
   virtual ~cEncoder();
   char *Encode(const char *Source, size_t SourceLength = 0); ///< encode Source,
-  ///< optionally limited by SourceLength (default is to encode a 0-terminated cstring)
+      ///< optionally limited by SourceLength (default is to encode a 0-terminated cstring)
   };
 
 class cURLEncoder : public cEncoder {
@@ -60,7 +60,7 @@ public:
   cDecoder(char KeyChar = '#', const char *TrTable = "0123456789ABCDEF");
   virtual ~cDecoder();
   char *Decode(const char *Source, size_t SourceLength = 0); ///< decode Source,
-  ///< optionally limited by SourceLength (default is to decode a 0-terminated cstring)
+      ///< optionally limited by SourceLength (default is to decode a 0-terminated cstring)
   virtual size_t DecodeSequence(unsigned char *d, unsigned char *s);
   };
 

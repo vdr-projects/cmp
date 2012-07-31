@@ -41,13 +41,11 @@ public:
   cStringBuilder &Append(int v);
   cStringBuilder &Append(long v);
   cStringBuilder &Append(size_t s);
-
   void Clear(void);
   size_t Size(void);
   size_t Size(void) const;
   void Rewind(void) { readOffset = 0; }
   size_t Copy(char *Buf, size_t BufSize);
-
   char *toString(void);
 
 private:

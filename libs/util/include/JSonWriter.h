@@ -51,7 +51,7 @@ private:
     JS_Object,
     JS_Array,
     JS_Key
-  } JSonState;
+    } JSonState;
   cJSonWriter::JSonState State(void);
   void PushState(JSonState State);
   cJSonWriter::JSonState PopState(void);

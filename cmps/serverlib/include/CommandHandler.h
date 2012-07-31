@@ -36,7 +36,6 @@ public:
 
   virtual cHTTPResponse *ProcessRequest(cHTTPRequest &Request);
   virtual void Usage(cStringBuilder &sb);
-
   static void RegisterCallback(const char *CommandID, CommandCallback cb, void *opaque);
   static void Cleanup(void);
   };

@@ -42,7 +42,6 @@ public:
 
   virtual cHTTPResponse *ProcessRequest(cHTTPRequest &Request);
   virtual void Usage(cStringBuilder &sb);
-
   void SetListAssembler(const char *ID, cAbstractListAssembler *assembler);
   void SetDefaultListAssembler(cAbstractListAssembler *assembler);
 

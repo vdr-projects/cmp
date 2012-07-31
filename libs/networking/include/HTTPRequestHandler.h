@@ -35,7 +35,6 @@ public:
 
   virtual cHTTPResponse *ProcessRequest(cHTTPRequest &Request) = 0;
   virtual void Usage(cStringBuilder &sb) = 0;
-
   const char *ID() const { return prefix; }
 
 private:

@@ -52,7 +52,6 @@ public:
   virtual void SetContentType(const char *ContentType) { cHTTPMessage::SetContentType(ContentType); }
   virtual void SetContentSize(size_t ContentSize) { cHTTPMessage::SetContentSize(ContentSize); }
   cStringBuilder &StringBuilder(void) { return content; }
-
   static const char *ServerID(void);
   static void SetServerID(const char *ServerID);
 

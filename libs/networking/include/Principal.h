@@ -30,18 +30,16 @@ public:
   cPrincipal(const char *Name, const char *Realm);
   cPrincipal(const cPrincipal &other);
   virtual ~cPrincipal();
+
   cPrincipal &operator =(const cPrincipal &other);
   const char *operator *(void) { return name; }
-
   void CreateHash(const char *Password);
-
   const char *Name(void) const { return name; }
   const char *Realm(void) const { return realm; }
   const char *ExtendedInfo(void) const { return xinfo; }
   int Age(void) const { return age; }
   void SetAge(int Age) { age = Age; }
   const char *Hash(void) const { return hash; }
-
   void Dump(void) const;
 
 protected:

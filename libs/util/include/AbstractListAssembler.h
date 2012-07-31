@@ -36,7 +36,6 @@ public:
   virtual ~cAbstractListAssembler();
 
   bool AssembleList(cStringBuilder &sb, cManagedVector &ElemVector, std::map<int, size_t> &Categories, size_t start = 0, uint delta = 40);
-
   virtual const char *MediaType(void) const = 0;
 
 protected:

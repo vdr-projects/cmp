@@ -33,7 +33,6 @@ public:
   virtual ~cMD5Calculator();
 
   void AddContent(const char *Buf, size_t bufSize = 0);
-
   char *Hash(void);
   void Reset(void);
 

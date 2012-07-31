@@ -33,7 +33,7 @@
 typedef struct {
   const char *extension;
   const char *mimeType;
-} SupportedExtension;
+  } SupportedExtension;
 
 class cAbstractMedia {
 public:

@@ -80,6 +80,7 @@ cMediainfoReader::InfoEntry *cMediainfoReader::ReadEntry()
         }
      line = reader->ReadLine();
      } while (line && !rv);
+     
   return rv;
 }
 
