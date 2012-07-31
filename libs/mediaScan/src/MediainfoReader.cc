@@ -1,14 +1,36 @@
-/*
- * File:   MediainfoReader.cc
- * Author: django
- *
- * Created on 30. Juli 2012, 15:03
+/**
+ * ======================== legal notice ======================
+ * 
+ * File:      MediainfoReader.cc
+ * Created:   30. Juli 2012, 15:03
+ * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
+ * Project:   libMediaScan: mediatypes and media scanning
+ * 
+ * CMP - compound media player
+ * 
+ * is a client/server mediaplayer intended to play any media from any workstation
+ * without the need to export or mount shares. cmps is an easy to use backend
+ * with a (ready to use) HTML-interface. Additionally the backend supports
+ * authentication via HTTP-digest authorization.
+ * cmpc is a client with vdr-like osd-menues.
+ * 
+ * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
+ * published under Creative Commons by-sa
+ * For details see http://creativecommons.org/licenses/by-sa/3.0/
+ * 
+ * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
+ * 
+ * --------------------------------------------------------------
  */
 #include <MediainfoReader.h>
 #include <LineReader.h>
 #include <stddef.h>
 #include <pcrecpp.h>
 #include <vector>
+
+static pcrecpp::RE comment("^\\s*#.*$");
+static pcrecpp::RE emptyLine("^\\s*$");
+static pcrecpp::RE entry("^\\s*(.+?)\\s*:\\s*(.+?)\\s*$");
 
 cMediainfoReader::cMediainfoReader(cLineReader *LineReader)
  : reader(LineReader)
@@ -46,24 +68,18 @@ cMediainfoReader::InfoEntry *cMediainfoReader::ReadEntry()
 {
   if (!reader) return NULL;
   const char *line = reader->ReadLine();
-  static pcrecpp::RE comment("^\\s*#.*$");
-  static pcrecpp::RE emptyLine("^\\s*$");
-  static pcrecpp::RE entry("^\\s*(.+?)\\s*:\\s*(.+?)\\s*$");
   std::string name, value;
   InfoEntry *rv = NULL;
 
-  while (line && (comment.FullMatch(line) || emptyLine.FullMatch(line)))
-        line = reader->ReadLine();
-  while (line && !entry.FullMatch(line, &name, &value))
-        line = reader->ReadLine();
-  while (line && entry.FullMatch(line, &name, &value)) {
-        if (!IsValuable(name)) {
-           line = reader->ReadLine();
-           continue;
+  do {
+     if (line && entry.FullMatch(line, &name, &value)) {
+        if (IsValuable(name)) {
+           rv = new InfoEntry(name, value);
+           break;
            }
-        rv = new InfoEntry(name, value);
-        break;
         }
+     line = reader->ReadLine();
+     } while (line && !rv);
   return rv;
 }
 

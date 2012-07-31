@@ -79,6 +79,7 @@ static void setupMediainfoReader(cMediainfoReader *mir)
 static void testMediaInfo(const char *FileName)
 {
   cCommandReader *cr = new cCommandReader("/usr/bin/mediainfo");
+//  cFileReader *fr = new cFileReader(new cFile("mi.output"));
   cMediainfoReader *mir = new cMediainfoReader(new cLineReader(cr));
   cMediainfoReader::InfoEntry *ie;
 
@@ -128,6 +129,7 @@ static void testCommandReader()
 
 int main()
 {
+//  testMediaInfo("blah");
   dumpTextfile("srclient.conf");
 
   std::cout << std::endl << "===========================================" << std::endl << std::endl;

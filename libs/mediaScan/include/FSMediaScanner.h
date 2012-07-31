@@ -4,7 +4,7 @@
  * File:      FSMediaScanner.h
  * Created:   2. Juli 2012, 13
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
- * Project:   libfsScan: mediatypes and filesystem scanning
+ * Project:   libMediaScan: mediatypes and media scanning
  * 
  * CMP - compound media player
  * 
