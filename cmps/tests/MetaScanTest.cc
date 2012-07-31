@@ -26,18 +26,14 @@
 #include <FileReader.h>
 #include <LineReader.h>
 #include <ConfigReader.h>
+#include <CommandReader.h>
+#include <MediainfoReader.h>
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
-#include <errno.h>
-#include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <wait.h>
 #include <tr1/tuple>
-#include <util.h>
-
-static void testPipe(const char *chk = NULL);
 
 static void parseConfig(const char *FileName)
 {
@@ -52,11 +48,43 @@ static void parseConfig(const char *FileName)
   delete cr;
 }
 
+static void dumpTextfile(const char *FileName)
+{
+  cLineReader *lr = new cLineReader(new cFileReader(new cFile(FileName)));
+  const char *line;
+
+  while ((line = lr->ReadLine())) {
+        std::cout << "line: " << line << std::endl;
+        }
+  delete lr;
+}
+
+static void setupMediainfoReader(cMediainfoReader *mir)
+{
+  mir->AddValuableKey("Format");
+  //Audio
+  mir->AddValuableKey("Duration");
+  mir->AddValuableKey("Album");
+  mir->AddValuableKey("Track name");
+  mir->AddValuableKey("Performer");
+  mir->AddValuableKey("Bit rate");
+  //Image
+  mir->AddValuableKey("Width");
+  mir->AddValuableKey("Height");
+  //Video
+  mir->AddValuableKey("Display aspect ratio");
+  mir->AddValuableKey("Scan type");
+}
+
 static void testMediaInfo(const char *FileName)
 {
-  cMediainfoReader *mir = new cMediainfoReader(new cLineReader(new cCommandReader("/usr/bin/mediainfo")));
+  cCommandReader *cr = new cCommandReader("/usr/bin/mediainfo");
+//  cFileReader *fr = new cFileReader(new cFile("mi.output"));
+  cMediainfoReader *mir = new cMediainfoReader(new cLineReader(cr));
   cMediainfoReader::InfoEntry *ie;
 
+  cr->AddCommandParameter(FileName);
+  setupMediainfoReader(mir);
   while ((ie = mir->ReadEntry())) {
         std::cout << "media info - [" << std::get<0>(*ie) << "] ==> " << std::get<1>(*ie) << std::endl;
         delete ie;
@@ -65,7 +93,7 @@ static void testMediaInfo(const char *FileName)
   delete mir;
 }
 
-static void testMediaFiles(const char *FileName)
+void testMediaFiles(const char *FileName)
 {
   cLineReader *lr = new cLineReader(new cFileReader(new cFile(FileName)));
   const char *line;
@@ -88,93 +116,21 @@ static void testCommandReader()
 {
   cCommandReader *cr = new cCommandReader("/bin/ls");
   cLineReader *lr = new cLineReader(cr);
-  char *line;
+  const char *line;
 
-  cr.AddCommandParameter("-al");
-  cr.AddCommandParameter("--color");
+  cr->AddCommandParameter("-al");
+  cr->AddCommandParameter("--color");
 
   while ((line = lr->ReadLine())) {
         std::cout << "from command: " << line << std::endl;
         }
+  delete lr;
 };
 
-static void testPipe(const char *chk)
-{
-  int parent2Child[2];
-  int child2Parent[2];
-  pid_t pid;
-  std::string dataReadFromChild;
-  char buffer[BufferSize + 1];
-  ssize_t readResult;
-  bool run = true;
-  int status;
-
-  ASSERT_IS(0, pipe(parent2Child));
-  ASSERT_IS(0, pipe(child2Parent));
-
-  switch (pid = fork()) {
-    case -1:
-         FAIL("fork failed");
-         exit(-1);
-
-    case 0: /* child */
-         ASSERT_NOT(-1, dup2(parent2Child[READ_FD], STDIN_FILENO));
-         ASSERT_NOT(-1, dup2(child2Parent[WRITE_FD], STDOUT_FILENO));
-         ASSERT_NOT(-1, dup2(child2Parent[WRITE_FD], STDERR_FILENO));
-         ASSERT_IS(0, close(parent2Child[WRITE_FD]));
-         ASSERT_IS(0, close(child2Parent[READ_FD]));
-
-         if (chk) {
-            execlp("mediainfo", "mediainfo", chk, NULL);
-            }
-         else execlp("ls", "ls", "-al", "--color", NULL);
-         FAIL("this line should never be reached!");
-         exit(-1);
-
-    default: /* parent */
-         std::cout << "child " << pid << " process running ..." << std::endl;
-
-         ASSERT_IS(0, close(parent2Child[READ_FD]));
-         ASSERT_IS(0, close(child2Parent[WRITE_FD]));
-
-         while (run) {
-               switch (readResult = read(child2Parent[READ_FD], buffer, BufferSize)) {
-                 case 0: /* end of file, or non-blocking read. */
-                      std::cout << "End of File reached ..."        << std::endl
-                                << "Data received was ("
-                                << dataReadFromChild.size() << "):" << std::endl
-                                << dataReadFromChild                << std::endl;
-                      ASSERT_IS(pid, waitpid(pid, &status, 0));
-
-                      std::cout << std::endl
-                                << "child exit status is: " << WEXITSTATUS(status) << std::endl << std::endl;
-//                      exit(0);
-                      run = false;
-                      break;
-
-                 case -1:
-                      if ((errno == EINTR) || (errno == EAGAIN)) {
-                         errno = 0;
-                         }
-                      else {
-                         FAIL("read() failed");
-                         run = false;
-                         } break;
-
-                 default:
-                      dataReadFromChild.append(buffer, readResult);
-                      break;
-                 }
-               }
-    }
-}
-
-
-// mediainfo ${media} | grep "Scan type"
-// ffmpeg -i ${media}
 int main()
 {
-  parseConfig("srclient.conf");
+//  testMediaInfo("blah");
+  dumpTextfile("srclient.conf");
 
   std::cout << std::endl << "===========================================" << std::endl << std::endl;
   parseConfig("srserver.conf");
@@ -182,8 +138,8 @@ int main()
   std::cout << std::endl << "===========================================" << std::endl << std::endl;
   testCommandReader();
 
-//  std::cout << std::endl << "===========================================" << std::endl << std::endl;
-//  testMediaFiles("testMedia.files");
+  std::cout << std::endl << "===========================================" << std::endl << std::endl;
+  testMediaFiles("testMedia.files");
 
   cFile::Cleanup();
   return 0;

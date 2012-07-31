@@ -2,7 +2,7 @@
  * ======================== legal notice ======================
  * 
  * File:      ConnectionHandlerTest.cc
- * Created:   10.07.2012, 05
+ * Created:   10.07.2012, 05:48:23
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
  * Project:   cmps - the backend (server) part of compound media player
  * 
@@ -58,7 +58,7 @@ private:
 };
 
 cTestUnit::cTestUnit(const char* Name, cConnectionPoint &cp)
- : config(12345)
+ : config("/var/lib/cmp")
  , ch(cp, config)
  , name(Name)
  , scanner(NULL)
@@ -72,9 +72,9 @@ cTestUnit::cTestUnit(const char* Name, cConnectionPoint &cp)
      fprintf(stderr, "could not initialize application! (1)");
      exit(-1);
      }
-  scanner->SetMediaFactory(new cMediaFactory(config.DocumentRoot()));
+  scanner->SetMediaFactory(new cMediaFactory(config));
 
-  cAbstractMediaRequestHandler::SetFilesystemScanner(scanner);
+  cAbstractMediaRequestHandler::SetFSMediaScanner(scanner);
   cConnectionHandler::RegisterRequestHandler("/cmd", new cCommandHandler());
   cMediaListHandler *listHandler = new cMediaListHandler();
 
@@ -147,6 +147,9 @@ int main(int argc, char** argv)
   std::cout << "%TEST_FINISHED% time=" << (double)(end - start) / 1000 << " test2 (" << unit.Name() << ")" << std::endl;
 
   std::cout << "%SUITE_FINISHED% time=" << (double)(cTimeMs::Now() - t0) / 1000 << std::endl;
+
+  cFile::Cleanup();
+  cUrl::Cleanup();
 
   return (EXIT_SUCCESS);
 }

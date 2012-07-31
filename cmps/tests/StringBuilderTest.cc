@@ -22,103 +22,76 @@
  * 
  * --------------------------------------------------------------
  */
-#include <stdlib.h>
-#include <iostream>
 #include <StringBuilder.h>
+#include <FileReader.h>
+#include <LineReader.h>
+#include <File.h>
+#include <string.h>
+#include <iostream>
 
-/*
- * Simple C++ Test Suite
- */
+#define NEW_LINE '\n'
 
-void test1()
-{
-  cStringBuilder sb(16);
-  char buf[256] = {0};
-  int blah = 0;
+void rangeTests()
+{                           // 12345678901
+  static const char *sample = "Hello World";
+  cStringBuilder *sb;
+  int chunkSize = strlen(sample) - 4;
+  char *result;
 
-  std::cout << "StringBuilderTest test 1" << std::endl;
+  std::cout << sample << " has length: " << strlen(sample) << std::endl;
 
-  sb.Append("Alle ma herhören!\n").Append("Jetzt jibbet wat uff de Ohren!\n");
-  sb.Append("Ausgewählt: ").Append(true, "Ja", "Nein").Append("\n");
-  sb.Append("Dezimal: ").Append(3.1478910).Append("\n");
-  sb.Append("Integer: ").Append(127).Append("\n");
-  sb.Append("große Zahl: ").Append(98765432123456789l).Append("\n");
+  for (int i=0; i < 6; ++i) {
+      std::cout << "check chunkSize of " << chunkSize + i << std::endl;
+      sb = new cStringBuilder(chunkSize + i);
 
-  std::cout << "size of StringBuilder: " << sb.Size() << " bytes" << std::endl;
-  size_t bytesWritten = sb.Copy(buf, sizeof(buf));
+      sb->Append(sample).Append(NEW_LINE);
+      result = sb->toString();
 
-  if (bytesWritten != sb.Size())
-     std::cout << "%TEST_FAILED% time=0 testname=test1 (StringBuilderTest) message=length after copy differ." << std::endl;
-  else std::cout << "OK" << std::endl << "=====================" << std::endl << buf << "===================" << std::endl;
+      std::cout << "assembled text looks like: " << std::endl << result;
+      free(result);
+      delete sb;
+      }
 }
 
-void test2()
+void basicTests()
 {
-  cStringBuilder sb;
-  char buf[512] = {0};
-  int blah=0;
-  std::cout << "StringBuilderTest test 2" << std::endl;
-//  std::cout << "%TEST_FAILED% time=0 testname=test2 (StringBuilderTest) message=error message sample" << std::endl;
+  cStringBuilder sb(179);
 
-  sb.Append("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore "
-            "et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. "
-            "Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit "
-            "amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna "
-            "aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd "
-            "gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur "
-            "sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam "
-            "voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea "
-            "takimata sanctus est Lorem ipsum dolor sit amet. ");
-  sb.Append("На берегу пустынных волн\n").Append("Стоял он, дум великих полн,\n");
-  sb.Append("И вдаль глядел. Пред ним широко\n").Append("Река неслася; бедный чёлн\n");
-  sb.Append("По ней стремился одиноко.\n").Append("По мшистым, топким берегам\n");
-  sb.Append("Чернели избы здесь и там,\n").Append("Приют убогого чухонца;\n");
-  sb.Append("И лес, неведомый лучам\n").Append("В тумане спрятанного солнца,\n");
-  sb.Append("Кругом шумел.\n");
-  sb.Append("Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore "
-            "eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum "
-            "zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer "
-            "adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. ");
-  sb.Append("Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex "
-            "ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie "
-            "consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim "
-            "qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. ");
-  sb.Append("Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat "
-            "facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh "
-            "euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis "
-            "nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. ");
-  sb.Append("Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore "
-            "eu feugiat nulla facilisis. ");
+  sb.Append("hello World").Append(NEW_LINE);
+  sb.Append("logical default true: ").Append(true).Append(NEW_LINE);
+  sb.Append("logical default false: ").Append(false).Append(NEW_LINE);
+  sb.Append("logical true value: ").Append(true, "true", "false").Append(NEW_LINE);
+  sb.Append("logical false value: ").Append(false, "true", "false").Append(NEW_LINE);
+  sb.Append("double: ").Append(3.1456789).Append(NEW_LINE);
+  sb.Append("unsigned long: ").Append((size_t) 91237485l).Append(NEW_LINE);
+  sb.Append("long: ").Append(1234567890l).Append(NEW_LINE);
+  sb.Append("int: ").Append(512).Append(NEW_LINE);
 
-  std::cout << "size of StringBuilder: " << sb.Size() << " bytes" << std::endl;
-  size_t bytesWritten = 0;
-  int chunkWritten = 0;
+  char *result = sb.toString();
 
-  while ((chunkWritten = sb.Copy(buf, sizeof(buf))) > 0) {
-        bytesWritten += chunkWritten;
-        std::cout << "==========================================" << std::endl << buf;
-        std::cout << "==========================================" << std::endl;
+  std::cout << "sizeof assembled text: " << sb.Size() << std::endl;
+  std::cout << "assembled text looks like:" << std::endl << result;
+
+  free(result);
+}
+
+void lineReaderTest()
+{
+  cLineReader lr(new cFileReader(new cFile("srclient.conf")));
+  const char *line = NULL;
+
+  while ((line = lr.ReadLine())) {
+        std::cout << "line: " << line << std::endl;
         }
-  if (bytesWritten != sb.Size())
-     std::cout << "%TEST_FAILED% time=0 testname=test2 (StringBuilderTest) message=size mismatch after write" << std::endl;
-  else std::cout << "OK" << std::endl;
+  lr.Close();
+  cFile::Cleanup();
 }
 
-int main(int argc, char** argv)
+int main()
 {
-  std::cout << "%SUITE_STARTING% StringBuilderTest" << std::endl;
-  std::cout << "%SUITE_STARTED%" << std::endl;
+  lineReaderTest();
+  basicTests();
+  rangeTests();
 
-  std::cout << "%TEST_STARTED% test1 (StringBuilderTest)" << std::endl;
-  test1();
-  std::cout << "%TEST_FINISHED% time=0 test1 (StringBuilderTest)" << std::endl;
-
-  std::cout << "%TEST_STARTED% test2 (StringBuilderTest)\n" << std::endl;
-  test2();
-  std::cout << "%TEST_FINISHED% time=0 test2 (StringBuilderTest)" << std::endl;
-
-  std::cout << "%SUITE_FINISHED% time=0" << std::endl;
-
-  return (EXIT_SUCCESS);
+  return 0;
 }
-
