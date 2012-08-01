@@ -31,6 +31,8 @@
 static pcrecpp::RE comment("^\\s*#.*$");
 static pcrecpp::RE emptyLine("^\\s*$");
 static pcrecpp::RE entry("^\\s*(.+?)\\s*:\\s*(.+?)\\s*$");
+std::vector<std::string> cMediainfoReader::valuableKeys;
+
 
 cMediainfoReader::cMediainfoReader(cLineReader *LineReader)
  : reader(LineReader)
@@ -40,11 +42,6 @@ cMediainfoReader::cMediainfoReader(cLineReader *LineReader)
 cMediainfoReader::~cMediainfoReader()
 {
   Close();
-}
-
-void cMediainfoReader::AddValuableKey(const char* Key)
-{
-  valuableKeys.push_back(Key);
 }
 
 void cMediainfoReader::Close(void)
@@ -80,7 +77,14 @@ cMediainfoReader::InfoEntry *cMediainfoReader::ReadEntry()
         }
      line = reader->ReadLine();
      } while (line && !rv);
-     
+
   return rv;
 }
 
+void cMediainfoReader::Setup(const char* keys[])
+{
+  valuableKeys.clear();
+  for (const char **p = keys; p && *p; ++p) {
+      valuableKeys.push_back(*p);
+      }
+}

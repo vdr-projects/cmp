@@ -71,42 +71,42 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libio.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libio.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libio.a
 
-${OBJECTDIR}/src/CommandReader.o: src/CommandReader.cc 
+${OBJECTDIR}/src/CommandReader.o: nbproject/Makefile-${CND_CONF}.mk src/CommandReader.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/CommandReader.o src/CommandReader.cc
 
-${OBJECTDIR}/src/FileRepresentation.o: src/FileRepresentation.cc 
+${OBJECTDIR}/src/FileRepresentation.o: nbproject/Makefile-${CND_CONF}.mk src/FileRepresentation.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/FileRepresentation.o src/FileRepresentation.cc
 
-${OBJECTDIR}/src/LineReader.o: src/LineReader.cc 
+${OBJECTDIR}/src/LineReader.o: nbproject/Makefile-${CND_CONF}.mk src/LineReader.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/LineReader.o src/LineReader.cc
 
-${OBJECTDIR}/src/File.o: src/File.cc 
+${OBJECTDIR}/src/File.o: nbproject/Makefile-${CND_CONF}.mk src/File.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/File.o src/File.cc
 
-${OBJECTDIR}/src/Reader.o: src/Reader.cc 
+${OBJECTDIR}/src/Reader.o: nbproject/Makefile-${CND_CONF}.mk src/Reader.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Reader.o src/Reader.cc
 
-${OBJECTDIR}/src/ConfigReader.o: src/ConfigReader.cc 
+${OBJECTDIR}/src/ConfigReader.o: nbproject/Makefile-${CND_CONF}.mk src/ConfigReader.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ConfigReader.o src/ConfigReader.cc
 
-${OBJECTDIR}/src/FileReader.o: src/FileReader.cc 
+${OBJECTDIR}/src/FileReader.o: nbproject/Makefile-${CND_CONF}.mk src/FileReader.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/FileReader.o src/FileReader.cc
 
-${OBJECTDIR}/src/FileSystem.o: src/FileSystem.cc 
+${OBJECTDIR}/src/FileSystem.o: nbproject/Makefile-${CND_CONF}.mk src/FileSystem.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE=1 -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_REENTRANT -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -Iinclude -I../util/include -I../vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/FileSystem.o src/FileSystem.cc

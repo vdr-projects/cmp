@@ -28,6 +28,8 @@
 #include <ConfigReader.h>
 #include <CommandReader.h>
 #include <MediainfoReader.h>
+#include <MediaInfo/MediaInfo.h>
+#include <MediaServerConfig.h>
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
@@ -35,8 +37,9 @@
 #include <unistd.h>
 #include <tr1/tuple>
 
-static void parseConfig(const char *FileName)
+void parseConfig(const char *FileName)
 {
+#ifdef OLD_STUFF
   cConfigReader *cr = new cConfigReader(new cLineReader(new cFileReader(new cFile(FileName))));
   cConfigReader::ConfigEntry *ce;
 
@@ -46,9 +49,15 @@ static void parseConfig(const char *FileName)
         }
   cr->Close();
   delete cr;
+#else
+  cMediaServerConfig msc("/var/lib/cmp");
+
+  msc.Load("srserver.conf");
+  msc.Dump();
+#endif
 }
 
-static void dumpTextfile(const char *FileName)
+void dumpTextfile(const char *FileName)
 {
   cLineReader *lr = new cLineReader(new cFileReader(new cFile(FileName)));
   const char *line;
@@ -59,32 +68,34 @@ static void dumpTextfile(const char *FileName)
   delete lr;
 }
 
-static void setupMediainfoReader(cMediainfoReader *mir)
+void setupMediainfo(void)
 {
-  mir->AddValuableKey("Format");
+  static const char *MetaKeys[] = {
+  "Format"
   //Audio
-  mir->AddValuableKey("Duration");
-  mir->AddValuableKey("Album");
-  mir->AddValuableKey("Track name");
-  mir->AddValuableKey("Performer");
-  mir->AddValuableKey("Bit rate");
+, "Duration"
+, "Album"
+, "Track name"
+, "Performer"
+, "Bit rate"
   //Image
-  mir->AddValuableKey("Width");
-  mir->AddValuableKey("Height");
+, "Width"
+, "Height"
   //Video
-  mir->AddValuableKey("Display aspect ratio");
-  mir->AddValuableKey("Scan type");
+, "Display aspect ratio"
+, "Scan type"
+, NULL
+  };
+  cMediainfoReader::Setup(MetaKeys);
 }
 
-static void testMediaInfo(const char *FileName)
+void testMediaInfo(const char *FileName)
 {
   cCommandReader *cr = new cCommandReader("/usr/bin/mediainfo");
-//  cFileReader *fr = new cFileReader(new cFile("mi.output"));
   cMediainfoReader *mir = new cMediainfoReader(new cLineReader(cr));
   cMediainfoReader::InfoEntry *ie;
 
   cr->AddCommandParameter(FileName);
-  setupMediainfoReader(mir);
   while ((ie = mir->ReadEntry())) {
         std::cout << "media info - [" << std::get<0>(*ie) << "] ==> " << std::get<1>(*ie) << std::endl;
         delete ie;
@@ -98,6 +109,7 @@ void testMediaFiles(const char *FileName)
   cLineReader *lr = new cLineReader(new cFileReader(new cFile(FileName)));
   const char *line;
 
+  setupMediainfo();
   while ((line = lr->ReadLine())) {
         std::cout << std::endl << "media-test-file: " << line << std::endl;
         testMediaInfo(line);
@@ -112,7 +124,7 @@ enum PipeFileDescriptors {
   WRITE_FD = 1
 };
 
-static void testCommandReader()
+void testCommandReader()
 {
   cCommandReader *cr = new cCommandReader("/bin/ls");
   cLineReader *lr = new cLineReader(cr);
@@ -129,7 +141,9 @@ static void testCommandReader()
 
 int main()
 {
-//  testMediaInfo("blah");
+  char buf[256];
+
+  std::cout << "working directory is: " << getcwd(buf, sizeof(buf)) << std::endl;
   dumpTextfile("srclient.conf");
 
   std::cout << std::endl << "===========================================" << std::endl << std::endl;
@@ -138,8 +152,8 @@ int main()
   std::cout << std::endl << "===========================================" << std::endl << std::endl;
   testCommandReader();
 
-  std::cout << std::endl << "===========================================" << std::endl << std::endl;
-  testMediaFiles("testMedia.files");
+//  std::cout << std::endl << "===========================================" << std::endl << std::endl;
+//  testMediaFiles("testMedia.txt");
 
   cFile::Cleanup();
   return 0;

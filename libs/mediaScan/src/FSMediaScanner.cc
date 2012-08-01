@@ -35,6 +35,23 @@
 #include <errno.h>
 #include <util.h>
 
+static const char *MetaKeys[]  = {
+  "Format"
+// Audio
+, "Duration"
+, "Album"
+, "Track name"
+, "Performer"
+, "Bit rate"
+// Image
+, "Width"
+, "Height"
+// Video
+, "Display aspect ratio"
+, "Scan type"
+, NULL
+  };
+
 void freeMediaCallback(void *elem)
 {
   delete (cAbstractMedia *)elem;
@@ -82,6 +99,7 @@ void cFSMediaScanner::Refresh()
   pool.clear();
   categories.clear();
 
+  cMediainfoReader::Setup(MetaKeys);
   mediaFactory->Scan4Media(pool);
   cAbstractMedia::SupportedMediaType ot = cAbstractMedia::Invalid;
   cAbstractMedia *m;

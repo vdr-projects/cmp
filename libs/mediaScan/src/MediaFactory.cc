@@ -23,6 +23,9 @@
  * --------------------------------------------------------------
  */
 #include <MediaFactory.h>
+#include <MediainfoReader.h>
+#include <LineReader.h>
+#include <CommandReader.h>
 #include <Audio.h>
 #include <Movie.h>
 #include <Picture.h>
@@ -70,7 +73,6 @@ int cMediaFactory::createMedia(void *opaque, cFile *Parent, const char *Name)
 
 int cMediaFactory::CreateMedia(const cFile *Parent, const char *Name)
 {
-//  cManagedVector *pool = (cManagedVector *) opaque;
   cFile *curFile = new cFile(*Parent, Name);
   const char *mimeType = NULL;
   cAbstractMedia *rv = NULL;
@@ -126,7 +128,10 @@ int cMediaFactory::CreateMedia(const cFile *Parent, const char *Name)
      }
   delete curFile;
   if (rv) {
-     if (config.WantExtendedScan() && rv->NeedsFurtherScan()) Scan4MetaData(rv);
+     if (config.WantExtendedScan() && rv->NeedsFurtherScan()) {
+        rv->Refresh();
+        Scan4MetaData(rv);
+        }
      mediaPool->push_back(rv);
      return 0;
      }
@@ -144,5 +149,13 @@ void cMediaFactory::Scan4Media(cManagedVector& pool)
 
 void cMediaFactory::Scan4MetaData(cAbstractMedia* media)
 {
-  //TODO:
+  cCommandReader *cr = new cCommandReader("/usr/bin/mediainfo");
+  cMediainfoReader *mir = new cMediainfoReader(new cLineReader(cr));
+  cMediainfoReader::InfoEntry *ie;
+
+  cr->AddCommandParameter(media->KeyFile());
+  while ((ie = mir->ReadEntry())) {
+        media->AddMeta(ie);
+        }
+  delete mir;
 }

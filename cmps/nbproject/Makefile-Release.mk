@@ -47,6 +47,7 @@ TESTFILES= \
 	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps \
 	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps \
 	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps \
+	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps \
 	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps
 
 # C Compiler Flags
@@ -73,7 +74,7 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/main.o: main.cc 
+${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cc 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cc
@@ -104,6 +105,10 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps: ${TESTDIR}/tests/JSonTest.o ${O
 	${LINK.cc}   -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps $^ ${LDLIBSOPTIONS} 
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps: ${TESTDIR}/tests/MetaScanTest.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
+	${LINK.cc}   -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps $^ ${LDLIBSOPTIONS} 
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps: ${TESTDIR}/tests/StringBuilderTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc}   -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps $^ ${LDLIBSOPTIONS} 
 
@@ -144,6 +149,12 @@ ${TESTDIR}/tests/MetaScanTest.o: tests/MetaScanTest.cc
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${TESTDIR}/tests/MetaScanTest.o tests/MetaScanTest.cc
 
 
+${TESTDIR}/tests/StringBuilderTest.o: tests/StringBuilderTest.cc 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StringBuilderTest.o tests/StringBuilderTest.cc
+
+
 ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cc 
 	${MKDIR} -p ${OBJECTDIR}
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/main.o`; \
@@ -161,6 +172,7 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cc
 .test-conf:
 	@if [ "${TEST}" = "" ]; \
 	then  \
+	    ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps || true; \
 	    ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps || true; \
 	    ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps || true; \
 	    ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps || true; \

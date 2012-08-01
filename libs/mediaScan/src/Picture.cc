@@ -26,6 +26,8 @@
 #include <stddef.h>
 #include <string.h>
 
+static bool deepScanEnabled = false;
+
 SupportedExtension cPicture::knownExtensions[] = {
   { "bmp",  "image/x-windows-bmp" },
   { "gif",  "image/gif" },
@@ -67,3 +69,12 @@ const char *cPicture::ContentType(const char* Extension)
   return NULL;
 }
 
+void cPicture::EnableDeepScan(bool DoScan)
+{
+  deepScanEnabled = DoScan;
+}
+
+bool cPicture::NeedsFurtherScan(void) const
+{
+  return deepScanEnabled;
+}

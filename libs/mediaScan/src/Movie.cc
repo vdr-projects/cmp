@@ -26,6 +26,8 @@
 #include <stddef.h>
 #include <string.h>
 
+static bool deepScanEnabled = true;
+
 SupportedExtension cMovie::knownExtensions[] = {
   { "asd",  "video/x-ms-asf" },
   { "asf",  "video/x-ms-asf" },
@@ -60,8 +62,20 @@ const char *cMovie::ContentType(const char* Extension)
   return NULL;
 }
 
+void cMovie::AddMeta(cMediainfoReader::InfoEntry *Entry)
+{
+  if (!strcmp("Scan type", std::get<0>(*Entry).c_str())) {
+     if (!strcmp("Interlaced", std::get<1>(*Entry).c_str())) SetMediaType(MediaType() + 1);
+     }
+  cAbstractMedia::AddMeta(Entry);
+}
+
+void cMovie::EnableDeepScan(bool DoScan)
+{
+  deepScanEnabled = DoScan;
+}
+
 bool cMovie::NeedsFurtherScan(void) const
 {
-//TODO: common meta data: width, height, interlaced
-  return true;
+  return deepScanEnabled;
 }

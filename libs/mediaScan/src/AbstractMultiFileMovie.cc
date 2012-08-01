@@ -45,12 +45,17 @@ cAbstractMultiFileMovie::~cAbstractMultiFileMovie()
   free(buf);
 }
 
-bool cAbstractMultiFileMovie::checkBuffer()
+bool cAbstractMultiFileMovie::checkBuffer(void) const
 {
   if (!buf && bufSize) {
      buf = (char *) malloc(bufSize);
      }
   return buf != NULL;
+}
+
+const char *cAbstractMultiFileMovie::KeyFile(void) const
+{
+  return FirstFile();
 }
 
 size_t cAbstractMultiFileMovie::ReadChunk(char* Buf, size_t bufSize)
@@ -59,6 +64,7 @@ size_t cAbstractMultiFileMovie::ReadChunk(char* Buf, size_t bufSize)
   const char *path = NULL;
 
   if (fd < 1) {
+     curFileNo = 1;
      path = FirstFile();
      fd = open(path, O_RDONLY | O_LARGEFILE);
      if (fd < 1) {

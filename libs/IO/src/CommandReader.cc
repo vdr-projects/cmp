@@ -28,6 +28,8 @@
 #include <errno.h>
 #include <wait.h>
 
+int cCommandReader::fdMax = 0;
+
 cCommandReader::cCommandReader(const char *cmd)
  : pid(-1)
 {
@@ -46,27 +48,28 @@ void cCommandReader::AddCommandParameter(const char* Param)
 
 void cCommandReader::Close(void)
 {
-  int status;
+  int status = 0;
 
+  if (!fdMax) fdMax = getdtablesize();
+  if (fd > 0 && fd < fdMax) {
+     close(fd);
+     isyslog("closed fd #%d", fd);
+     }
+  fd = -1;
   if (pid != waitpid(pid, &status, 0)) {
      esyslog("ERROR: failed to wait for child #%d - error #%d", pid, errno);
      }
   else {
      isyslog("child exit status: %d", WEXITSTATUS(status));
      }
-  pid = fd = -1;
+  pid = -1;
 }
 
 bool cCommandReader::Open(void)
 {
   enum { FDRead, FDWrite };
-  int parent2Child[2];
-  int child2Parent[2];
+  int child2Parent[2] = {0};
 
-  if (pipe(parent2Child)) {
-     esyslog("ERROR: failed to create parent2Child-pipe #%d", errno);
-     return false;
-     }
   if (pipe(child2Parent)) {
      esyslog("ERROR: failed to create child2Parent-pipe #%d", errno);
      return false;
@@ -74,6 +77,8 @@ bool cCommandReader::Open(void)
   switch ((pid = fork())) {
     case -1:
          esyslog("fork failed");
+         close(child2Parent[0]);
+         close(child2Parent[1]);
          return false;
 
     case 0: { /* child */
@@ -83,10 +88,6 @@ bool cCommandReader::Open(void)
              cmdArgs[i] = args[i].c_str();
              }
          cmdArgs[args.size()] = 0;
-         if (dup2(parent2Child[FDRead], STDIN_FILENO) < 0) {
-            esyslog("ERROR: failed to create parents stdin #%d", errno);
-            exit(-1);
-            }
          if (dup2(child2Parent[FDWrite], STDOUT_FILENO) < 0) {
             esyslog("ERROR: failed to create childs stdout #%d", errno);
             exit(-1);
@@ -95,26 +96,27 @@ bool cCommandReader::Open(void)
             esyslog("ERROR: failed to create childs stderr #%d", errno);
             exit(-1);
             }
-         if (close(parent2Child[FDWrite])) {
-            esyslog("ERROR: failed to close parents write-end of the pipe #%d", errno);
-            exit(-1);
-            }
          if (close(child2Parent[FDRead])) {
             esyslog("ERROR: failed to close childs read-end of the pipe #%d", errno);
             exit(-1);
             }
          execv(args[0].c_str(), (char *const*) cmdArgs);
-
-         esyslog("should never be reached!");
+         esyslog("should never be reached! #1");
          exit(-1);
          } break;
 
     default: { /* parent */
-         isyslog("child process #%d started ...", pid);
+         if (close(child2Parent[FDWrite])) {
+            esyslog("ERROR: failed to close write end from parent side!");
+            exit(-1);
+            }
+         isyslog("child process #%d started ... fd %d", pid, child2Parent[FDRead]);
          fd = child2Parent[FDRead];
-
          return true;
          }
   }
+  esyslog("should never be reached! #2");
+  close(child2Parent[0]);
+  close(child2Parent[1]);
   return false;
 }

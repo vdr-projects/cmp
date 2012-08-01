@@ -121,44 +121,50 @@ int cServerConfig::Load(const char* FileName)
   int numberOfEntries = 0;
 
   while ((ce = cr->ReadEntry())) {
-        std::string name = std::get<0>(*ce);
-
-        if (!strcmp("media-root", name.c_str())) {
-           SetDocumentRoot(std::get<1>(*ce).c_str());
-           ++numberOfEntries;
-           }
-        else if (!strcmp("favicon", name.c_str())) {
-           SetAppIcon(std::get<1>(*ce).c_str());
-           ++numberOfEntries;
-           }
-        else if (!strcmp("cmps-port", name.c_str())) {
-           SetPort(atoi(std::get<1>(*ce).c_str()));
-           ++numberOfEntries;
-           }
-#ifdef NOT_YET
-        else if (!strcmp("want-auth", name.c_str())) {
-           SetAuthorizationRequired(!strcasecmp("true", std::get<1>(*ce).c_str()));
-           ++numberOfEntries;
-           }
-#endif
-        else if (!strcmp("want-meta", name.c_str())) {
-           SetWantExtendedScan(!strcasecmp("true", std::get<1>(*ce).c_str()));
-           ++numberOfEntries;
-           }
-        else if (!strcmp("mediainfo", name.c_str())) {
-           SetMediaInfo(std::get<1>(*ce).c_str());
-           ++numberOfEntries;
-           }
-        else if (!strcmp("ffmpeg", name.c_str())) {
-           SetFFMpeg(std::get<1>(*ce).c_str());
-           ++numberOfEntries;
-           }
+        if (Eval(ce)) ++numberOfEntries;
         delete ce;
         }
   cr->Close();
   delete cr;
 
   return numberOfEntries > 0;
+}
+
+bool cServerConfig::Eval(cConfigReader::ConfigEntry *Entry)
+{
+  std::string name = std::get<0>(*Entry);
+
+  if (!strcmp("media-root", name.c_str())) {
+     SetDocumentRoot(std::get<1>(*Entry).c_str());
+     return true;
+     }
+  else if (!strcmp("favicon", name.c_str())) {
+     SetAppIcon(std::get<1>(*Entry).c_str());
+     return true;
+     }
+  else if (!strcmp("cmps-port", name.c_str())) {
+     SetPort(atoi(std::get<1>(*Entry).c_str()));
+     return true;
+     }
+#ifdef NOT_YET
+  else if (!strcmp("want-auth", name.c_str())) {
+     SetAuthorizationRequired(!strcasecmp("true", std::get<1>(*ce).c_str()));
+     return true;
+     }
+#endif
+  else if (!strcmp("want-meta", name.c_str())) {
+     SetWantExtendedScan(!strcasecmp("true", std::get<1>(*Entry).c_str()));
+     return true;
+     }
+  else if (!strcmp("mediainfo", name.c_str())) {
+     SetMediaInfo(std::get<1>(*Entry).c_str());
+     return true;
+     }
+  else if (!strcmp("ffmpeg", name.c_str())) {
+     SetFFMpeg(std::get<1>(*Entry).c_str());
+     return true;
+     }
+  return false;
 }
 
 int cServerConfig::Store(const char* FileName)

@@ -43,6 +43,7 @@ protected:
 private:
   pid_t pid;
   std::vector<std::string> args;
+  static int fdMax;
   };
 
 #endif	/* COMMANDREADER_H */

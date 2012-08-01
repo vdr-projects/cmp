@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/JSonListAssembler.o \
+	${OBJECTDIR}/src/MediaServerConfig.o \
 	${OBJECTDIR}/src/CommandHandler.o \
 	${OBJECTDIR}/src/HTMLListAssembler.o \
 	${OBJECTDIR}/src/AbstractMediaRequestHandler.o \
@@ -70,37 +71,42 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libserverlib.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libserverlib.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libserverlib.a
 
-${OBJECTDIR}/src/JSonListAssembler.o: src/JSonListAssembler.cc 
+${OBJECTDIR}/src/JSonListAssembler.o: nbproject/Makefile-${CND_CONF}.mk src/JSonListAssembler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/mediaScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/JSonListAssembler.o src/JSonListAssembler.cc
 
-${OBJECTDIR}/src/CommandHandler.o: src/CommandHandler.cc 
+${OBJECTDIR}/src/MediaServerConfig.o: nbproject/Makefile-${CND_CONF}.mk src/MediaServerConfig.cc 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/mediaScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MediaServerConfig.o src/MediaServerConfig.cc
+
+${OBJECTDIR}/src/CommandHandler.o: nbproject/Makefile-${CND_CONF}.mk src/CommandHandler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/mediaScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/CommandHandler.o src/CommandHandler.cc
 
-${OBJECTDIR}/src/HTMLListAssembler.o: src/HTMLListAssembler.cc 
+${OBJECTDIR}/src/HTMLListAssembler.o: nbproject/Makefile-${CND_CONF}.mk src/HTMLListAssembler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/mediaScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTMLListAssembler.o src/HTMLListAssembler.cc
 
-${OBJECTDIR}/src/AbstractMediaRequestHandler.o: src/AbstractMediaRequestHandler.cc 
+${OBJECTDIR}/src/AbstractMediaRequestHandler.o: nbproject/Makefile-${CND_CONF}.mk src/AbstractMediaRequestHandler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/mediaScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AbstractMediaRequestHandler.o src/AbstractMediaRequestHandler.cc
 
-${OBJECTDIR}/src/HTTPMediaResponse.o: src/HTTPMediaResponse.cc 
+${OBJECTDIR}/src/HTTPMediaResponse.o: nbproject/Makefile-${CND_CONF}.mk src/HTTPMediaResponse.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/mediaScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HTTPMediaResponse.o src/HTTPMediaResponse.cc
 
-${OBJECTDIR}/src/MediaListHandler.o: src/MediaListHandler.cc 
+${OBJECTDIR}/src/MediaListHandler.o: nbproject/Makefile-${CND_CONF}.mk src/MediaListHandler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/mediaScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MediaListHandler.o src/MediaListHandler.cc
 
-${OBJECTDIR}/src/MediaFileHandler.o: src/MediaFileHandler.cc 
+${OBJECTDIR}/src/MediaFileHandler.o: nbproject/Makefile-${CND_CONF}.mk src/MediaFileHandler.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -I../../libs/mediaScan/include -I../../libs/networking/include -I../../libs/IO/include -I../../libs/util/include -I../../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MediaFileHandler.o src/MediaFileHandler.cc

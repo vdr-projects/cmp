@@ -26,6 +26,8 @@
 #include <stddef.h>
 #include <string.h>
 
+static bool deepScanEnabled = false;
+
 SupportedExtension cAudio::knownExtensions[] = {
   { "aac",  "audio/aac" },
   { "aif",  "audio/x-aiff" },
@@ -55,6 +57,11 @@ cAudio::~cAudio()
 {
 }
 
+void cAudio::EnableDeepScan(bool DoScan)
+{
+  deepScanEnabled = DoScan;
+}
+
 const char *cAudio::ContentType(const char* Extension)
 {
   for (SupportedExtension *p = knownExtensions; p && p->extension; ++p) {
@@ -65,6 +72,5 @@ const char *cAudio::ContentType(const char* Extension)
 
 bool cAudio::NeedsFurtherScan(void) const
 {
-//TODO: common meta data: artist, title
-  return true;
+  return deepScanEnabled;
 }

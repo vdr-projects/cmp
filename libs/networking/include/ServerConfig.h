@@ -28,6 +28,7 @@
 #include <Persistable.h>
 #include <ServerSocket.h>
 #include <Authorization.h>
+#include <ConfigReader.h>
 
 class cServerConfig : public cPersistable {
 public:
@@ -42,6 +43,7 @@ public:
   const char *MediaInfo(void) const { return mediaInfo; }
   const char *FFMpeg(void) const { return ffmpeg; }
   void Dump(void);
+  virtual bool Eval(cConfigReader::ConfigEntry *Entry);
   virtual int Load(const char *FileName);
   virtual int Store(const char *FileName);
   void SetAppIcon(const char *AppIcon);

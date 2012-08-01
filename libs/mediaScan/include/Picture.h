@@ -32,6 +32,9 @@ public:
   cPicture(const cFile &File, const char *Mime);
   virtual ~cPicture();
 
+  virtual bool NeedsFurtherScan(void) const;
+  static void EnableDeepScan(bool DoScan);
+
 private:
   static const char *ContentType(const char *Extension);
   static SupportedExtension knownExtensions[];

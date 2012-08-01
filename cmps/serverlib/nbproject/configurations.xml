@@ -11,6 +11,7 @@
       <itemPath>include/JSonListAssembler.h</itemPath>
       <itemPath>include/MediaFileHandler.h</itemPath>
       <itemPath>include/MediaListHandler.h</itemPath>
+      <itemPath>include/MediaServerConfig.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -26,6 +27,7 @@
       <itemPath>src/JSonListAssembler.cc</itemPath>
       <itemPath>src/MediaFileHandler.cc</itemPath>
       <itemPath>src/MediaListHandler.cc</itemPath>
+      <itemPath>src/MediaServerConfig.cc</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"

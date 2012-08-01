@@ -30,6 +30,8 @@
 #include "File.h"
 #define FILE_MASK       "VIDEO_TS/VTS_%02d_%d.VOB"
 
+static bool deepScanEnabled = true;
+
 cDVDImage::cDVDImage(const cFile &File)
  : cAbstractMultiFileMovie(File, "video/mpeg", DVDImage)
 {
@@ -48,6 +50,16 @@ const char *cDVDImage::Name(void) const
 size_t cDVDImage::Size(void) const
 {
   return cAbstractMedia::Size();
+}
+
+void cDVDImage::EnableDeepScan(bool DoScan)
+{
+  deepScanEnabled = DoScan;
+}
+
+bool cDVDImage::NeedsFurtherScan(void) const
+{
+  return deepScanEnabled;
 }
 
 void cDVDImage::Refresh(void)
@@ -82,12 +94,11 @@ void cDVDImage::Refresh(void)
   SetSize(total);
 }
 
-const char *cDVDImage::FirstFile(void)
+const char *cDVDImage::FirstFile(void) const
 {
   if (!checkBuffer()) return NULL;
 
-  curFileNo = 1;
-  sprintf(buf, FILE_MASK, mainMovie, curFileNo);
+  sprintf(buf, FILE_MASK, mainMovie, 1);
   cFile *tmp = new cFile(KeyPath(), buf);
   const char *rv = NULL;
 

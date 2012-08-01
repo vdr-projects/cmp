@@ -31,6 +31,8 @@
 
 #define FILE_MASK       "%03d.vdr"
 
+static bool deepScanEnabled = true;
+
 cLegacyVdrRecording::cLegacyVdrRecording(const cFile &File)
  : cAbstractMultiFileMovie(File, "video/mpeg", LegacyVdrRecording)
 {
@@ -46,6 +48,16 @@ cLegacyVdrRecording::cLegacyVdrRecording(const cFile &File)
 
 cLegacyVdrRecording::~cLegacyVdrRecording()
 {
+}
+
+void cLegacyVdrRecording::EnableDeepScan(bool DoScan)
+{
+  deepScanEnabled = DoScan;
+}
+
+bool cLegacyVdrRecording::NeedsFurtherScan(void) const
+{
+  return deepScanEnabled;
 }
 
 void cLegacyVdrRecording::Refresh(void)
@@ -70,11 +82,10 @@ void cLegacyVdrRecording::Refresh(void)
   SetSize(total);
 }
 
-const char *cLegacyVdrRecording::FirstFile(void)
+const char *cLegacyVdrRecording::FirstFile(void) const
 {
   if (!checkBuffer()) return NULL;
-  curFileNo = 1;
-  sprintf(buf, FILE_MASK, curFileNo);
+  sprintf(buf, FILE_MASK, 1);
   cFile *tmp = new cFile(KeyPath(), buf);
   const char *rv = NULL;
 

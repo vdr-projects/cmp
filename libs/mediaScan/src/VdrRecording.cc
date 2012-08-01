@@ -30,6 +30,8 @@
 #include <stdio.h>
 #define FILE_MASK       "/%05d.ts"
 
+static bool deepScanEnabled = true;
+
 cVdrRecording::cVdrRecording(const cFile &File)
  : cAbstractMultiFileMovie(File, "video/mpeg", VdrRecording)
 {
@@ -45,6 +47,16 @@ cVdrRecording::cVdrRecording(const cFile &File)
 
 cVdrRecording::~cVdrRecording()
 {
+}
+
+void cVdrRecording::EnableDeepScan(bool DoScan)
+{
+  deepScanEnabled = DoScan;
+}
+
+bool cVdrRecording::NeedsFurtherScan(void) const
+{
+  return deepScanEnabled;
 }
 
 void cVdrRecording::Refresh(void)
@@ -69,11 +81,10 @@ void cVdrRecording::Refresh(void)
   SetSize(total);
 }
 
-const char *cVdrRecording::FirstFile(void)
+const char *cVdrRecording::FirstFile(void) const
 {
   if (!checkBuffer()) return NULL;
-  curFileNo = 1;
-  sprintf(buf, FILE_MASK, curFileNo);
+  sprintf(buf, FILE_MASK, 1);
   cFile *tmp = new cFile(KeyPath(), buf);
   const char *rv = NULL;
 

@@ -26,6 +26,7 @@
 #define	ABSTRACTMEDIA_H
 
 #include <File.h>
+#include <MediainfoReader.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <vector>
@@ -41,18 +42,24 @@ public:
     Invalid,
     Audio,
     Movie,
+    IMovie,
     DVDImage,
+    IDVDImage,
     LegacyVdrRecording,
+    ILegacyVdrRecording,
     VdrRecording,
+    IVdrRecording,
     Picture,
     Unknown
     } SupportedMediaType;
 
   virtual ~cAbstractMedia();
 
+  virtual void AddMeta(cMediainfoReader::InfoEntry *Entry);
   SupportedMediaType MediaType(void) const { return mediaType; }
   const char *MimeType(void) const { return mimeType; }
   const char *AbsolutePath(void) const;
+  virtual const char *KeyFile(void) const;
   ulong LastModified(void) const;
   const char *LogicalPath(void) const { return logicalPath; }
   virtual const char *Name(void) const;
@@ -65,12 +72,14 @@ public:
   virtual size_t ReadChunk(char *buf, size_t bufSize);
       ///< used to hide the differences between single- and multi-file media.
   virtual void Reset(void);
+  void Dump(void) const;
   static const char *MediaType2Text(int Type);
 
 protected:
   cAbstractMedia(const cFile &File, const char *Mime, SupportedMediaType Type);
+  void SetMediaType(int NewType);
   void SetMimeType(const char *MimeType);
-  const cFile &KeyPath(void) { return keyPath; }
+  const cFile &KeyPath(void) const { return keyPath; }
   int fd;
 
 private:
@@ -79,6 +88,7 @@ private:
   char *uri;
   char *logicalPath;
   cFile keyPath;
+  std::vector<cMediainfoReader::InfoEntry *> meta;
   };
 
 #endif	/* ABSTRACTMEDIA_H */

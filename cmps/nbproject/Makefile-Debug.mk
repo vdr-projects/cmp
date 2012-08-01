@@ -42,12 +42,13 @@ TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
 
 # Test Files
 TESTFILES= \
-	${TESTDIR}/TestFiles/f1 \
-	${TESTDIR}/TestFiles/f3 \
-	${TESTDIR}/TestFiles/f5 \
-	${TESTDIR}/TestFiles/f2 \
-	${TESTDIR}/TestFiles/f4 \
-	${TESTDIR}/TestFiles/f6
+	${TESTDIR}/TestFiles/codecTest \
+	${TESTDIR}/TestFiles/connectionHandlerTest \
+	${TESTDIR}/TestFiles/fileSystemTest \
+	${TESTDIR}/TestFiles/fsScanTest \
+	${TESTDIR}/TestFiles/jsonTest \
+	${TESTDIR}/TestFiles/metaScanTest \
+	${TESTDIR}/TestFiles/stringBuilderTest
 
 # C Compiler Flags
 CFLAGS=
@@ -63,7 +64,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=serverlib/dist/Debug/GNU-Linux-x86/libserverlib.a ../libs/mediaScan/dist/Debug/GNU-Linux-x86/libmediascan.a ../libs/networking/dist/Debug/GNU-Linux-x86/libnetworking.a ../libs/IO/dist/Debug/GNU-Linux-x86/libio.a ../libs/util/dist/Debug/GNU-Linux-x86/libutil.a ../libs/vdr/dist/Debug/GNU-Linux-x86/libvdr.a -lpthread -lrt -lssl -lpcrecpp
+LDLIBSOPTIONS=serverlib/dist/Debug/GNU-Linux-x86/libserverlib.a ../libs/mediaScan/dist/Debug/GNU-Linux-x86/libmediascan.a ../libs/networking/dist/Debug/GNU-Linux-x86/libnetworking.a ../libs/IO/dist/Debug/GNU-Linux-x86/libio.a ../libs/util/dist/Debug/GNU-Linux-x86/libutil.a ../libs/vdr/dist/Debug/GNU-Linux-x86/libvdr.a -lpthread -lrt -lssl -lpcrecpp -lmediainfo
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -85,7 +86,7 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/main.o: main.cc 
+${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cc 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cc
@@ -106,29 +107,33 @@ ${OBJECTDIR}/main.o: main.cc
 
 # Build Test Targets
 .build-tests-conf: .build-conf ${TESTFILES}
-${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/CodecTest.o ${OBJECTFILES:%.o=%_nomain.o}
+${TESTDIR}/TestFiles/codecTest: ${TESTDIR}/tests/CodecTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc}   -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} 
+	${LINK.cc}   -o ${TESTDIR}/TestFiles/codecTest $^ ${LDLIBSOPTIONS} 
 
-${TESTDIR}/TestFiles/f3: ${TESTDIR}/tests/ConnectionHandlerTest.o ${OBJECTFILES:%.o=%_nomain.o}
+${TESTDIR}/TestFiles/connectionHandlerTest: ${TESTDIR}/tests/ConnectionHandlerTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc}   -o ${TESTDIR}/TestFiles/f3 $^ ${LDLIBSOPTIONS} 
+	${LINK.cc}   -o ${TESTDIR}/TestFiles/connectionHandlerTest $^ ${LDLIBSOPTIONS} 
 
-${TESTDIR}/TestFiles/f5: ${TESTDIR}/tests/FileSystemTest.o ${OBJECTFILES:%.o=%_nomain.o}
+${TESTDIR}/TestFiles/fileSystemTest: ${TESTDIR}/tests/FileSystemTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc}   -o ${TESTDIR}/TestFiles/f5 $^ ${LDLIBSOPTIONS} 
+	${LINK.cc}   -o ${TESTDIR}/TestFiles/fileSystemTest $^ ${LDLIBSOPTIONS} 
 
-${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/FScanTest.o ${OBJECTFILES:%.o=%_nomain.o}
+${TESTDIR}/TestFiles/fsScanTest: ${TESTDIR}/tests/FScanTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc}   -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS} 
+	${LINK.cc}   -o ${TESTDIR}/TestFiles/fsScanTest $^ ${LDLIBSOPTIONS} 
 
-${TESTDIR}/TestFiles/f4: ${TESTDIR}/tests/JSonTest.o ${OBJECTFILES:%.o=%_nomain.o}
+${TESTDIR}/TestFiles/jsonTest: ${TESTDIR}/tests/JSonTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc}   -o ${TESTDIR}/TestFiles/f4 $^ ${LDLIBSOPTIONS} 
+	${LINK.cc}   -o ${TESTDIR}/TestFiles/jsonTest $^ ${LDLIBSOPTIONS} 
 
-${TESTDIR}/TestFiles/f6: ${TESTDIR}/tests/MetaScanTest.o ${OBJECTFILES:%.o=%_nomain.o}
+${TESTDIR}/TestFiles/metaScanTest: ${TESTDIR}/tests/MetaScanTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc}   -o ${TESTDIR}/TestFiles/f6 $^ ${LDLIBSOPTIONS} 
+	${LINK.cc}   -o ${TESTDIR}/TestFiles/metaScanTest $^ ${LDLIBSOPTIONS} 
+
+${TESTDIR}/TestFiles/stringBuilderTest: ${TESTDIR}/tests/StringBuilderTest.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc}   -o ${TESTDIR}/TestFiles/stringBuilderTest $^ ${LDLIBSOPTIONS} 
 
 
 ${TESTDIR}/tests/CodecTest.o: tests/CodecTest.cc 
@@ -167,6 +172,12 @@ ${TESTDIR}/tests/MetaScanTest.o: tests/MetaScanTest.cc
 	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/MetaScanTest.o tests/MetaScanTest.cc
 
 
+${TESTDIR}/tests/StringBuilderTest.o: tests/StringBuilderTest.cc 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StringBuilderTest.o tests/StringBuilderTest.cc
+
+
 ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cc 
 	${MKDIR} -p ${OBJECTDIR}
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/main.o`; \
@@ -184,12 +195,13 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cc
 .test-conf:
 	@if [ "${TEST}" = "" ]; \
 	then  \
-	    ${TESTDIR}/TestFiles/f1 || true; \
-	    ${TESTDIR}/TestFiles/f3 || true; \
-	    ${TESTDIR}/TestFiles/f5 || true; \
-	    ${TESTDIR}/TestFiles/f2 || true; \
-	    ${TESTDIR}/TestFiles/f4 || true; \
-	    ${TESTDIR}/TestFiles/f6 || true; \
+	    ${TESTDIR}/TestFiles/codecTest || true; \
+	    ${TESTDIR}/TestFiles/connectionHandlerTest || true; \
+	    ${TESTDIR}/TestFiles/fileSystemTest || true; \
+	    ${TESTDIR}/TestFiles/fsScanTest || true; \
+	    ${TESTDIR}/TestFiles/jsonTest || true; \
+	    ${TESTDIR}/TestFiles/metaScanTest || true; \
+	    ${TESTDIR}/TestFiles/stringBuilderTest || true; \
 	else  \
 	    ./${TEST} || true; \
 	fi

@@ -1,10 +1,10 @@
 /**
  * ======================== legal notice ======================
  * 
- * File:      LegacyVdrRecording.h
- * Created:   3. Juli 2012, 08
+ * File:      MediaServerConfig.h
+ * Created:   1. August 2012, 10:58
  * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
- * Project:   libMediaScan: mediatypes and media scanning
+ * Project:   cmps - the backend (server) part of compound media player
  * 
  * CMP - compound media player
  * 
@@ -22,22 +22,18 @@
  * 
  * --------------------------------------------------------------
  */
-#ifndef LEGACYVDRRECORDING_H
-#define	LEGACYVDRRECORDING_H
+#ifndef MEDIASERVERCONFIG_H
+#define	MEDIASERVERCONFIG_H
 
-#include <AbstractMultiFileMovie.h>
+#include <ServerConfig.h>
 
-class cLegacyVdrRecording : public cAbstractMultiFileMovie {
+class cMediaServerConfig : public cServerConfig {
 public:
-  cLegacyVdrRecording(const cFile &File);
-  virtual ~cLegacyVdrRecording();
+  cMediaServerConfig(const char *ConfigBaseDir);
+  virtual ~cMediaServerConfig();
 
-  virtual const char *FirstFile(void) const;
-  virtual const char *NextFile(void);
-  virtual void Refresh(void);
-  virtual bool NeedsFurtherScan(void) const;
-  static void EnableDeepScan(bool DoScan);
+  virtual bool Eval(cConfigReader::ConfigEntry *Entry);
   };
 
-#endif	/* LEGACYVDRRECORDING_H */
+#endif	/* MEDIASERVERCONFIG_H */
 

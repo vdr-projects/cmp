@@ -33,6 +33,10 @@ cReader::cReader()
 
 cReader::~cReader()
 {
+  if (fd > 0) {
+     close(fd);
+     fd = -1;
+     }
 }
 
 int cReader::Read(char* buf, int bufSize)

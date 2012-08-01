@@ -74,57 +74,57 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmediascan.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmediascan.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmediascan.a
 
-${OBJECTDIR}/src/Picture.o: src/Picture.cc 
+${OBJECTDIR}/src/Picture.o: nbproject/Makefile-${CND_CONF}.mk src/Picture.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Picture.o src/Picture.cc
 
-${OBJECTDIR}/src/Audio.o: src/Audio.cc 
+${OBJECTDIR}/src/Audio.o: nbproject/Makefile-${CND_CONF}.mk src/Audio.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Audio.o src/Audio.cc
 
-${OBJECTDIR}/src/DVDImage.o: src/DVDImage.cc 
+${OBJECTDIR}/src/DVDImage.o: nbproject/Makefile-${CND_CONF}.mk src/DVDImage.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/DVDImage.o src/DVDImage.cc
 
-${OBJECTDIR}/src/VdrRecording.o: src/VdrRecording.cc 
+${OBJECTDIR}/src/VdrRecording.o: nbproject/Makefile-${CND_CONF}.mk src/VdrRecording.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VdrRecording.o src/VdrRecording.cc
 
-${OBJECTDIR}/src/MediaFactory.o: src/MediaFactory.cc 
+${OBJECTDIR}/src/MediaFactory.o: nbproject/Makefile-${CND_CONF}.mk src/MediaFactory.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MediaFactory.o src/MediaFactory.cc
 
-${OBJECTDIR}/src/LegacyVdrRecording.o: src/LegacyVdrRecording.cc 
+${OBJECTDIR}/src/LegacyVdrRecording.o: nbproject/Makefile-${CND_CONF}.mk src/LegacyVdrRecording.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/LegacyVdrRecording.o src/LegacyVdrRecording.cc
 
-${OBJECTDIR}/src/MediainfoReader.o: src/MediainfoReader.cc 
+${OBJECTDIR}/src/MediainfoReader.o: nbproject/Makefile-${CND_CONF}.mk src/MediainfoReader.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MediainfoReader.o src/MediainfoReader.cc
 
-${OBJECTDIR}/src/FSMediaScanner.o: src/FSMediaScanner.cc 
+${OBJECTDIR}/src/FSMediaScanner.o: nbproject/Makefile-${CND_CONF}.mk src/FSMediaScanner.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/FSMediaScanner.o src/FSMediaScanner.cc
 
-${OBJECTDIR}/src/AbstractMultiFileMovie.o: src/AbstractMultiFileMovie.cc 
+${OBJECTDIR}/src/AbstractMultiFileMovie.o: nbproject/Makefile-${CND_CONF}.mk src/AbstractMultiFileMovie.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AbstractMultiFileMovie.o src/AbstractMultiFileMovie.cc
 
-${OBJECTDIR}/src/AbstractMedia.o: src/AbstractMedia.cc 
+${OBJECTDIR}/src/AbstractMedia.o: nbproject/Makefile-${CND_CONF}.mk src/AbstractMedia.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AbstractMedia.o src/AbstractMedia.cc
 
-${OBJECTDIR}/src/Movie.o: src/Movie.cc 
+${OBJECTDIR}/src/Movie.o: nbproject/Makefile-${CND_CONF}.mk src/Movie.cc 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Movie.o src/Movie.cc

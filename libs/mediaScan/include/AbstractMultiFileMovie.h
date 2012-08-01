@@ -32,8 +32,9 @@ public:
   virtual ~cAbstractMultiFileMovie();
 
   virtual size_t ReadChunk(char *buf, size_t bufSize);
+  virtual const char *KeyFile(void) const;
   virtual const char *Name(void) const { return name; }
-  virtual const char *FirstFile(void) = 0;
+  virtual const char *FirstFile(void) const = 0;
   virtual const char *NextFile(void) = 0;
   virtual size_t Size(void) const { return size; }
 
@@ -42,10 +43,10 @@ protected:
   virtual void Reset(void);
   void SetName(char *Name);
   void SetSize(size_t Size);
-  bool checkBuffer(void);
+  bool checkBuffer(void) const;
   int movieFiles;
   int curFileNo;
-  char *buf;
+  mutable char *buf;
   int bufSize;
 
 private:

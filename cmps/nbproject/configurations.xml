@@ -51,6 +51,12 @@
                      kind="TEST">
         <itemPath>tests/MetaScanTest.cc</itemPath>
       </logicalFolder>
+      <logicalFolder name="f7"
+                     displayName="StringBuilderTest"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/StringBuilderTest.cc</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -164,6 +170,7 @@
             <linkerLibLibItem>rt</linkerLibLibItem>
             <linkerLibLibItem>ssl</linkerLibLibItem>
             <linkerLibLibItem>pcrecpp</linkerLibLibItem>
+            <linkerLibLibItem>mediainfo</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
         <requiredProjects>
@@ -241,7 +248,7 @@
           </incDir>
         </ccTool>
         <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
+          <output>${TESTDIR}/TestFiles/codecTest</output>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
@@ -256,7 +263,7 @@
           </incDir>
         </ccTool>
         <linkerTool>
-          <output>${TESTDIR}/TestFiles/f2</output>
+          <output>${TESTDIR}/TestFiles/fsScanTest</output>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f3">
@@ -271,7 +278,7 @@
           </incDir>
         </ccTool>
         <linkerTool>
-          <output>${TESTDIR}/TestFiles/f3</output>
+          <output>${TESTDIR}/TestFiles/connectionHandlerTest</output>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f4">
@@ -286,7 +293,7 @@
           </incDir>
         </ccTool>
         <linkerTool>
-          <output>${TESTDIR}/TestFiles/f4</output>
+          <output>${TESTDIR}/TestFiles/jsonTest</output>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f5">
@@ -301,7 +308,7 @@
           </incDir>
         </ccTool>
         <linkerTool>
-          <output>${TESTDIR}/TestFiles/f5</output>
+          <output>${TESTDIR}/TestFiles/fileSystemTest</output>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f6">
@@ -316,7 +323,22 @@
           </incDir>
         </ccTool>
         <linkerTool>
-          <output>${TESTDIR}/TestFiles/f6</output>
+          <output>${TESTDIR}/TestFiles/metaScanTest</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f7">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/stringBuilderTest</output>
         </linkerTool>
       </folder>
     </conf>

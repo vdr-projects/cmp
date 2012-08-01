@@ -33,6 +33,7 @@ public:
   virtual ~cAudio();
 
   virtual bool NeedsFurtherScan(void) const;
+  static void EnableDeepScan(bool DoScan);
 
 private:
   static const char *ContentType(const char *Extension);

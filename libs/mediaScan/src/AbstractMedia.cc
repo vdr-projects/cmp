@@ -34,6 +34,8 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <unistd.h>
+#include <tuple>
+#include <iostream>
 
 cAbstractMedia::cAbstractMedia(const cFile &File, const char *Mime, SupportedMediaType Type)
  : fd(-1)
@@ -52,6 +54,27 @@ cAbstractMedia::~cAbstractMedia()
   free(mimeType);
   free(uri);
   free(logicalPath);
+}
+
+void cAbstractMedia::AddMeta(cMediainfoReader::InfoEntry* Entry)
+{
+  meta.push_back(Entry);
+}
+
+void cAbstractMedia::Dump(void) const
+{
+  std::cout << MediaType2Text(mediaType) << " [" << mimeType << "] - ( " << Name() << " ) => " << logicalPath << std::endl;
+  std::cout << "\tkey-file: " << KeyFile() << std::endl;
+  for (size_t i=0; i < meta.size(); ++i) {
+      cMediainfoReader::InfoEntry *ie = meta[i];
+
+      std::cout << "\tmeta - [" << std::get<0>(*ie) << "] => " << std::get<1>(*ie) << std::endl;
+      }
+}
+
+const char *cAbstractMedia::KeyFile(void) const
+{
+  return keyPath.AbsolutePath();
 }
 
 const char *cAbstractMedia::Name(void) const
@@ -94,6 +117,19 @@ void cAbstractMedia::Reset(void)
      }
 }
 
+void cAbstractMedia::SetMediaType(int NewType)
+{
+  switch (NewType) {
+    case IMovie:
+    case IDVDImage:
+    case ILegacyVdrRecording:
+    case IVdrRecording:
+         if (mediaType == (NewType - 1)) mediaType = (SupportedMediaType) NewType;
+         break;
+    default: break;
+    }
+}
+
 size_t cAbstractMedia::Size(void) const
 {
   return keyPath.Size();
@@ -101,15 +137,19 @@ size_t cAbstractMedia::Size(void) const
 
 const char *cAbstractMedia::MediaType2Text(int Type)
 {
-  switch(Type) {
-  case Audio:              return TO_STRING(Audio);
-  case Movie:              return TO_STRING(Movie);
-  case DVDImage:           return TO_STRING(DVDImage);
-  case LegacyVdrRecording: return TO_STRING(LegacyVdrRecording);
-  case VdrRecording:       return TO_STRING(VdrRecording);
-  case Picture:            return TO_STRING(Picture);
-  default:                 return TO_STRING(Invalid);
-  }
+  switch (Type) {
+    case Audio:               return TO_STRING(Audio);
+    case Movie:               return TO_STRING(Movie);
+    case IMovie:              return TO_STRING(IMovie);
+    case DVDImage:            return TO_STRING(DVDImage);
+    case IDVDImage:           return TO_STRING(IDVDImage);
+    case LegacyVdrRecording:  return TO_STRING(LegacyVdrRecording);
+    case ILegacyVdrRecording: return TO_STRING(ILegacyVdrRecording);
+    case VdrRecording:        return TO_STRING(VdrRecording);
+    case IVdrRecording:       return TO_STRING(IVdrRecording);
+    case Picture:             return TO_STRING(Picture);
+    default:                  return TO_STRING(Invalid);
+    }
 }
 
 bool cAbstractMedia::NeedsFurtherScan(void) const

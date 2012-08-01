@@ -32,9 +32,11 @@ public:
   cVdrRecording(const cFile &File);
   virtual ~cVdrRecording();
 
-  virtual const char *FirstFile(void);
+  virtual const char *FirstFile(void) const;
   virtual const char *NextFile(void);
   virtual void Refresh(void);
+  virtual bool NeedsFurtherScan(void) const;
+  static void EnableDeepScan(bool DoScan);
   };
 
 #endif	/* VDRRECORDING_H */

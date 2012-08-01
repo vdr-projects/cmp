@@ -22,13 +22,15 @@
  * 
  * --------------------------------------------------------------
  */
-#include <stdlib.h>
-#include <iostream>
 #include <Audio.h>
 #include <Movie.h>
-#include <PictuFSMediaScannerner.h>
+#include <Picture.h>
+#include <FSMediaScanner.h>
 #include <MediaFactory.h>
+#include <MediaServerConfig.h>
 #include <TimeMs.h>
+#include <stdlib.h>
+#include <iostream>
 
 class FScanTest {
 public:
@@ -66,30 +68,45 @@ void FScanTest::test3()
 }
 
 void FScanTest::test4()
-///< result from java pendant: FSScanner - scanning of 9970 media took 46 ms
-///< own result:                                 found 9970 media, in 58 ms.
-///< file server (mostly recordings)             found 2828 media, in 53525 ms.
-///< file server (added 18G audio)               found 5698 media, in 44653 ms.
-///< file server (same files, fresh reboot)      found 5698 media, in 54723 ms.
+///< result from java pendant: FSScanner - scanning of 9970 media took      46 ms
+///< own result:                                 found 9970 media,  in      58 ms.
+///< file server (mostly recordings)             found 2828 media,  in   53525 ms.
+///< file server (added 18G audio)               found 5698 media,  in   44653 ms.
+///< file server (same files, fresh reboot)      found 5698 media,  in   54723 ms.
+///< new own result using cFile                  found 10002 media, in     601 ms.  (first run)
+///< new own result using cFile                  found 10002 media, in     177 ms.  (second run)
+///< with mediascan                              found 10002 media, in   80570 ms.
+///< with mediascan and saving values            found 10002 media, in   93675 ms.
+///< with mediascan, scanning each media         found 10002 media, in  247096 ms.
+///< java - mediascan for each media       scanning of  9312 media took 215037 ms. (with key file)
 {
+  cMediaServerConfig config("/var/lib/cmp");
   cFSMediaScanner scanner;
   cAbstractMedia *media;
 
+  config.Load("srserver.conf");
+  config.SetAuthorizationRequired(false);
+  config.Dump();
+
   std::cout << "FScanTest test 4" << std::endl;
-  scanner.SetMediaFactory(new cMediaFactory("/media/video"));
+  scanner.SetMediaFactory(new cMediaFactory(config));
 
   uint64_t start = cTimeMs::Now();
   scanner.Refresh();
   uint64_t end = cTimeMs::Now();
+  size_t grouped[cAbstractMedia::Unknown];
+  int mx = sizeof(grouped) / sizeof(size_t);
 
+  for (int i=0; i < mx; ++i) grouped[i] = 0;
   for (size_t i=0; i < scanner.MediaPool().size(); ++i) {
       media = (cAbstractMedia *) scanner.MediaPool()[i];
 
-      std::cout << media->Name() << " [" << media->MimeType() << "] => " << media->AbsolutePath() << std::endl;
+      ++grouped[media->MediaType()];
+      media->Dump();
       }
   std::cout << std::endl << "found " << scanner.MediaPool().size() << " media, in " << end - start << " ms." << std::endl;
 
-  const char *file2Search = "/pretty/unsupported/media/file/in/any/workstation.unknown";
+  const char *file2Search = "/pretty/unsupported/media/file/in/any/known.workstation";
 
   // search (worst case)
   start = cTimeMs::Now();
@@ -97,11 +114,18 @@ void FScanTest::test4()
   end = cTimeMs::Now();
 
   std::cout << "array search took " << end - start << " ms." << std::endl;
+
+  for (int i=0; i < mx; ++i) {
+      std::cout << cAbstractMedia::MediaType2Text(i) << " has " << grouped[i] << " members." << std::endl;
+      }
   cFile::Cleanup();
 }
 
 int main(int argc, char** argv)
 {
+  int MaxPossibleFileDescriptors = getdtablesize();
+
+  std::cout << "maximum of open files #" << MaxPossibleFileDescriptors << std::endl << std::endl;
   uint64_t t0 = cTimeMs::Now();
   std::cout << "%SUITE_STARTING% FScanTest" << std::endl;
   std::cout << "%SUITE_STARTED%" << std::endl;

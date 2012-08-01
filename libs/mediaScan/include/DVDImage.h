@@ -33,10 +33,12 @@ public:
   virtual ~cDVDImage();
 
   virtual const char *Name(void) const;
-  virtual const char *FirstFile(void);
+  virtual const char *FirstFile(void) const;
   virtual const char *NextFile(void);
   virtual void Refresh(void);
   virtual size_t Size(void) const;
+  virtual bool NeedsFurtherScan(void) const;
+  static void EnableDeepScan(bool DoScan);
 
 private:
   int mainMovie;

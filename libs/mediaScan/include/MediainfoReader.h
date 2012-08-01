@@ -37,14 +37,14 @@ public:
   cMediainfoReader(cLineReader *LineReader);
   virtual ~cMediainfoReader();
 
-  void AddValuableKey(const char *Key);
   void Close(void);
   bool IsValuable(std::string &key);
   InfoEntry *ReadEntry(void);
+  static void Setup(const char *keys[]);
 
 private:
   cLineReader *reader;
-  std::vector<std::string> valuableKeys;
+  static std::vector<std::string> valuableKeys;
   };
 
 #endif	/* MEDIAINFOREADER_H */
