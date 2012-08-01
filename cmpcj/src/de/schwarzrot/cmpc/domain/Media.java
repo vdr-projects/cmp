@@ -1,25 +1,25 @@
 /**
  * ======================== legal notice ======================
  * 
- * File:      Media.java
- * Created:   
- * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
- * Project:   cmpc - a java frontend (client) part of compound media player
- *                   uses external players to play the media
+ * File: Media.java Created: Author: <a
+ * href="mailto:geronimo013@gmx.de">Geronimo</a> Project: cmpc - a java frontend
+ * (client) part of compound media player uses external players to play the
+ * media
  * 
  * CMP - compound media player
  * 
- * is a client/server mediaplayer intended to play any media from any workstation
- * without the need to export or mount shares. cmps is an easy to use backend
- * with a (ready to use) HTML-interface. Additionally the backend supports
- * authentication via HTTP-digest authorization.
- * cmpc is a client with vdr-like osd-menues.
+ * is a client/server mediaplayer intended to play any media from any
+ * workstation without the need to export or mount shares. cmps is an easy to
+ * use backend with a (ready to use) HTML-interface. Additionally the backend
+ * supports authentication via HTTP-digest authorization. cmpc is a client with
+ * vdr-like osd-menues.
  * 
- * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
- * published under Creative Commons by-sa
- * For details see http://creativecommons.org/licenses/by-sa/3.0/
+ * Copyright (c) 2012 Reinhard Mantey, some rights reserved! published under
+ * Creative Commons by-sa For details see
+ * http://creativecommons.org/licenses/by-sa/3.0/
  * 
- * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
+ * The cmp project's homepage is at
+ * http://projects.vdr-developer.org/projects/cmp
  * 
  * --------------------------------------------------------------
  */
@@ -32,7 +32,7 @@ import java.net.URLDecoder;
 
 public class Media {
     public enum SupportedMediaType {
-        Invalid, Audio, Movie, DVDImage, LegacyVdrRecording, VdrRecording, Picture, Unknown
+        Invalid, Audio, Movie, IMovie, DVDImage, IDVDImage, LegacyVdrRecording, ILegacyVdrRecording, VdrRecording, IVdrRecording, Picture, Unknown
     };
 
 
@@ -76,12 +76,20 @@ public class Media {
             this.type = SupportedMediaType.Audio;
         else if (type == SupportedMediaType.Movie.ordinal())
             this.type = SupportedMediaType.Movie;
+        else if (type == SupportedMediaType.IMovie.ordinal())
+            this.type = SupportedMediaType.IMovie;
         else if (type == SupportedMediaType.DVDImage.ordinal())
             this.type = SupportedMediaType.DVDImage;
+        else if (type == SupportedMediaType.IDVDImage.ordinal())
+            this.type = SupportedMediaType.IDVDImage;
         else if (type == SupportedMediaType.LegacyVdrRecording.ordinal())
             this.type = SupportedMediaType.LegacyVdrRecording;
+        else if (type == SupportedMediaType.ILegacyVdrRecording.ordinal())
+            this.type = SupportedMediaType.ILegacyVdrRecording;
         else if (type == SupportedMediaType.VdrRecording.ordinal())
             this.type = SupportedMediaType.VdrRecording;
+        else if (type == SupportedMediaType.IVdrRecording.ordinal())
+            this.type = SupportedMediaType.IVdrRecording;
         else if (type == SupportedMediaType.Picture.ordinal())
             this.type = SupportedMediaType.Picture;
         else
