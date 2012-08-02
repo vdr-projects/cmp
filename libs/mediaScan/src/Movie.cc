@@ -25,6 +25,7 @@
 #include <Movie.h>
 #include <stddef.h>
 #include <string.h>
+#include <util.h>
 
 static bool deepScanEnabled = true;
 
@@ -64,8 +65,16 @@ const char *cMovie::ContentType(const char* Extension)
 
 void cMovie::AddMeta(cMediainfoReader::InfoEntry *Entry)
 {
-  if (!strcmp("Scan type", std::get<0>(*Entry).c_str())) {
-     if (!strcmp("Interlaced", std::get<1>(*Entry).c_str())) SetMediaType(MediaType() + 1);
+  if (!Entry) return;
+  std::string name = std::get<0>(*Entry);
+  std::string value = std::get<1>(*Entry);
+
+  if (!strcmp("Scan type", name.c_str())) {
+     if (!strcmp("Interlaced", value.c_str())) SetMediaType(MediaType() + 1);
+     }
+  else if (!strcmp("Aspect", name.c_str())) {
+     aspect = parseAspect(value);
+     if (height > 0 && width > 0) width = height * aspect;
      }
   cAbstractMedia::AddMeta(Entry);
 }
@@ -78,4 +87,11 @@ void cMovie::EnableDeepScan(bool DoScan)
 bool cMovie::NeedsFurtherScan(void) const
 {
   return deepScanEnabled;
+}
+
+void cMovie::SetFormat(const char* Format) {
+  if (!strcmp("Matroska", Format) || !strcmp("Flash Video", Format)
+   || !strcmp("MPEG-PS", Format) || !strcmp("MPEG-TS", Format) || !strcmp("MPEG-PES", Format))
+     return; // skip containers
+  cAbstractMedia::SetFormat(Format);
 }

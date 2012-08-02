@@ -59,3 +59,141 @@ const char *restOfLine(char *buf, int bufSize, const char *src)
 
   return *s ? s : NULL;
 }
+
+double parseAspect(const std::string &input, const char **next)
+{
+  return parseAspect(input.c_str(), next);
+}
+
+double parseAspect(const char *input, const char **next)
+{
+  enum { Double, TwoInt, OneInt } mode = OneInt;
+  char buf[32];
+  char *pd, *pmd, *nextBuf;
+  const char *ps, *pms;
+
+  for (pd = buf, pmd = buf + sizeof(buf) - 1, ps=input, pms = input + strlen(input); ps < pms && pd < pmd; ++ps) {
+      switch (*ps) {
+        case ' ':
+        case '\t':
+             continue;
+
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+             *pd++ = *ps;
+             break;
+
+        case '.':
+             mode = Double;
+             pms = ps;
+             break;
+
+        case ':':
+             mode = TwoInt;
+             pms = ps;
+             break;
+
+        default:
+             pms = --ps;
+             break;
+        }
+      }
+  *pd = 0;
+
+  if (mode == OneInt) {
+     if (next) *next = ps;
+     return strtod(buf, NULL);
+     }
+  nextBuf = mode == TwoInt ? pd + 1 : pd;
+
+  for (pd = nextBuf; ps < pms && pd < pmd; ++ps) {
+      switch (*ps) {
+        case ' ':
+        case '\t':
+             continue;
+
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+             *pd++ = *ps;
+             break;
+
+        case '.':
+             mode = Double;
+             pms = ps;
+             break;
+
+        case ':':
+             mode = TwoInt;
+             pms = ps;
+             break;
+
+        default:
+             pms = --ps;
+             break;
+        }
+      }
+  *pd = 0;
+  if (next) *next = ps;
+  if (mode == Double) return strtod(buf, NULL);
+  long a = atol(buf);
+  long b = atol(nextBuf);
+
+  return (double)a / (double)b;
+}
+
+long parseInt(const std::string &input, const char **next)
+{
+  return parseInt(input.c_str(), next);
+}
+
+long parseInt(const char *input, const char **next)
+{
+  char buf[32];
+  char *pd, *pmd;
+  const char *ps, *pms;
+
+  for (pd = buf, pmd = buf + sizeof(buf) - 1, ps=input, pms = input + strlen(input); ps < pms && pd < pmd; ++ps) {
+      switch (*ps) {
+        case ' ':
+        case '\t':
+             continue;
+
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+             *pd++ = *ps;
+             break;
+
+        default:
+             pms = --ps;
+             break;
+        }
+      }
+  *pd = 0;
+  if (next) *next = ps;
+
+  return atol(buf);
+}

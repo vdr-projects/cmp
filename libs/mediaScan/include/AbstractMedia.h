@@ -59,6 +59,7 @@ public:
   SupportedMediaType MediaType(void) const { return mediaType; }
   const char *MimeType(void) const { return mimeType; }
   const char *AbsolutePath(void) const;
+  const char *Format(void) const { return format; }
   virtual const char *KeyFile(void) const;
   ulong LastModified(void) const;
   const char *LogicalPath(void) const { return logicalPath; }
@@ -72,15 +73,23 @@ public:
   virtual size_t ReadChunk(char *buf, size_t bufSize);
       ///< used to hide the differences between single- and multi-file media.
   virtual void Reset(void);
+  int Width(void) const { return width; }
+  int Height(void) const { return height; }
   void Dump(void) const;
   static const char *MediaType2Text(int Type);
 
 protected:
   cAbstractMedia(const cFile &File, const char *Mime, SupportedMediaType Type);
+  virtual void SetFormat(const char *Format);
   void SetMediaType(int NewType);
   void SetMimeType(const char *MimeType);
   const cFile &KeyPath(void) const { return keyPath; }
+  std::vector<cMediainfoReader::InfoEntry *> meta;
   int fd;
+  char *format;
+  short width;
+  short height;
+  double aspect;
 
 private:
   SupportedMediaType mediaType;
@@ -88,7 +97,6 @@ private:
   char *uri;
   char *logicalPath;
   cFile keyPath;
-  std::vector<cMediainfoReader::InfoEntry *> meta;
   };
 
 #endif	/* ABSTRACTMEDIA_H */

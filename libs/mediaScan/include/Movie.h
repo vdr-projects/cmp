@@ -33,11 +33,16 @@ public:
   virtual ~cMovie();
 
   virtual void AddMeta(cMediainfoReader::InfoEntry *Entry);
+  bool IsHD(void) const { return isHD; }
   virtual bool NeedsFurtherScan(void) const;
   static void EnableDeepScan(bool DoScan);
 
+protected:
+  virtual void SetFormat(const char *Format);
+  
 private:
   static const char *ContentType(const char *Extension);
+  bool isHD;
   static SupportedExtension knownExtensions[];
   friend class cMediaFactory;
   friend class FScanTest;

@@ -341,6 +341,21 @@
           <output>${TESTDIR}/TestFiles/stringBuilderTest</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f8">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f8</output>
+        </linkerTool>
+      </folder>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>

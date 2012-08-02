@@ -39,22 +39,10 @@
 
 void parseConfig(const char *FileName)
 {
-#ifdef OLD_STUFF
-  cConfigReader *cr = new cConfigReader(new cLineReader(new cFileReader(new cFile(FileName))));
-  cConfigReader::ConfigEntry *ce;
-
-  while ((ce = cr->ReadEntry())) {
-        std::cout << "config entry [" << std::get<0>(*ce) << "] => " << std::get<1>(*ce) << std::endl;
-        delete ce;
-        }
-  cr->Close();
-  delete cr;
-#else
   cMediaServerConfig msc("/var/lib/cmp");
 
   msc.Load("srserver.conf");
   msc.Dump();
-#endif
 }
 
 void dumpTextfile(const char *FileName)

@@ -23,8 +23,10 @@
  * --------------------------------------------------------------
  */
 #include <Audio.h>
+#include <StringBuilder.h>
 #include <stddef.h>
 #include <string.h>
+#include <util.h>
 
 static bool deepScanEnabled = false;
 
@@ -50,11 +52,23 @@ SupportedExtension cAudio::knownExtensions[] = {
 
 cAudio::cAudio(const cFile &File, const char *Mime)
  : cAbstractMedia(File, Mime, Audio)
+ , name(NULL)
 {
 }
 
 cAudio::~cAudio()
 {
+  free(name);
+}
+
+void cAudio::AddMeta(cMediainfoReader::InfoEntry* Entry)
+{
+  if (!Entry) return;
+  std::string name = std::get<0>(*Entry);
+  std::string value = std::get<1>(*Entry);
+
+  if (!strcmp("Bit rate", name.c_str())) width = parseInt(value);
+  cAbstractMedia::AddMeta(Entry);
 }
 
 void cAudio::EnableDeepScan(bool DoScan)
@@ -68,6 +82,41 @@ const char *cAudio::ContentType(const char* Extension)
       if (!strcasecmp(p->extension, Extension))  return p->mimeType;
       }
   return NULL;
+}
+
+const char *cAudio::Name(void) const
+{
+  if (!name) {
+     cMediainfoReader::InfoEntry *performer = NULL, *album = NULL, *track = NULL;
+
+     for (size_t i=0; i < meta.size(); ++i) {
+         cMediainfoReader::InfoEntry *ie = meta[i];
+         std::string name = std::get<0>(*ie);
+
+         if (!strcmp("Album", name.c_str())) album = ie;
+         else if (!strcmp("Performer", name.c_str())) performer = ie;
+         else if (!strcmp("Track name", name.c_str())) track = ie;
+         }
+
+     if (track) {
+        std::string tmp = std::get<1>(*track);
+        cStringBuilder sb(tmp.c_str());
+
+        if (performer) {
+           tmp = std::get<1>(*performer);
+           sb.Append(" / ").Append(tmp.c_str());
+           }
+        if (album) {
+           tmp = std::get<1>(*album);
+           sb.Append(" (").Append(tmp.c_str()).Append(")");
+           }
+        name = sb.toString();
+        }
+     else {
+        name = strdup(cAbstractMedia::Name());
+        }
+     }
+  return name;
 }
 
 bool cAudio::NeedsFurtherScan(void) const

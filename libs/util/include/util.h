@@ -26,6 +26,7 @@
 #define	UTIL_H
 
 #include <stdlib.h>
+#include <string>
 #define FREE(m)           { void *_tmp_ = m; m = NULL; free(_tmp_); }
 #define TO_STRING(s)      #s
 #define EVER              ;;
@@ -37,6 +38,10 @@
 extern const char *skipWhitespace(const char *Buffer);
 extern const char *getWord(char *buf, int bufSize, const char *src);
 extern const char *restOfLine(char *buf, int bufSize, const char *src);
+extern double parseAspect(const char *input, const char **next = NULL);
+extern double parseAspect(const std::string &input, const char **next = NULL);
+extern long parseInt(const char *input, const char **next = NULL);
+extern long parseInt(const std::string &input, const char **next = NULL);
 
 #endif	/* UTIL_H */
 

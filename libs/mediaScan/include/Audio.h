@@ -32,11 +32,14 @@ public:
   cAudio(const cFile &File, const char *Mime);
   virtual ~cAudio();
 
+  virtual void AddMeta(cMediainfoReader::InfoEntry *Entry);
+  virtual const char *Name(void) const;
   virtual bool NeedsFurtherScan(void) const;
   static void EnableDeepScan(bool DoScan);
 
 private:
   static const char *ContentType(const char *Extension);
+  mutable char *name;
   static SupportedExtension knownExtensions[];
   friend class cMediaFactory;
   friend class FScanTest;

@@ -64,6 +64,9 @@ bool cJSonListAssembler::AddElement(cStringBuilder &sb, void *ListElement, bool 
      writer->Object();
      writer->Key("name").Value(m->Name());
      writer->Key("type").Value(m->MediaType());
+     writer->Key("format").Value(m->Format());
+     writer->Key("width").Value(m->Width());
+     writer->Key("height").Value(m->Height());
      writer->Key("path").Value(m->URI());
      writer->EndObject();
 

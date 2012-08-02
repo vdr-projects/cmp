@@ -36,9 +36,14 @@
 #include <unistd.h>
 #include <tuple>
 #include <iostream>
+#include <string>
 
 cAbstractMedia::cAbstractMedia(const cFile &File, const char *Mime, SupportedMediaType Type)
  : fd(-1)
+ , format(NULL)
+ , width(0)
+ , height(0)
+ , aspect(0)
  , mediaType(Type)
  , mimeType(Mime ? strdup(Mime) : NULL)
  , uri(NULL)
@@ -54,10 +59,18 @@ cAbstractMedia::~cAbstractMedia()
   free(mimeType);
   free(uri);
   free(logicalPath);
+  free(format);
 }
 
 void cAbstractMedia::AddMeta(cMediainfoReader::InfoEntry* Entry)
 {
+  if (!Entry) return;
+  std::string name = std::get<0>(*Entry);
+  std::string value = std::get<1>(*Entry);
+
+  if (!strcmp("Format", name.c_str()) && !format) SetFormat(value.c_str());
+  else if (!strcmp("Width", name.c_str())) width = parseInt(value);
+  else if (!strcmp("Height", name.c_str())) height = parseInt(value);
   meta.push_back(Entry);
 }
 
@@ -115,6 +128,11 @@ void cAbstractMedia::Reset(void)
      close(fd);
      fd = -1;
      }
+}
+
+void cAbstractMedia::SetFormat(const char *Format)
+{
+  format = strdup(Format);
 }
 
 void cAbstractMedia::SetMediaType(int NewType)
