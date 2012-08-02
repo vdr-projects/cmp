@@ -36,6 +36,16 @@ public class Media {
     };
 
 
+    public String getFormat() {
+        return format;
+    }
+
+
+    public int getHeight() {
+        return height;
+    }
+
+
     public String getName() {
         return name;
     }
@@ -53,6 +63,26 @@ public class Media {
 
     public SupportedMediaType getType() {
         return type;
+    }
+
+
+    public int getWidth() {
+        return width;
+    }
+
+
+    public boolean isHD() {
+        return height > 576;
+    }
+
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 
 
@@ -96,8 +126,16 @@ public class Media {
             this.type = SupportedMediaType.Invalid;
     }
 
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
     private String name;
     private SupportedMediaType type;
+    private String format;
     private String path;
     private String search;
+    private int width;
+    private int height;
 }

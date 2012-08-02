@@ -90,7 +90,7 @@ bool cMovie::NeedsFurtherScan(void) const
 }
 
 void cMovie::SetFormat(const char* Format) {
-  if (!strcmp("Matroska", Format) || !strcmp("Flash Video", Format)
+  if (!strncmp("Matroska", Format, 8) || !strcmp("Flash Video", Format) || !strcmp("AVI", Format)
    || !strcmp("MPEG-PS", Format) || !strcmp("MPEG-TS", Format) || !strcmp("MPEG-PES", Format))
      return; // skip containers
   cAbstractMedia::SetFormat(Format);

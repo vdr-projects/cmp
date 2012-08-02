@@ -1,25 +1,25 @@
 /**
  * ======================== legal notice ======================
  * 
- * File:      MediaClient.java
- * Created:   
- * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
- * Project:   cmpc - a java frontend (client) part of compound media player
- *                   uses external players to play the media
+ * File: MediaClient.java Created: Author: <a
+ * href="mailto:geronimo013@gmx.de">Geronimo</a> Project: cmpc - a java frontend
+ * (client) part of compound media player uses external players to play the
+ * media
  * 
  * CMP - compound media player
  * 
- * is a client/server mediaplayer intended to play any media from any workstation
- * without the need to export or mount shares. cmps is an easy to use backend
- * with a (ready to use) HTML-interface. Additionally the backend supports
- * authentication via HTTP-digest authorization.
- * cmpc is a client with vdr-like osd-menues.
+ * is a client/server mediaplayer intended to play any media from any
+ * workstation without the need to export or mount shares. cmps is an easy to
+ * use backend with a (ready to use) HTML-interface. Additionally the backend
+ * supports authentication via HTTP-digest authorization. cmpc is a client with
+ * vdr-like osd-menues.
  * 
- * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
- * published under Creative Commons by-sa
- * For details see http://creativecommons.org/licenses/by-sa/3.0/
+ * Copyright (c) 2012 Reinhard Mantey, some rights reserved! published under
+ * Creative Commons by-sa For details see
+ * http://creativecommons.org/licenses/by-sa/3.0/
  * 
- * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
+ * The cmp project's homepage is at
+ * http://projects.vdr-developer.org/projects/cmp
  * 
  * --------------------------------------------------------------
  */
@@ -165,8 +165,8 @@ public class MediaClient extends JComponent implements MediaClientExecutor {
             JTextField filterEdit = new JTextField(30);
             FilterList<Media> textFilteredMedia = new FilterList<Media>(filteredMedias,
                     new TextComponentMatcherEditor<Media>(filterEdit, new MediaTextFilterator()));
-            DefaultEventTableModel<Media> mediaTableModel = new DefaultEventTableModel<Media>(textFilteredMedia,
-                    new MediaTableFormat());
+            MediaTableFormat tf = new MediaTableFormat();
+            DefaultEventTableModel<Media> mediaTableModel = new DefaultEventTableModel<Media>(textFilteredMedia, tf);
             JTable mediaJTable = new JTable(mediaTableModel);
             @SuppressWarnings({ "unused", "rawtypes" })
             TableComparatorChooser tableSorter = TableComparatorChooser.install(mediaJTable, sortedMedias,
@@ -189,7 +189,13 @@ public class MediaClient extends JComponent implements MediaClientExecutor {
             });
             mediaTypesScrollPane.setPreferredSize(new Dimension(100, 100));
             mediaTypesScrollPane.setBackground(Color.BLACK);
-            mediaJTable.getColumnModel().getColumn(0).setMaxWidth(80);
+            int mx = mediaJTable.getColumnModel().getColumnCount();
+            for (int i = 0; i < mx; ++i) {
+                int cw = tf.getColumnWidth(i);
+
+                if (cw > 0)
+                    mediaJTable.getColumnModel().getColumn(i).setMaxWidth(cw);
+            }
             mediaJTable.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer());
             mediaJTable.getColumnModel().getColumn(1).setCellRenderer(new DefaultTableCellRenderer());
             mediaJTable.addMouseListener(new MediaExecutor(mediaJTable, textFilteredMedia, this));
