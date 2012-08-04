@@ -1,25 +1,25 @@
 /**
  * ======================== legal notice ======================
  * 
- * File:      MediaListLoader.java
- * Created:   
- * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
- * Project:   cmpc - a java frontend (client) part of compound media player
- *                   uses external players to play the media
+ * File: MediaListLoader.java Created: Author: <a
+ * href="mailto:geronimo013@gmx.de">Geronimo</a> Project: cmpc - a java frontend
+ * (client) part of compound media player uses external players to play the
+ * media
  * 
  * CMP - compound media player
  * 
- * is a client/server mediaplayer intended to play any media from any workstation
- * without the need to export or mount shares. cmps is an easy to use backend
- * with a (ready to use) HTML-interface. Additionally the backend supports
- * authentication via HTTP-digest authorization.
- * cmpc is a client with vdr-like osd-menues.
+ * is a client/server mediaplayer intended to play any media from any
+ * workstation without the need to export or mount shares. cmps is an easy to
+ * use backend with a (ready to use) HTML-interface. Additionally the backend
+ * supports authentication via HTTP-digest authorization. cmpc is a client with
+ * vdr-like osd-menues.
  * 
- * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
- * published under Creative Commons by-sa
- * For details see http://creativecommons.org/licenses/by-sa/3.0/
+ * Copyright (c) 2012 Reinhard Mantey, some rights reserved! published under
+ * Creative Commons by-sa For details see
+ * http://creativecommons.org/licenses/by-sa/3.0/
  * 
- * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
+ * The cmp project's homepage is at
+ * http://projects.vdr-developer.org/projects/cmp
  * 
  * --------------------------------------------------------------
  */
@@ -30,7 +30,6 @@ import java.net.ConnectException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Date;
-import org.codehaus.jackson.map.ObjectMapper;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import de.schwarzrot.cmpc.domain.Media;
@@ -64,7 +63,7 @@ public class MediaListLoader implements Runnable {
             start = new Date();
             request = new URL("http", hostName, port, "/?format=json");
             URLConnection conn = request.openConnection();
-            final PlayList firstPlaylist = jsonOM.readValue(conn.getInputStream(), PlayList.class);
+            final PlayList firstPlaylist = jsonParser.parseListChunk(conn.getInputStream());
 
             mediaPool.getReadWriteLock().writeLock().lock();
             for (Media m : firstPlaylist.getResults()) {
@@ -85,7 +84,7 @@ public class MediaListLoader implements Runnable {
                     uri = String.format("/?start=%d&limit=%d&format=json", n, 100);
                     request = new URL("http", hostName, port, uri);
                     conn = request.openConnection();
-                    next = jsonOM.readValue(conn.getInputStream(), PlayList.class);
+                    next = jsonParser.parseListChunk(conn.getInputStream());
                     mediaPool.getReadWriteLock().writeLock().lock();
                     for (Media m : next.getResults()) {
                         mediaPool.add(m);
@@ -96,6 +95,7 @@ public class MediaListLoader implements Runnable {
                 }
             } catch (Throwable t) {
                 System.out.println("Oups, media list contains now #" + mediaPool.size() + " entries.");
+                System.err.println("Error on chunk #" + n);
                 t.printStackTrace();
             } finally {
                 try {
@@ -119,6 +119,6 @@ public class MediaListLoader implements Runnable {
 
     private String hostName;
     private int port;
-    private ObjectMapper jsonOM = new ObjectMapper();
+    private MedialistParser jsonParser = new MedialistParser();
     private EventList<Media> mediaPool = new BasicEventList<Media>();
 }

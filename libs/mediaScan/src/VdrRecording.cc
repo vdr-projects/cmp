@@ -25,6 +25,7 @@
 #include <VdrRecording.h>
 #include <StringBuilder.h>
 #include <File.h>
+#include <Logging.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -52,6 +53,7 @@ cVdrRecording::~cVdrRecording()
 void cVdrRecording::EnableDeepScan(bool DoScan)
 {
   deepScanEnabled = DoScan;
+  isyslog("cVdrRecording::enableDeepScan(%s)", deepScanEnabled ? "true" : "false");
 }
 
 bool cVdrRecording::NeedsFurtherScan(void) const

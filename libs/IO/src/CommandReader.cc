@@ -51,17 +51,10 @@ void cCommandReader::Close(void)
   int status = 0;
 
   if (!fdMax) fdMax = getdtablesize();
-  if (fd > 0 && fd < fdMax) {
-     close(fd);
-     isyslog("closed fd #%d", fd);
-     }
+  if (fd > 0 && fd < fdMax) close(fd);
   fd = -1;
-  if (pid != waitpid(pid, &status, 0)) {
+  if (pid != waitpid(pid, &status, 0))
      esyslog("ERROR: failed to wait for child #%d - error #%d", pid, errno);
-     }
-  else {
-     isyslog("child exit status: %d", WEXITSTATUS(status));
-     }
   pid = -1;
 }
 
@@ -110,7 +103,6 @@ bool cCommandReader::Open(void)
             esyslog("ERROR: failed to close write end from parent side!");
             exit(-1);
             }
-         isyslog("child process #%d started ... fd %d", pid, child2Parent[FDRead]);
          fd = child2Parent[FDRead];
          return true;
          }

@@ -60,14 +60,17 @@ public class MediaTypeSelect extends AbstractMatcherEditor<Media> implements Lis
         @Override
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
                 boolean cellHasFocus) {
+            ImageIcon icon = null;
+
             if (isSelected) {
                 setBackground(list.getSelectionBackground());
                 setForeground(list.getSelectionForeground());
+                icon = selImages[((Media.SupportedMediaType) value).ordinal()];
             } else {
                 setBackground(list.getBackground());
                 setForeground(list.getForeground());
+                icon = stdImages[((Media.SupportedMediaType) value).ordinal()];
             }
-            ImageIcon icon = images[((Media.SupportedMediaType) value).ordinal()];
             setSize(110, 110);
             setHorizontalAlignment(JLabel.CENTER);
 
@@ -86,21 +89,35 @@ public class MediaTypeSelect extends AbstractMatcherEditor<Media> implements Lis
             ClassLoader cl = getClass().getClassLoader();
             URL url;
 
-            images = new ImageIcon[iconFiles.length];
+            stdImages = new ImageIcon[iconFiles.length];
             for (int i = 0; i < iconFiles.length; ++i) {
                 try {
                     url = cl.getResource(iconFiles[i]);
 
                     img = ImageIO.read(url);
-                    images[i] = new ImageIcon(img.getScaledInstance(110, 110, Image.SCALE_SMOOTH));
+                    stdImages[i] = new ImageIcon(img.getScaledInstance(110, 110, Image.SCALE_SMOOTH));
                 } catch (Throwable t) {
                     System.err.println("failed to read image from " + iconFiles[i]);
                     t.printStackTrace();
                 }
             }
+
+            selImages = new ImageIcon[activeIconFiles.length];
+            for (int i = 0; i < activeIconFiles.length; ++i) {
+                try {
+                    url = cl.getResource(activeIconFiles[i]);
+
+                    img = ImageIO.read(url);
+                    selImages[i] = new ImageIcon(img.getScaledInstance(110, 110, Image.SCALE_SMOOTH));
+                } catch (Throwable t) {
+                    System.err.println("failed to read image from " + activeIconFiles[i]);
+                    t.printStackTrace();
+                }
+            }
         }
 
-        ImageIcon[] images;
+        ImageIcon[] stdImages;
+        ImageIcon[] selImages;
     }
 
 
@@ -139,11 +156,15 @@ public class MediaTypeSelect extends AbstractMatcherEditor<Media> implements Lis
     private EventList<Media.SupportedMediaType> selectedTypes;
     private JList mediaTypeJList;
     private static final String[] iconFiles;
+    private static final String[] activeIconFiles;
     static {
-        iconFiles = new String[] { "images/folder_black.png", "images/folder_black_music.png",
-                "images/folder_black_movies.png", "images/folder_black_i_movies.png", "images/folder_black_dvd.png",
-                "images/folder_black_i_dvd.png", "images/folder_black_vdr_old.png",
-                "images/folder_black_i_vdr_old.png", "images/folder_black_vdr.png", "images/folder_black_i_vdr.png",
-                "images/folder_black_photos.png", "images/folder_black.png" };
+        iconFiles = new String[] { "images/sr_default.png", "images/sr_music.png", "images/sr_movies.png",
+                "images/sr_movies_i.png", "images/sr_dvd.png", "images/sr_dvd_i.png", "images/sr_lvdr.png",
+                "images/sr_lvdr_i.png", "images/sr_vdr.png", "images/sr_vdr_i.png", "images/sr_photos.png",
+                "images/sr_default.png" };
+        activeIconFiles = new String[] { "images/sradefault.png", "images/sramusic.png", "images/sramovies.png",
+                "images/sramovies_i.png", "images/sradvd.png", "images/sradvd_i.png", "images/sralvdr.png",
+                "images/sralvdr_i.png", "images/sravdr.png", "images/sravdr_i.png", "images/sraphotos.png",
+                "images/sradefault.png" };
     }
 }

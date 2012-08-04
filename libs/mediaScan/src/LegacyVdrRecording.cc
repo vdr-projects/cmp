@@ -25,6 +25,7 @@
 #include <LegacyVdrRecording.h>
 #include <StringBuilder.h>
 #include <File.h>
+#include <Logging.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -53,6 +54,7 @@ cLegacyVdrRecording::~cLegacyVdrRecording()
 void cLegacyVdrRecording::EnableDeepScan(bool DoScan)
 {
   deepScanEnabled = DoScan;
+  isyslog("cLegacyVdrRecording::enableDeepScan(%s)", deepScanEnabled ? "true" : "false");
 }
 
 bool cLegacyVdrRecording::NeedsFurtherScan(void) const

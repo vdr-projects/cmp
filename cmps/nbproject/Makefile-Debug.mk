@@ -42,6 +42,7 @@ TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
 
 # Test Files
 TESTFILES= \
+	${TESTDIR}/TestFiles/f8 \
 	${TESTDIR}/TestFiles/codecTest \
 	${TESTDIR}/TestFiles/connectionHandlerTest \
 	${TESTDIR}/TestFiles/fileSystemTest \
@@ -89,7 +90,7 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps: ${OBJECTFILES}
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cc 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cc
 
 # Subprojects
 .build-subprojects:
@@ -107,6 +108,10 @@ ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cc
 
 # Build Test Targets
 .build-tests-conf: .build-conf ${TESTFILES}
+${TESTDIR}/TestFiles/f8: ${TESTDIR}/tests/BaseScanTest.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc}   -o ${TESTDIR}/TestFiles/f8 $^ ${LDLIBSOPTIONS} 
+
 ${TESTDIR}/TestFiles/codecTest: ${TESTDIR}/tests/CodecTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc}   -o ${TESTDIR}/TestFiles/codecTest $^ ${LDLIBSOPTIONS} 
@@ -136,46 +141,52 @@ ${TESTDIR}/TestFiles/stringBuilderTest: ${TESTDIR}/tests/StringBuilderTest.o ${O
 	${LINK.cc}   -o ${TESTDIR}/TestFiles/stringBuilderTest $^ ${LDLIBSOPTIONS} 
 
 
+${TESTDIR}/tests/BaseScanTest.o: tests/BaseScanTest.cc 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/BaseScanTest.o tests/BaseScanTest.cc
+
+
 ${TESTDIR}/tests/CodecTest.o: tests/CodecTest.cc 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/CodecTest.o tests/CodecTest.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/CodecTest.o tests/CodecTest.cc
 
 
 ${TESTDIR}/tests/ConnectionHandlerTest.o: tests/ConnectionHandlerTest.cc 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/ConnectionHandlerTest.o tests/ConnectionHandlerTest.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/ConnectionHandlerTest.o tests/ConnectionHandlerTest.cc
 
 
 ${TESTDIR}/tests/FileSystemTest.o: tests/FileSystemTest.cc 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/FileSystemTest.o tests/FileSystemTest.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/FileSystemTest.o tests/FileSystemTest.cc
 
 
 ${TESTDIR}/tests/FScanTest.o: tests/FScanTest.cc 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/FScanTest.o tests/FScanTest.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/FScanTest.o tests/FScanTest.cc
 
 
 ${TESTDIR}/tests/JSonTest.o: tests/JSonTest.cc 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/JSonTest.o tests/JSonTest.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/JSonTest.o tests/JSonTest.cc
 
 
 ${TESTDIR}/tests/MetaScanTest.o: tests/MetaScanTest.cc 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/MetaScanTest.o tests/MetaScanTest.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/MetaScanTest.o tests/MetaScanTest.cc
 
 
 ${TESTDIR}/tests/StringBuilderTest.o: tests/StringBuilderTest.cc 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StringBuilderTest.o tests/StringBuilderTest.cc
+	$(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StringBuilderTest.o tests/StringBuilderTest.cc
 
 
 ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cc 
@@ -186,7 +197,7 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cc
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/main_nomain.o main.cc;\
+	    $(COMPILE.cc) -g -Wall -D_GNU_SOURCE=1 -D_REENTRANT -Iinclude -Iserverlib/include -I../libs/mediaScan/include -I../libs/networking/include -I../libs/IO/include -I../libs/util/include -I../libs/vdr/include -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/main_nomain.o main.cc;\
 	else  \
 	    ${CP} ${OBJECTDIR}/main.o ${OBJECTDIR}/main_nomain.o;\
 	fi
@@ -195,6 +206,7 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cc
 .test-conf:
 	@if [ "${TEST}" = "" ]; \
 	then  \
+	    ${TESTDIR}/TestFiles/f8 || true; \
 	    ${TESTDIR}/TestFiles/codecTest || true; \
 	    ${TESTDIR}/TestFiles/connectionHandlerTest || true; \
 	    ${TESTDIR}/TestFiles/fileSystemTest || true; \

@@ -23,6 +23,7 @@
  * --------------------------------------------------------------
  */
 #include <DVDImage.h>
+#include <Logging.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -55,6 +56,7 @@ size_t cDVDImage::Size(void) const
 void cDVDImage::EnableDeepScan(bool DoScan)
 {
   deepScanEnabled = DoScan;
+  isyslog("cDVDImage::enableDeepScan(%s)", deepScanEnabled ? "true" : "false");
 }
 
 bool cDVDImage::NeedsFurtherScan(void) const

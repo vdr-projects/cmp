@@ -29,6 +29,7 @@
 #include <MediaFactory.h>
 #include <MediaListHandler.h>
 #include <MediaFileHandler.h>
+#include <MediaServerConfig.h>
 #include <ConnectionHandler.h>
 #include <CommandHandler.h>
 #include <JSonListAssembler.h>
@@ -56,10 +57,23 @@ static int refreshScanner(void *opaque, cHTTPRequest &Request)
   return -1;
 }
 
+static void appID(void)
+{
+  fprintf(stderr, "\ncmps - the backend of CMP (compound media player)\n");
+}
+
+static void appInfo(void)
+{
+  appID();
+  fprintf(stderr, " is a streaming- and HTTP-server\n");
+  fprintf(stderr, " (c) 2012 - Reinhard Mantey - some rights reserved.\n");
+  fprintf(stderr, " CMP is published as open source under Creative Commons by-sa\n\n");
+}
+
 static void usage(void)
 {
-  fprintf(stderr, "cmps - the backend of CMP (compound media player)\n");
-  fprintf(stderr, "  is streaming- and HTTP-server and accepts these commandline options:\n");
+  appID();
+  fprintf(stderr, " is streaming- and HTTP-server and accepts these commandline options:\n");
   fprintf(stderr, "-h, --help            the help, you are reading\n");
   fprintf(stderr, "-d, --appDir <path>   the directory, where the server may write config files\n");
   fprintf(stderr, "                       (default is /var/lib/cmp)\n");
@@ -107,7 +121,8 @@ static void setup(int argc, char *argv[], cServerConfig &config)
 
 int main(int argc, char** argv)
 {
-  cServerConfig config("/var/lib/cmp");
+  appInfo();
+  cMediaServerConfig config("/var/lib/cmp");
 
   setup(argc, argv, config);
   cFSMediaScanner *scanner = new cFSMediaScanner();
@@ -142,11 +157,13 @@ int main(int argc, char** argv)
    * register/enable internal commands
    */
   cCommandHandler::RegisterCallback("refresh", refreshScanner, scanner);
+  fprintf(stderr, "start searching for media at %s\n", config.DocumentRoot());
   scanner->Refresh();
 
   /*
    * now start the server
    */
+  fprintf(stderr, "ok, ready for client connections.\n");
   if (!server->Start()) {
      fprintf(stderr, "failed to start application (3)");
      exit(-3);

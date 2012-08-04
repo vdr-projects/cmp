@@ -28,6 +28,9 @@
 #include <stdio.h>
 #define DEBUG 1
 
+static const char char2Replace[] = { '"', '\0' };
+static const char *replacements[] = { "\\\"", NULL };
+
 cJSonWriter::cJSonWriter(cStringBuilder &StringBuilder)
  : lastState(JS_Unknown)
  , sb(StringBuilder)
@@ -130,7 +133,7 @@ cJSonWriter &cJSonWriter::Value(const char *Text) {
      }
   else {
      PopState();
-     sb.Append("\"").Append(Text).Append("\"");
+     sb.Append("\"").Append(Text, char2Replace, replacements).Append("\"");
      }
   return *this;
 }

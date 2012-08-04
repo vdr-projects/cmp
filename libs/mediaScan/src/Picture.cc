@@ -23,6 +23,7 @@
  * --------------------------------------------------------------
  */
 #include <Picture.h>
+#include <Logging.h>
 #include <stddef.h>
 #include <string.h>
 
@@ -72,6 +73,7 @@ const char *cPicture::ContentType(const char* Extension)
 void cPicture::EnableDeepScan(bool DoScan)
 {
   deepScanEnabled = DoScan;
+  isyslog("cPicture::enableDeepScan(%s)", deepScanEnabled ? "true" : "false");
 }
 
 bool cPicture::NeedsFurtherScan(void) const

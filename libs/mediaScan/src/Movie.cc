@@ -23,6 +23,7 @@
  * --------------------------------------------------------------
  */
 #include <Movie.h>
+#include <Logging.h>
 #include <stddef.h>
 #include <string.h>
 #include <util.h>
@@ -82,6 +83,7 @@ void cMovie::AddMeta(cMediainfoReader::InfoEntry *Entry)
 void cMovie::EnableDeepScan(bool DoScan)
 {
   deepScanEnabled = DoScan;
+  isyslog("cMovie::enableDeepScan(%s)", deepScanEnabled ? "true" : "false");
 }
 
 bool cMovie::NeedsFurtherScan(void) const

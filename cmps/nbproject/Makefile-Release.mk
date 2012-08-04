@@ -48,6 +48,7 @@ TESTFILES= \
 	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps \
 	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps \
 	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps \
+	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps \
 	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps
 
 # C Compiler Flags
@@ -84,6 +85,10 @@ ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cc
 
 # Build Test Targets
 .build-tests-conf: .build-conf ${TESTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps: ${TESTDIR}/tests/BaseScanTest.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
+	${LINK.cc}   -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps $^ ${LDLIBSOPTIONS} 
+
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps: ${TESTDIR}/tests/CodecTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc}   -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps $^ ${LDLIBSOPTIONS} 
@@ -111,6 +116,12 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps: ${TESTDIR}/tests/MetaScanTest.o
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps: ${TESTDIR}/tests/StringBuilderTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc}   -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps $^ ${LDLIBSOPTIONS} 
+
+
+${TESTDIR}/tests/BaseScanTest.o: tests/BaseScanTest.cc 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${TESTDIR}/tests/BaseScanTest.o tests/BaseScanTest.cc
 
 
 ${TESTDIR}/tests/CodecTest.o: tests/CodecTest.cc 
@@ -172,6 +183,7 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cc
 .test-conf:
 	@if [ "${TEST}" = "" ]; \
 	then  \
+	    ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps || true; \
 	    ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps || true; \
 	    ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps || true; \
 	    ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cmps || true; \

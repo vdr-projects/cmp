@@ -34,7 +34,7 @@ public:
   cStringBuilder(int chunkSize = 127);
   virtual ~cStringBuilder();
 
-  cStringBuilder &Append(const char *Text);
+  cStringBuilder &Append(const char *Text, const char char2Replace[] = NULL, const char *replacements[] = NULL);
   cStringBuilder &Append(char c);
   cStringBuilder &Append(bool v, const char *TrueValue = "X", const char *FalseValue="-");
   cStringBuilder &Append(double v);
@@ -48,9 +48,12 @@ public:
   size_t Copy(char *Buf, size_t BufSize);
   char *toString(void);
 
+protected:
+  void Write(const char *Text);
+  void WriteAndReplace(const char *Text, const char char2Replace[], const char *replacements[]);
+
 private:
   void init(void);
-  void Write(const char *p);
   int chunkSize;
   size_t readOffset; ///< read offest is the offset over all chunks (thus goes from 0 to size)
                      ///< Copy can be called subsequently, if Buf is smaller than StringBuilders size

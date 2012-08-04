@@ -91,6 +91,51 @@ void cStringBuilder::Write(const char *Text)
      }
 }
 
+void cStringBuilder::WriteAndReplace(const char *Text, const char char2Replace[], const char *replacements[])
+{
+  if (!Text) {
+     esyslog("ERROR: text to add is a NULL-pointer!");
+     return;
+     }
+  int done;
+  char *curChunk = (char *) pool[pool.size() - 1];
+  char *chunkLast = curChunk + chunkSize;
+  char *pd;
+  const char *ps, *srcLast = Text + strlen(Text), *pChk;
+
+  for (ps = Text, pd = curChunk + writeOffset; ps < srcLast; ++ps) {
+      done = 0;
+      for (pChk = char2Replace; pChk && *pChk; ++pChk) {
+          if (*ps == *pChk) {
+             const char *rps = replacements[pChk - char2Replace];
+             done = 1;
+
+             while (rps && *rps) {
+                   if (writeOffset == chunkSize) {
+                      curChunk = (char *) malloc(chunkSize);
+                      pool.push_back(curChunk);
+                      writeOffset = 0;
+                      pd = curChunk;
+                      chunkLast = curChunk + chunkSize;
+                      }
+                   *pd++ = *rps++;
+                   ++writeOffset;
+                   }
+             }
+          }
+      if (done) continue;
+      if (writeOffset == chunkSize) {
+         curChunk = (char *) malloc(chunkSize);
+         pool.push_back(curChunk);
+         writeOffset = 0;
+         pd = curChunk;
+         chunkLast = curChunk + chunkSize;
+         }
+      *pd++ = *ps;
+      ++writeOffset;
+      }
+}
+
 size_t cStringBuilder::Size()
 {
   return (pool.size() - 1) * chunkSize + writeOffset;
@@ -125,10 +170,11 @@ size_t cStringBuilder::Copy(char* Buf, size_t BufSize)
   return bytesWritten;
 }
 
-cStringBuilder &cStringBuilder::Append(const char* Text)
+cStringBuilder &cStringBuilder::Append(const char* Text, const char char2Replace[], const char *replacements[])
 {
   if (!Text) Write("(null)");
-  Write(Text);
+  if (char2Replace && replacements) WriteAndReplace(Text, char2Replace, replacements);
+  else Write(Text);
 
   return *this;
 }

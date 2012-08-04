@@ -1,25 +1,25 @@
 /**
  * ======================== legal notice ======================
  * 
- * File:      SRMediaPlayer.java
- * Created:   
- * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
- * Project:   cmpc - a java frontend (client) part of compound media player
- *                   uses external players to play the media
+ * File: SRMediaPlayer.java Created: Author: <a
+ * href="mailto:geronimo013@gmx.de">Geronimo</a> Project: cmpc - a java frontend
+ * (client) part of compound media player uses external players to play the
+ * media
  * 
  * CMP - compound media player
  * 
- * is a client/server mediaplayer intended to play any media from any workstation
- * without the need to export or mount shares. cmps is an easy to use backend
- * with a (ready to use) HTML-interface. Additionally the backend supports
- * authentication via HTTP-digest authorization.
- * cmpc is a client with vdr-like osd-menues.
+ * is a client/server mediaplayer intended to play any media from any
+ * workstation without the need to export or mount shares. cmps is an easy to
+ * use backend with a (ready to use) HTML-interface. Additionally the backend
+ * supports authentication via HTTP-digest authorization. cmpc is a client with
+ * vdr-like osd-menues.
  * 
- * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
- * published under Creative Commons by-sa
- * For details see http://creativecommons.org/licenses/by-sa/3.0/
+ * Copyright (c) 2012 Reinhard Mantey, some rights reserved! published under
+ * Creative Commons by-sa For details see
+ * http://creativecommons.org/licenses/by-sa/3.0/
  * 
- * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
+ * The cmp project's homepage is at
+ * http://projects.vdr-developer.org/projects/cmp
  * 
  * --------------------------------------------------------------
  */
@@ -159,6 +159,7 @@ public class SRMediaPlayer implements IMediaPlayer {
 
 
     public static void main(final String[] args) {
+        appInfo();
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -169,6 +170,14 @@ public class SRMediaPlayer implements IMediaPlayer {
         });
     }
 
+
+    protected static void appInfo() {
+        System.err.println("cmpcj - the java frontend of CMP (compound media player)");
+        System.err.println(" serves to browse a medialist from remote systems and to start a player");
+        System.err.println(" for selected media.");
+        System.err.println(" (c) 2012 - Reinhard Mantey - some rights reserved.");
+        System.err.println(" CMP is published as open source under Creative Commons by-sa");
+    }
     private boolean debug = false;
     private JFrame mainFrame;
     private Config config;

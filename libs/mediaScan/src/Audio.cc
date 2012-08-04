@@ -24,6 +24,7 @@
  */
 #include <Audio.h>
 #include <StringBuilder.h>
+#include <Logging.h>
 #include <stddef.h>
 #include <string.h>
 #include <util.h>
@@ -74,6 +75,7 @@ void cAudio::AddMeta(cMediainfoReader::InfoEntry* Entry)
 void cAudio::EnableDeepScan(bool DoScan)
 {
   deepScanEnabled = DoScan;
+  isyslog("cAudio::enableDeepScan(%s)", deepScanEnabled ? "true" : "false");
 }
 
 const char *cAudio::ContentType(const char* Extension)

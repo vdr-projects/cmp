@@ -75,6 +75,22 @@ void basicTests()
   free(result);
 }
 
+void replaceTest()
+{
+  const char char2Replace[] = { '"', '\0' };
+  const char *replacements[] = { "\\\"", NULL };
+  const char *sample = "mal sehen, was \"hier\" so abgeht?!";
+  cStringBuilder sb(17);
+
+  sb.Append(sample, char2Replace, replacements);
+  char *result = sb.toString();
+
+  std::cout << "result with replace: " << result << std::endl;
+//  std::cout << "result with replace (size " << sb.Size() << "): " << result << std::endl;
+  std::cout << "size-check: " << strlen(sample) << " <> " << strlen(result) << std::endl;
+  free(result);
+}
+
 void lineReaderTest()
 {
   cLineReader lr(new cFileReader(new cFile("srclient.conf")));
@@ -92,6 +108,7 @@ int main()
   lineReaderTest();
   basicTests();
   rangeTests();
+  replaceTest();
 
   return 0;
 }

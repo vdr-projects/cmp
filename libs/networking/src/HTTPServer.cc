@@ -65,8 +65,6 @@ void cHTTPServer::Action()
      cleaner->Start();
      }
 #endif
-  fprintf(stderr, "startup server now\n");
-
   ServerSocket().Open();
   while (Running()) {
         cConnectionPoint *cp = ServerSocket().Accept();
