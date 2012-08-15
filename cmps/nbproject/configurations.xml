@@ -183,6 +183,7 @@
             <linkerLibLibItem>ssl</linkerLibLibItem>
             <linkerLibLibItem>pcrecpp</linkerLibLibItem>
             <linkerLibLibItem>mediainfo</linkerLibLibItem>
+            <linkerLibLibItem>crypto</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
         <requiredProjects>

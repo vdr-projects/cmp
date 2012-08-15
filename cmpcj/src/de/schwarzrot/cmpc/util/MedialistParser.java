@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
 import com.google.gson.stream.JsonReader;
 import de.schwarzrot.cmpc.domain.Media;
 import de.schwarzrot.cmpc.domain.MediaType;
@@ -35,7 +34,7 @@ public class MedialistParser {
     }
 
 
-    @Test
+    //    @Test
     public void testJSonParsing() {
         FileInputStream fis = null;
 
