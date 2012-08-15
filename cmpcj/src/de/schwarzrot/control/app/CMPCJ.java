@@ -98,6 +98,7 @@ import de.schwarzrot.control.dnd.TreeSourceAndDestTransferHandler;
 import de.schwarzrot.control.support.MediaTextFilterator;
 import de.schwarzrot.control.support.MediaTypeSelector;
 import de.schwarzrot.control.support.SelectedMedia;
+import de.schwarzrot.control.support.TreeCellEditor;
 import de.schwarzrot.control.support.TreeSelectionFilter;
 import de.schwarzrot.control.table.MediaTableFormat;
 import de.schwarzrot.media.domain.AbstractMediaNode;
@@ -469,8 +470,9 @@ public class CMPCJ extends WindowAdapter implements PropertyChangeListener, Succ
                 });
         tree.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "removeGenre"); //$NON-NLS-1$
         tree.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_INSERT, 0), "createGenre"); //$NON-NLS-1$
-        tree.setDropMode(DropMode.USE_SELECTION);
         tree.setTransferHandler(new TreeSourceAndDestTransferHandler(tree, nodeCache, changes));
+        tree.setDropMode(DropMode.USE_SELECTION);
+        tree.setCellEditor(new TreeCellEditor(tree, changes));
         JScrollPane treeView = new JScrollPane(tree);
 
         return treeView;
@@ -680,7 +682,7 @@ public class CMPCJ extends WindowAdapter implements PropertyChangeListener, Succ
             }
         }
         ApplicationServiceProvider.registerService(ActionManager.class, new ActionManager<Commands>());
-        ApplicationServiceProvider.registerService(DataManager.class, new DataManager(input));
+        ApplicationServiceProvider.registerService(DataManager.class, new DataManager(input, nodeCache));
         ApplicationServiceProvider.registerService(ImageFactory.class, new ImageFactory());
         ApplicationServiceProvider.registerService(MedialistParser.class, new MedialistParser());
 
