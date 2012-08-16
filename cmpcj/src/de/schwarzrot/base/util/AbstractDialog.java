@@ -1,25 +1,25 @@
 /**
  * ======================== legal notice ======================
  * 
- * File:      AbstractDialog.java
- * Created:   13. June 2012, 04:57
- * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
- * Project:   cmpc - a java frontend (client) part of compound media player
- *                   uses external players to play the media
+ * File: AbstractDialog.java Created: 13. June 2012, 04:57 Author: <a
+ * href="mailto:geronimo013@gmx.de">Geronimo</a> Project: cmpc - a java frontend
+ * (client) part of compound media player uses external players to play the
+ * media
  * 
  * CMP - compound media player
  * 
- * is a client/server mediaplayer intended to play any media from any workstation
- * without the need to export or mount shares. cmps is an easy to use backend
- * with a (ready to use) HTML-interface. Additionally the backend supports
- * authentication via HTTP-digest authorization.
- * cmpc is a client with vdr-like osd-menues.
+ * is a client/server mediaplayer intended to play any media from any
+ * workstation without the need to export or mount shares. cmps is an easy to
+ * use backend with a (ready to use) HTML-interface. Additionally the backend
+ * supports authentication via HTTP-digest authorization. cmpc is a client with
+ * vdr-like osd-menues.
  * 
- * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
- * published under Creative Commons by-sa
- * For details see http://creativecommons.org/licenses/by-sa/3.0/
+ * Copyright (c) 2012 Reinhard Mantey, some rights reserved! published under
+ * Creative Commons by-sa For details see
+ * http://creativecommons.org/licenses/by-sa/3.0/
  * 
- * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
+ * The cmp project's homepage is at
+ * http://projects.vdr-developer.org/projects/cmp
  * 
  * --------------------------------------------------------------
  */
@@ -27,6 +27,7 @@ package de.schwarzrot.base.util;
 
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -57,7 +58,6 @@ public abstract class AbstractDialog extends JDialog {
         setTitle(msgBundle.getMessage(getClass().getSimpleName() + ".title"));
         this.dialogMode = dialogMode;
         this.buttonOrientation = buttonOrientation;
-        msgBundle = ApplicationServiceProvider.getService(MessageBundle.class);
     }
 
 
@@ -137,6 +137,10 @@ public abstract class AbstractDialog extends JDialog {
         getContentPane().add(createContentPane(), BorderLayout.CENTER);
         getContentPane().add(createButtons(), BorderLayout.SOUTH);
         pack();
+        if (fixedSize != null) {
+            setSize(fixedSize);
+            setResizable(false);
+        }
         setLocationRelativeTo(parent);
         setVisible(true);
         dispose();
@@ -167,8 +171,14 @@ public abstract class AbstractDialog extends JDialog {
     protected void performReset() {
     }
 
-    protected MessageBundle msgBundle;
+
+    protected void setFixedSize(Dimension size) {
+        fixedSize = size;
+    }
+
+    protected final MessageBundle msgBundle;
     private int result = CLOSE_OPTION;
+    private Dimension fixedSize;
     private DialogMode dialogMode;
     private Orientation buttonOrientation;
 }

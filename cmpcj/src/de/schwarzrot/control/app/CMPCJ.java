@@ -69,6 +69,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
 import bibliothek.gui.dock.common.CControl;
 import bibliothek.gui.dock.common.CGrid;
+import bibliothek.gui.dock.common.theme.ThemeMap;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.FilterList;
@@ -223,6 +224,7 @@ public class CMPCJ extends WindowAdapter implements PropertyChangeListener, Succ
         JMenuBar menuBar = new JMenuBar();
         frame = new JFrame(mb.getMessage(CMPMessageBundle.MCC_7));
         control = new CControl(frame);
+        control.setTheme(ThemeMap.KEY_ECLIPSE_THEME);
         frame.addWindowListener(this);
         frame.add(setupPerspective(frame));
         frame.setJMenuBar(menuBar);
