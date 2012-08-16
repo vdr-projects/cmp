@@ -43,6 +43,8 @@ import javax.swing.ListSelectionModel;
 import bibliothek.gui.dock.common.CControl;
 import bibliothek.gui.dock.common.CGrid;
 import bibliothek.gui.dock.common.theme.ThemeMap;
+import bibliothek.gui.dock.control.relocator.DockRelocatorEvent;
+import bibliothek.gui.dock.control.relocator.VetoableDockRelocatorAdapter;
 import bibliothek.gui.dock.util.WindowProvider;
 import bibliothek.gui.dock.util.WindowProviderListener;
 import ca.odell.glazedlists.BasicEventList;
@@ -61,6 +63,12 @@ import de.schwarzrot.media.domain.PlayerDefinition;
 
 public class ConfigDialog extends AbstractDialog implements WindowProvider {
     private static final long serialVersionUID = 713L;
+    private class TabbedVetoableDockRelocatorListener extends VetoableDockRelocatorAdapter {
+        @Override
+        public void grabbing(DockRelocatorEvent event) {
+            event.forbid();
+        }
+    }
 
 
     public ConfigDialog(Window parent) {
@@ -94,6 +102,8 @@ public class ConfigDialog extends AbstractDialog implements WindowProvider {
         CGrid grid = new CGrid(docking);
 
         docking.setTheme(ThemeMap.KEY_ECLIPSE_THEME);
+        docking.getController().getRelocator()
+                .addVetoableDockRelocatorListener(new TabbedVetoableDockRelocatorListener());
         BasicDockable servers = new BasicDockable("servers", msgBundle.getMessage(getClass().getSimpleName()
                 + ".servers"), createServerTable());
         BasicDockable players = new BasicDockable("players", msgBundle.getMessage(getClass().getSimpleName()
