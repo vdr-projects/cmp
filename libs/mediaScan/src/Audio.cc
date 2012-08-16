@@ -106,7 +106,7 @@ const char *cAudio::Name(void) const
 
         if (performer) {
            tmp = std::get<1>(*performer);
-           sb.Append(" / ").Append(tmp.c_str());
+           sb.Append(" - ").Append(tmp.c_str());
            }
         if (album) {
            tmp = std::get<1>(*album);

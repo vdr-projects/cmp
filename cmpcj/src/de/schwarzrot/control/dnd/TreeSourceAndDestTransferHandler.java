@@ -114,15 +114,10 @@ public class TreeSourceAndDestTransferHandler extends TransferHandler {
                 Genre target = (Genre) targetNode.getUserObject();
                 Genre transfer = (Genre) transferNode.getUserObject();
 
-                //                System.out.println("importData() targetPath: " + targetPath);
-                //                System.out.println("importData() sourcePath: " + sourcePath);
-
                 sourceParentNode.remove(transferNode);
                 targetNode.add(transferNode);
                 nodeCache.remove(transfer.getRealPath());
-                //                System.out.println("old path of genre to move: " + transfer.getRealPath().getAbsolutePath());
                 transfer.setParent(target);
-                //                System.out.println("new path of moved genre: " + transfer.getRealPath().getAbsolutePath());
                 nodeCache.put(transfer.getRealPath(), transferNode);
                 transfer.update();
                 refreshNodeCache();
@@ -181,27 +176,13 @@ public class TreeSourceAndDestTransferHandler extends TransferHandler {
             }
 
             if (transferMedia != null) {
-                System.out.println("old path of media to transfer: " + transferMedia.getRealPath().getAbsolutePath());
                 transferMedia.setParent(targetGenre);
-                System.out.println("new path of transferred media: " + transferMedia.getRealPath().getAbsolutePath());
                 if (!changes.contains(transferMedia)) {
                     changes.getReadWriteLock().writeLock().lock();
                     changes.add(transferMedia);
                     changes.getReadWriteLock().writeLock().unlock();
                 }
             }
-            //        } else {
-            //            if (targetGenre == null)
-            //                System.err.println("failed to determine target genre!");
-            //            if (node == null)
-            //                System.err.println("failed to determine source parent of media: <|" + mediaPath.getAbsolutePath()
-            //                        + "|>");
-            //            for (File f : nodeCache.keySet()) {
-            //                String ap = f.getAbsolutePath();
-            //
-            //                if (ap.startsWith("/audio/in/"))
-            //                    System.out.println("nodeCache contains: " + ap);
-            //            }
         }
     }
 

@@ -140,8 +140,8 @@ int main()
   std::cout << std::endl << "===========================================" << std::endl << std::endl;
   testCommandReader();
 
-//  std::cout << std::endl << "===========================================" << std::endl << std::endl;
-//  testMediaFiles("testMedia.txt");
+  std::cout << std::endl << "===========================================" << std::endl << std::endl;
+  testMediaFiles("testMedia.txt");
 
   cFile::Cleanup();
   return 0;
