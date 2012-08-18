@@ -1,25 +1,25 @@
 /**
  * ======================== legal notice ======================
  * 
- * File:      MCCMessageBundle.java
- * Created:   13. June 2012, 04:57
- * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
- * Project:   cmpc - a java frontend (client) part of compound media player
- *                   uses external players to play the media
+ * File: MCCMessageBundle.java Created: 13. June 2012, 04:57 Author: <a
+ * href="mailto:geronimo013@gmx.de">Geronimo</a> Project: cmpc - a java frontend
+ * (client) part of compound media player uses external players to play the
+ * media
  * 
  * CMP - compound media player
  * 
- * is a client/server mediaplayer intended to play any media from any workstation
- * without the need to export or mount shares. cmps is an easy to use backend
- * with a (ready to use) HTML-interface. Additionally the backend supports
- * authentication via HTTP-digest authorization.
- * cmpc is a client with vdr-like osd-menues.
+ * is a client/server mediaplayer intended to play any media from any
+ * workstation without the need to export or mount shares. cmps is an easy to
+ * use backend with a (ready to use) HTML-interface. Additionally the backend
+ * supports authentication via HTTP-digest authorization. cmpc is a client with
+ * vdr-like osd-menues.
  * 
- * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
- * published under Creative Commons by-sa
- * For details see http://creativecommons.org/licenses/by-sa/3.0/
+ * Copyright (c) 2012 Reinhard Mantey, some rights reserved! published under
+ * Creative Commons by-sa For details see
+ * http://creativecommons.org/licenses/by-sa/3.0/
  * 
- * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
+ * The cmp project's homepage is at
+ * http://projects.vdr-developer.org/projects/cmp
  * 
  * --------------------------------------------------------------
  */
@@ -33,6 +33,15 @@ import de.schwarzrot.base.util.MessageBundle;
 
 public class CMPMessageBundle implements MessageBundle {
     public static final String MCC_0 = "MCC_0";
+    public static final String MCC_1 = "MCC_1";
+    public static final String MCC_2 = "MCC_2";
+    public static final String MCC_3 = "MCC_3";
+    public static final String MCC_4 = "MCC_4";
+    public static final String MCC_5 = "MCC_5";
+    public static final String MCC_6 = "MCC_6";
+    public static final String MCC_7 = "MCC_7";
+    public static final String MCC_8 = "MCC_8";
+    public static final String MCC_9 = "MCC_9";
     public static final String MCC_12 = "MCC_12";
     public static final String MCC_13 = "MCC_13";
     public static final String MCC_14 = "MCC_14";
@@ -48,10 +57,6 @@ public class CMPMessageBundle implements MessageBundle {
     public static final String MCC_31 = "MCC_31";
     public static final String MCC_33 = "MCC_33";
     public static final String MCC_35 = "MCC_35";
-    public static final String MCC_4 = "MCC_4";
-    public static final String MCC_5 = "MCC_5";
-    public static final String MCC_6 = "MCC_6";
-    public static final String MCC_7 = "MCC_7";
     public static final String PTF_0 = "PTF_0";
     public static final String PTF_1 = "PTF_1";
     public static final String MTF_0 = "MTF_0";

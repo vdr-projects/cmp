@@ -1,25 +1,25 @@
 /**
  * ======================== legal notice ======================
  * 
- * File:      CMPClient.java
- * Created:   13. June 2012, 04:57
- * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
- * Project:   cmpc - a java frontend (client) part of compound media player
- *                   uses external players to play the media
+ * File: CMPClient.java Created: 13. June 2012, 04:57 Author: <a
+ * href="mailto:geronimo013@gmx.de">Geronimo</a> Project: cmpc - a java frontend
+ * (client) part of compound media player uses external players to play the
+ * media
  * 
  * CMP - compound media player
  * 
- * is a client/server mediaplayer intended to play any media from any workstation
- * without the need to export or mount shares. cmps is an easy to use backend
- * with a (ready to use) HTML-interface. Additionally the backend supports
- * authentication via HTTP-digest authorization.
- * cmpc is a client with vdr-like osd-menues.
+ * is a client/server mediaplayer intended to play any media from any
+ * workstation without the need to export or mount shares. cmps is an easy to
+ * use backend with a (ready to use) HTML-interface. Additionally the backend
+ * supports authentication via HTTP-digest authorization. cmpc is a client with
+ * vdr-like osd-menues.
  * 
- * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
- * published under Creative Commons by-sa
- * For details see http://creativecommons.org/licenses/by-sa/3.0/
+ * Copyright (c) 2012 Reinhard Mantey, some rights reserved! published under
+ * Creative Commons by-sa For details see
+ * http://creativecommons.org/licenses/by-sa/3.0/
  * 
- * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
+ * The cmp project's homepage is at
+ * http://projects.vdr-developer.org/projects/cmp
  * 
  * --------------------------------------------------------------
  */
@@ -27,16 +27,17 @@ package de.schwarzrot.control.client;
 
 
 import java.net.ConnectException;
+import java.net.NoRouteToHostException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
 import java.util.Date;
 import ca.odell.glazedlists.EventList;
 import de.schwarzrot.base.util.ApplicationServiceProvider;
-import de.schwarzrot.media.domain.AbstractMediaNode;
 import de.schwarzrot.media.domain.Media;
 import de.schwarzrot.media.domain.MediaServer;
 import de.schwarzrot.media.domain.PlayList;
+import de.schwarzrot.media.service.AbstractMediaChangeCommand;
 import de.schwarzrot.media.util.ElementConsumer;
 import de.schwarzrot.media.util.ListLoader;
 import de.schwarzrot.media.util.MedialistParser;
@@ -101,6 +102,8 @@ public class CMPClient implements ListLoader<Media> {
             System.out.println("processing of first playlist-part took " + (end.getTime() - start.getTime()) + " ms.");
         } catch (UnknownHostException uhe) {
             throw new RuntimeException("failed to connect to " + server.getHostName(), uhe);
+        } catch (NoRouteToHostException nre) {
+            throw new RuntimeException("failed to connect to " + server.getHostName(), nre);
         } catch (ConnectException ce) {
             throw new RuntimeException("connection failure with " + server.getHostName(), ce);
         } catch (Throwable t) {
@@ -156,13 +159,13 @@ public class CMPClient implements ListLoader<Media> {
     }
 
 
-    public void transmitChanges(EventList<AbstractMediaNode> changes) {
-        for (AbstractMediaNode n : changes) {
-            System.out.println("geänderter Eintrag: " + n.getClass().getSimpleName() + " - " + n.getName()); //$NON-NLS-1$ 
-            System.out.println("\tverschieben von " + n.getOriginalPath().getAbsolutePath() + " nach "
-                    + n.getRealPath().getAbsolutePath());
+    public void transmitChanges(EventList<AbstractMediaChangeCommand> changes) {
+        for (AbstractMediaChangeCommand cc : changes) {
+            System.out.println("got change command of type: " + cc.getCommandType());
+            System.out.println("\toriginal was: " + cc.getMediaNode().getOriginalPath().getAbsolutePath() + "\tnew: "
+                    + cc.getMediaNode().getRealPath().getAbsolutePath());
 
-            //TODO: really create jobs for changes, so backend can participate on work
+            //TODO: transform and send to server
 
         }
     }

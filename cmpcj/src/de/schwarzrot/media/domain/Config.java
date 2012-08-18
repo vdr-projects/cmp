@@ -1,25 +1,25 @@
 /**
  * ======================== legal notice ======================
  * 
- * File:      Config.java
- * Created:   13. June 2012, 04:57
- * Author:    <a href="mailto:geronimo013@gmx.de">Geronimo</a>
- * Project:   cmpc - a java frontend (client) part of compound media player
- *                   uses external players to play the media
+ * File: Config.java Created: 13. June 2012, 04:57 Author: <a
+ * href="mailto:geronimo013@gmx.de">Geronimo</a> Project: cmpc - a java frontend
+ * (client) part of compound media player uses external players to play the
+ * media
  * 
  * CMP - compound media player
  * 
- * is a client/server mediaplayer intended to play any media from any workstation
- * without the need to export or mount shares. cmps is an easy to use backend
- * with a (ready to use) HTML-interface. Additionally the backend supports
- * authentication via HTTP-digest authorization.
- * cmpc is a client with vdr-like osd-menues.
+ * is a client/server mediaplayer intended to play any media from any
+ * workstation without the need to export or mount shares. cmps is an easy to
+ * use backend with a (ready to use) HTML-interface. Additionally the backend
+ * supports authentication via HTTP-digest authorization. cmpc is a client with
+ * vdr-like osd-menues.
  * 
- * Copyright (c) 2012 Reinhard Mantey, some rights reserved!
- * published under Creative Commons by-sa
- * For details see http://creativecommons.org/licenses/by-sa/3.0/
+ * Copyright (c) 2012 Reinhard Mantey, some rights reserved! published under
+ * Creative Commons by-sa For details see
+ * http://creativecommons.org/licenses/by-sa/3.0/
  * 
- * The cmp project's homepage is at http://projects.vdr-developer.org/projects/cmp
+ * The cmp project's homepage is at
+ * http://projects.vdr-developer.org/projects/cmp
  * 
  * --------------------------------------------------------------
  */
@@ -79,6 +79,11 @@ public class Config {
     }
 
 
+    public boolean isUseDarkStyle() {
+        return useDarkStyle;
+    }
+
+
     public void putPlayer(Media.SupportedMediaType type, PlayerDefinition pd) {
         playerMap.put(type, pd);
     }
@@ -118,9 +123,15 @@ public class Config {
         this.posY = posY;
     }
 
+
+    public void setUseDarkStyle(boolean useDarkStyle) {
+        this.useDarkStyle = useDarkStyle;
+    }
+
     private List<MediaServer> knownServers;
     private Map<Media.SupportedMediaType, PlayerDefinition> playerMap;
     private boolean debug;
+    private boolean useDarkStyle;
     private int posX;
     private int posY;
     private int mainWidth;

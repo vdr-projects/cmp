@@ -3,8 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry excluding="**/*.java" kind="src" path="res"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/docking-frames-common-1.1.1-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="lib/docking-frames-core-1.1.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/docking-frames-common-1.1.1-SNAPSHOT.jar" sourcepath="/usr/local/src/DockingFrames/docking-frames-core/src"/>
+	<classpathentry kind="lib" path="lib/docking-frames-core-1.1.1-SNAPSHOT.jar" sourcepath="/usr/local/src/DockingFrames/docking-frames-common/src"/>
 	<classpathentry kind="lib" path="lib/glazedlists_java15.jar"/>
 	<classpathentry kind="lib" path="lib/gson-2.2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>

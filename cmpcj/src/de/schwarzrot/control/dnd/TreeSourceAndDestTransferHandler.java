@@ -37,9 +37,10 @@ import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import ca.odell.glazedlists.EventList;
-import de.schwarzrot.media.domain.AbstractMediaNode;
 import de.schwarzrot.media.domain.Genre;
 import de.schwarzrot.media.domain.Media;
+import de.schwarzrot.media.service.AbstractMediaChangeCommand;
+import de.schwarzrot.media.service.ChangeMediaCommand;
 
 
 public class TreeSourceAndDestTransferHandler extends TransferHandler {
@@ -47,7 +48,7 @@ public class TreeSourceAndDestTransferHandler extends TransferHandler {
 
 
     public TreeSourceAndDestTransferHandler(JTree tree, Map<File, DefaultMutableTreeNode> cache,
-            EventList<AbstractMediaNode> changes) {
+            EventList<AbstractMediaChangeCommand> changes) {
         this.tree = tree;
         nodeCache = cache;
         this.changes = changes;
@@ -123,7 +124,7 @@ public class TreeSourceAndDestTransferHandler extends TransferHandler {
                 refreshNodeCache();
                 if (!changes.contains(transfer)) {
                     changes.getReadWriteLock().writeLock().lock();
-                    changes.add(transfer);
+                    changes.add(new ChangeMediaCommand(transfer));
                     changes.getReadWriteLock().writeLock().unlock();
                 }
             } catch (Throwable t) {
@@ -178,11 +179,22 @@ public class TreeSourceAndDestTransferHandler extends TransferHandler {
             if (transferMedia != null) {
                 transferMedia.setParent(targetGenre);
                 if (!changes.contains(transferMedia)) {
-                    changes.getReadWriteLock().writeLock().lock();
-                    changes.add(transferMedia);
-                    changes.getReadWriteLock().writeLock().unlock();
+                    try {
+                        changes.getReadWriteLock().writeLock().lock();
+                        changes.add(new ChangeMediaCommand(transferMedia));
+                        changes.getReadWriteLock().writeLock().unlock();
+                    } catch (Throwable t) {
+                        t.printStackTrace();
+                    }
                 }
+            } else {
+                System.err.println("transfer media not found in genre medialist!");
             }
+        } else {
+            if (targetGenre == null)
+                System.err.println("failed to determine target genre!");
+            if (node == null)
+                System.err.println("failed to determine source parent node of " + mediaPath.getAbsolutePath());
         }
     }
 
@@ -195,6 +207,6 @@ public class TreeSourceAndDestTransferHandler extends TransferHandler {
     }
 
     private JTree tree;
-    private EventList<AbstractMediaNode> changes;
+    private EventList<AbstractMediaChangeCommand> changes;
     private Map<File, DefaultMutableTreeNode> nodeCache;
 }

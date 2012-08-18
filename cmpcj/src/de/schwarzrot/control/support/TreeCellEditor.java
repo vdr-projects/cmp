@@ -8,12 +8,13 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellEditor;
 import javax.swing.tree.DefaultTreeCellRenderer;
-import de.schwarzrot.media.domain.AbstractMediaNode;
 import de.schwarzrot.media.domain.Genre;
+import de.schwarzrot.media.service.AbstractMediaChangeCommand;
+import de.schwarzrot.media.service.ChangeMediaCommand;
 
 
 public class TreeCellEditor extends DefaultTreeCellEditor implements CellEditorListener {
-    public TreeCellEditor(JTree tree, List<AbstractMediaNode> changes) {
+    public TreeCellEditor(JTree tree, List<AbstractMediaChangeCommand> changes) {
         super(tree, (DefaultTreeCellRenderer) tree.getCellRenderer());
         this.changes = changes;
         addCellEditorListener(this);
@@ -33,7 +34,7 @@ public class TreeCellEditor extends DefaultTreeCellEditor implements CellEditorL
 
         genre.setName((String) editedValue);
         if (!changes.contains(genre))
-            changes.add(genre);
+            changes.add(new ChangeMediaCommand(genre));
     }
 
 
@@ -48,5 +49,5 @@ public class TreeCellEditor extends DefaultTreeCellEditor implements CellEditorL
 
     private Object editedValue;
     private DefaultMutableTreeNode editedNode;
-    private List<AbstractMediaNode> changes;
+    private List<AbstractMediaChangeCommand> changes;
 }

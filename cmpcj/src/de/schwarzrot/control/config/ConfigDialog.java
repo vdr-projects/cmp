@@ -30,13 +30,14 @@ import java.awt.Dimension;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
@@ -53,6 +54,7 @@ import ca.odell.glazedlists.swing.DefaultEventTableModel;
 import de.schwarzrot.base.dock.BasicDockable;
 import de.schwarzrot.base.util.AbstractDialog;
 import de.schwarzrot.base.util.ApplicationServiceProvider;
+import de.schwarzrot.control.app.UIDefaults;
 import de.schwarzrot.control.table.PlayerDefinitionTableFormat;
 import de.schwarzrot.control.table.ServerDefinitionTableFormat;
 import de.schwarzrot.media.domain.AbstractMediaNode;
@@ -69,13 +71,22 @@ public class ConfigDialog extends AbstractDialog implements WindowProvider {
             event.forbid();
         }
     }
+    private class WindowListener extends WindowAdapter {
+        @Override
+        public void windowOpened(WindowEvent e) {
+            System.out.println("window opened ...");
+            servers.toFront();
+        }
+    }
 
 
     public ConfigDialog(Window parent) {
         super(parent, true, DialogMode.CANCEL_APPROVE, Orientation.Right);
         config = ApplicationServiceProvider.getService(Config.class);
         listeners = new ArrayList<WindowProviderListener>();
+        theme = ApplicationServiceProvider.getService(UIDefaults.class);
         setFixedSize(new Dimension(520, 320));
+        this.addWindowListener(new WindowListener());
     }
 
 
@@ -83,16 +94,6 @@ public class ConfigDialog extends AbstractDialog implements WindowProvider {
     public void addWindowProviderListener(WindowProviderListener windowproviderlistener) {
         if (!listeners.contains(windowproviderlistener))
             listeners.add(windowproviderlistener);
-    }
-
-
-    public JComponent create_Old_ContentPane() {
-        JTabbedPane rv = new JTabbedPane();
-
-        rv.addTab("server", createServerTable());
-        rv.addTab("player", createPlayerTable());
-
-        return rv;
     }
 
 
@@ -104,10 +105,10 @@ public class ConfigDialog extends AbstractDialog implements WindowProvider {
         docking.setTheme(ThemeMap.KEY_ECLIPSE_THEME);
         docking.getController().getRelocator()
                 .addVetoableDockRelocatorListener(new TabbedVetoableDockRelocatorListener());
-        BasicDockable servers = new BasicDockable("servers", msgBundle.getMessage(getClass().getSimpleName()
-                + ".servers"), createServerTable());
         BasicDockable players = new BasicDockable("players", msgBundle.getMessage(getClass().getSimpleName()
                 + ".players"), createPlayerTable());
+        servers = new BasicDockable("servers", msgBundle.getMessage(getClass().getSimpleName() + ".servers"),
+                createServerTable());
 
         servers.setMinimizable(false);
         servers.setExternalizable(false);
@@ -115,8 +116,9 @@ public class ConfigDialog extends AbstractDialog implements WindowProvider {
         players.setMinimizable(false);
         players.setExternalizable(false);
         players.setMaximizable(false);
-        grid.add(0, 0, 1, 1, players);
         grid.add(0, 0, 1, 1, servers);
+        grid.add(0, 0, 1, 1, players);
+        grid.select(0, 0, 1, 1, servers);
         docking.getContentArea().deploy(grid);
 
         return docking.getContentArea();
@@ -162,6 +164,8 @@ public class ConfigDialog extends AbstractDialog implements WindowProvider {
             }
         }
         playerTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        playerTable.setSelectionBackground(theme.getColor("Table[Enabled+Selected].textBackground"));
+        playerTable.setSelectionForeground(theme.getColor("Table[Enabled+Selected].textForeground"));
 
         return playerTableScrollPane;
     }
@@ -201,6 +205,8 @@ public class ConfigDialog extends AbstractDialog implements WindowProvider {
         });
         serverTable.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_INSERT, 0), "createServerDefinition");
         serverTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        serverTable.setSelectionBackground(theme.getColor("Table[Enabled+Selected].textBackground"));
+        serverTable.setSelectionForeground(theme.getColor("Table[Enabled+Selected].textForeground"));
 
         return serverTableScrollPane;
     }
@@ -223,5 +229,7 @@ public class ConfigDialog extends AbstractDialog implements WindowProvider {
     private EventList<MediaServer> serverDefinitions;
     private EventList<PlayerDefinition> playerDefinitions;
     private List<WindowProviderListener> listeners;
+    private BasicDockable servers;
+    private UIDefaults theme;
     private Config config;
 }

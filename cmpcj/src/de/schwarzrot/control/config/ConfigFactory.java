@@ -120,6 +120,9 @@ public class ConfigFactory {
                                     }
                                 }
                             }
+                        } else if (key.compareToIgnoreCase("style") == 0) {
+                            if (value.compareToIgnoreCase("dark") == 0)
+                                rv.setUseDarkStyle(true);
                         } else if (key.compareToIgnoreCase("size") == 0) {
                             String[] parts = value.split("\\s*x\\s*");
 

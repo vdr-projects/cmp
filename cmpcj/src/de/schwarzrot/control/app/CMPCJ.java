@@ -40,6 +40,7 @@ import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.net.NoRouteToHostException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -67,6 +68,7 @@ import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
 import bibliothek.gui.dock.common.CControl;
 import bibliothek.gui.dock.common.CGrid;
 import bibliothek.gui.dock.common.theme.ThemeMap;
@@ -92,6 +94,8 @@ import de.schwarzrot.base.util.MessageBundle;
 import de.schwarzrot.base.util.SuccessHandler;
 import de.schwarzrot.control.client.CMPClient;
 import de.schwarzrot.control.client.MediaClientExecutor;
+import de.schwarzrot.control.config.CMPUIDark;
+import de.schwarzrot.control.config.CMPUIDefaults;
 import de.schwarzrot.control.config.ConfigDialog;
 import de.schwarzrot.control.config.ConfigFactory;
 import de.schwarzrot.control.dnd.ListSelectionSourceTransferHandler;
@@ -102,21 +106,25 @@ import de.schwarzrot.control.support.SelectedMedia;
 import de.schwarzrot.control.support.TreeCellEditor;
 import de.schwarzrot.control.support.TreeSelectionFilter;
 import de.schwarzrot.control.table.MediaTableFormat;
-import de.schwarzrot.media.domain.AbstractMediaNode;
 import de.schwarzrot.media.domain.Config;
 import de.schwarzrot.media.domain.Genre;
 import de.schwarzrot.media.domain.Media;
 import de.schwarzrot.media.domain.MediaServer;
 import de.schwarzrot.media.domain.PlayerDefinition;
+import de.schwarzrot.media.service.AbstractMediaChangeCommand;
+import de.schwarzrot.media.service.CreateMediaCommand;
 import de.schwarzrot.media.service.DataManager;
 import de.schwarzrot.media.service.MediaExecutor;
+import de.schwarzrot.media.service.RemoveMediaCommand;
 import de.schwarzrot.media.util.ListLoader;
 import de.schwarzrot.media.util.MedialistParser;
 
 
 public class CMPCJ extends WindowAdapter implements PropertyChangeListener, SuccessHandler,
-        ListEventListener<AbstractMediaNode>, MediaClientExecutor {
+        ListEventListener<AbstractMediaChangeCommand>, MediaClientExecutor {
     private static final String PREFFERRED_LOOK_N_FEEL = "Nimbus"; //$NON-NLS-1$
+    //    private static final String PREFFERRED_LOOK_N_FEEL = "CDE/Motif"; //$NON-NLS-1$
+    //    private static final String PREFFERRED_LOOK_N_FEEL = "GTK+"; //$NON-NLS-1$
     private static final String USER_HOME = "user.home"; //$NON-NLS-1$
     private static final String DOCKING_CONFIG = "srdocking.conf"; //$NON-NLS-1$
     enum Commands {
@@ -126,7 +134,7 @@ public class CMPCJ extends WindowAdapter implements PropertyChangeListener, Succ
 
     public CMPCJ(String[] args, ConfigFactory configFactory) {
         nodeCache = new HashMap<File, DefaultMutableTreeNode>();
-        changes = new BasicEventList<AbstractMediaNode>();
+        changes = new BasicEventList<AbstractMediaChangeCommand>();
         rootNode = new DefaultMutableTreeNode(setupServices(args, configFactory));
         changes.addListEventListener(this);
     }
@@ -136,16 +144,19 @@ public class CMPCJ extends WindowAdapter implements PropertyChangeListener, Succ
         @SuppressWarnings("unchecked")
         ActionManager<Commands> am = ApplicationServiceProvider.getService(ActionManager.class);
         MessageBundle mb = ApplicationServiceProvider.getService(MessageBundle.class);
+        UIDefaults theme = ApplicationServiceProvider.getService(UIDefaults.class);
 
         mediaList = new SortedList<Media>(GlazedListsSwing.swingThreadProxyList(new BasicEventList<Media>()));
         try {
             String lookNFeel = UIManager.getSystemLookAndFeelClassName();
 
             for (UIManager.LookAndFeelInfo lfi : UIManager.getInstalledLookAndFeels()) {
+                //                System.out.println("installed look and feel: " + lfi.getName());
                 if (PREFFERRED_LOOK_N_FEEL.equals(lfi.getName()))
                     lookNFeel = lfi.getClassName();
             }
             UIManager.setLookAndFeel(lookNFeel);
+            theme.apply();
         } catch (Exception e) {
             System.err.println(mb.getMessage(CMPMessageBundle.MCC_6));
         }
@@ -239,11 +250,20 @@ public class CMPCJ extends WindowAdapter implements PropertyChangeListener, Succ
 
     @Override
     public void handleFailure(Throwable t) {
-        // loading list from server failed ...
-        if (t instanceof UnknownHostException) {
-            //TODO: tell the user ...
+        if (t.getCause() != null) {
+            MessageBundle mb = ApplicationServiceProvider.getService(MessageBundle.class);
+            Throwable rt = t.getCause();
+
+            // loading list from server failed ...
+            if (rt instanceof UnknownHostException) {
+                JOptionPane.showMessageDialog(frame, mb.getMessage(CMPMessageBundle.MCC_1),
+                        mb.getMessage(CMPMessageBundle.MCC_2), JOptionPane.ERROR_MESSAGE);
+            } else if (rt instanceof NoRouteToHostException) {
+                JOptionPane.showMessageDialog(frame, mb.getMessage(CMPMessageBundle.MCC_3),
+                        mb.getMessage(CMPMessageBundle.MCC_2), JOptionPane.ERROR_MESSAGE);
+            }
         }
-        t.printStackTrace();
+        t.printStackTrace(System.err);
         tree.updateUI();
         updateServerActions(false);
     }
@@ -258,7 +278,7 @@ public class CMPCJ extends WindowAdapter implements PropertyChangeListener, Succ
 
 
     @Override
-    public void listChanged(ListEvent<AbstractMediaNode> arg0) {
+    public void listChanged(ListEvent<AbstractMediaChangeCommand> e) {
         // get rid of changes made by user
         @SuppressWarnings("unchecked")
         ActionManager<Commands> am = ApplicationServiceProvider.getService(ActionManager.class);
@@ -334,6 +354,7 @@ public class CMPCJ extends WindowAdapter implements PropertyChangeListener, Succ
 
     protected JComponent createMediaTableView() {
         MessageBundle mb = ApplicationServiceProvider.getService(MessageBundle.class);
+        UIDefaults theme = ApplicationServiceProvider.getService(UIDefaults.class);
         JTextField filterEdit = new JTextField(30);
         mediaTypeSelector = new MediaTypeSelector(mediaList);
         FilterList<Media> typeFilteredMedias = new FilterList<Media>(mediaList, mediaTypeSelector);
@@ -352,6 +373,8 @@ public class CMPCJ extends WindowAdapter implements PropertyChangeListener, Succ
         mediaJTable.setTransferHandler(new ListSelectionSourceTransferHandler(selectionModel));
         mediaJTable.setSelectionModel(selectionModel);
         mediaJTable.addMouseListener(new MediaExecutor(mediaJTable, textFilteredMedias, this));
+        mediaJTable.setSelectionBackground(theme.getColor("Table[Enabled+Selected].textBackground"));
+        mediaJTable.setSelectionForeground(theme.getColor("Table[Enabled+Selected].textForeground"));
         @SuppressWarnings({ "rawtypes", "unused" })
         TableComparatorChooser tableSorter = TableComparatorChooser.install(mediaJTable, mediaList,
                 TableComparatorChooser.MULTIPLE_COLUMN_MOUSE_WITH_UNDO);
@@ -406,7 +429,7 @@ public class CMPCJ extends WindowAdapter implements PropertyChangeListener, Succ
         mWindow.add(cdGenreTree.createMenuItem());
         mWindow.add(cdMediaTypes.createMenuItem());
         mWindow.add(cdProperties.createMenuItem());
-        //TODO: not yet
+        //XXX: not yet
         //        mHelp.add(new JMenuItem(getAction(Commands.HelpHelp)));
         //        mHelp.add(new JSeparator());
         mHelp.add(new JMenuItem(am.getAction(Commands.HelpAbout)));
@@ -423,6 +446,7 @@ public class CMPCJ extends WindowAdapter implements PropertyChangeListener, Succ
             propertyList = GlazedLists.eventList(selectedMedia.getMedia().getProperties().entrySet());
         else
             propertyList = new BasicEventList<Map.Entry<String, Object>>();
+        UIDefaults theme = ApplicationServiceProvider.getService(UIDefaults.class);
         SortedList<Map.Entry<String, Object>> psl = new SortedList<Map.Entry<String, Object>>(propertyList,
                 new Comparator<Map.Entry<String, Object>>() {
                     @Override
@@ -443,6 +467,9 @@ public class CMPCJ extends WindowAdapter implements PropertyChangeListener, Succ
             if (cw > 0)
                 propertyTable.getColumnModel().getColumn(i).setMaxWidth(cw);
         }
+        propertyTable.setSelectionBackground(theme.getColor("Table[Enabled+Selected].textBackground"));
+        propertyTable.setSelectionForeground(theme.getColor("Table[Enabled+Selected].textForeground"));
+
         return psp;
     }
 
@@ -510,12 +537,30 @@ public class CMPCJ extends WindowAdapter implements PropertyChangeListener, Succ
 
     // respond to tree action
     protected void doCreateGenre() {
+        TreePath selectionPath = tree.getSelectionPath();
+
+        if (selectionPath == null)
+            return;
         MessageBundle mb = ApplicationServiceProvider.getService(MessageBundle.class);
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) selectionPath.getLastPathComponent();
+        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
+        Genre parentGenre = (Genre) parent.getUserObject();
+        String name = (String) JOptionPane.showInputDialog(frame, mb.getMessage("create.genre.prompt"),
+                mb.getMessage("create.genre.title"), JOptionPane.PLAIN_MESSAGE, null, null, "new");
 
-        System.out.println(mb.getMessage(CMPMessageBundle.MCC_17));
+        if (name == null)
+            return;
+        if (name.contains(File.pathSeparator)) {
+            System.err.println("NO - name may not contain path separator!");
+            return;
+        }
+        System.out.println("name for new genre: " + name);
+        Genre newGenre = new Genre(parentGenre, new File(parentGenre.getRealPath(), name));
 
-        //TODO: ask user for genre name and create node and cache entries
+        node = new DefaultMutableTreeNode(newGenre);
+        parent.add(node);
         tree.updateUI();
+        changes.add(new CreateMediaCommand(newGenre));
     };
 
 
@@ -543,11 +588,24 @@ public class CMPCJ extends WindowAdapter implements PropertyChangeListener, Succ
         Genre g = (Genre) node.getUserObject();
 
         if (g.getMediaList().size() > 0 || g.getChildren().size() > 0) {
-            //TODO: ask user and/or pop some warning
+            Object[] options = { "Yes", "No" };
+            int n = JOptionPane.showOptionDialog(frame, mb.getMessage(CMPMessageBundle.MCC_9),
+                    mb.getMessage(CMPMessageBundle.MCC_8), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                    null, options, options[1]);
+
+            System.err.println("node to delete has children! - really delete?!?");
+
+            if (n == 0) {
+                ((DefaultMutableTreeNode) node.getParent()).remove(node);
+                removeGenre(g);
+                tree.updateUI();
+                changes.add(new RemoveMediaCommand(g));
+            }
         } else {
             nodeCache.remove(g.getRealPath());
             ((DefaultMutableTreeNode) node.getParent()).remove(node);
             tree.updateUI();
+            changes.add(new RemoveMediaCommand(g));
         }
     }
 
@@ -576,6 +634,23 @@ public class CMPCJ extends WindowAdapter implements PropertyChangeListener, Succ
 
     protected void doTransmitChanges() {
         clientStub.transmitChanges(changes);
+    }
+
+
+    protected void removeGenre(Genre g) {
+        nodeCache.remove(g.getRealPath());
+        if (g.getMediaList() != null && g.getMediaList().size() > 0) {
+            mediaList.getReadWriteLock().writeLock().lock();
+            for (Media m : g.getMediaList()) {
+                mediaList.remove(m);
+            }
+            mediaList.getReadWriteLock().writeLock().unlock();
+        }
+        if (g.getChildren() != null && g.getChildren().size() > 0) {
+            for (Genre child : g.getChildren()) {
+                removeGenre(child);
+            }
+        }
     }
 
 
@@ -670,7 +745,9 @@ public class CMPCJ extends WindowAdapter implements PropertyChangeListener, Succ
     protected Genre setupServices(String[] args, ConfigFactory configFactory) {
         MessageBundle mb = new CMPMessageBundle();
         configDirectory = configFactory.getConfigDirectory();
-        ApplicationServiceProvider.registerService(Config.class, configFactory.getConfig());
+        Config cfg = configFactory.getConfig();
+
+        ApplicationServiceProvider.registerService(Config.class, cfg);
         ApplicationServiceProvider.registerService(ConfigFactory.class, configFactory);
         ApplicationServiceProvider.registerService(MessageBundle.class, mb);
         if (args.length > 0) {
@@ -687,6 +764,8 @@ public class CMPCJ extends WindowAdapter implements PropertyChangeListener, Succ
         ApplicationServiceProvider.registerService(DataManager.class, new DataManager(input, nodeCache));
         ApplicationServiceProvider.registerService(ImageFactory.class, new ImageFactory());
         ApplicationServiceProvider.registerService(MedialistParser.class, new MedialistParser());
+        ApplicationServiceProvider.registerService(UIDefaults.class, cfg.isUseDarkStyle() ? new CMPUIDark()
+                : new CMPUIDefaults());
 
         File base = new File("/"); //$NON-NLS-1$
         Genre root = new Genre(base);
@@ -723,7 +802,7 @@ public class CMPCJ extends WindowAdapter implements PropertyChangeListener, Succ
     private DefaultMutableTreeNode rootNode;
     private SortedList<Media> mediaList;
     private SelectedMedia selectedMedia;
-    private EventList<AbstractMediaNode> changes;
+    private EventList<AbstractMediaChangeCommand> changes;
     private Map<File, DefaultMutableTreeNode> nodeCache;
     private EventList<Map.Entry<String, Object>> propertyList;
     private MediaTypeSelector mediaTypeSelector;
